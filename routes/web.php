@@ -112,11 +112,11 @@ Route::post('cart/update', 'CartController@cart_update')->name('cart.update');
 //Blog Controller's Route
 Route::get('blog', 'BlogController@blog')->name('blog');
 
-Route::get('blog/write/{user_id}', 'BlogController@writeblog')->name('blog.write');
+Route::get('blog/write', 'BlogController@writeblog')->name('blog.write');
 
-Route::post('blog/written/{user_id}', 'BlogController@blogwritten')->name('blogwritten');
+Route::post('blog/write/post', 'BlogController@blogwritten')->name('blogwritten');
 
-Route::get('blog/details', 'BlogController@detailsblog')->name('blog.details');
+Route::get('blog/details/{slug}', 'BlogController@detailsblog')->name('blog.details');
 
 
 

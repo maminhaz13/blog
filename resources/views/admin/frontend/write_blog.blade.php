@@ -9,10 +9,10 @@
             <div class="col-lg-8 col-12 mt-5 mb-3">
                 <div class="contact-form form-style">
                     <div class="cf-msg" style="display: none;"></div>
-                    <form action="{{ route('blogwritten', $user_id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('blogwritten') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <input type="hidden" name="user_id" value="{{ $user_id }}">
+                            {{-- <input type="hidden" name="user_id" value="{{ Auth::id() }}"> --}}
                             <div class="col-12 col-sm-6">
                                 <input type="text" placeholder="Enter your blog title" name="blog_title">
                             </div>

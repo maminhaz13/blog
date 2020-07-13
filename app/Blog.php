@@ -8,7 +8,7 @@ use App\User;
 
 class Blog extends Model
 {
-    protected $fillable = [''];
+    protected $guarded = [''];
 
     use SoftDeletes;
 
