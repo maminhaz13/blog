@@ -19,7 +19,7 @@ class CreateBlogsTable extends Migration
             $table->string('blog_title');
             $table->string('blog_writer');
             $table->longText('blog_content');
-            $table->string('blog_thumbnail_picture')->nullable();
+            $table->string('blog_thumbnail_picture')->nullable()->default('blog_thumbnail_picture.jpg');
             $table->string('commentor_name');
             $table->string('commentor_email');
             $table->longText('comment');

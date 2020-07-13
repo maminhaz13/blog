@@ -169,7 +169,7 @@
                 <div>
                     <div class="card">
                             <a href="{{ route('blog.write', $user_id) }}" class="btn btn-purple active btn-btn-sm mg-b-10">Want to write your own!! Click this.. </a>
-                            <input type="text" name="user_id" value="{{ $user_id }}">
+                            <input type="hidden" name="user_id" value="{{ $user_id }}">
                     </div>
                 </div>
                 <div class="col-12">

@@ -114,9 +114,9 @@ Route::get('blog', 'BlogController@blog')->name('blog');
 
 Route::get('blog/write/{user_id}', 'BlogController@writeblog')->name('blog.write');
 
-Route::get('blog/details', 'BlogController@detailsblog')->name('blog.details');
-
 Route::post('blog/written/{user_id}', 'BlogController@blogwritten')->name('blogwritten');
+
+Route::get('blog/details', 'BlogController@detailsblog')->name('blog.details');
 
 
 
