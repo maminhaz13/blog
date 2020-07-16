@@ -15,5 +15,4 @@ class Blog extends Model
     function relationship_with_user(){
         return $this->hasOne('App\User', 'id', 'user_id');
     }
-
 }

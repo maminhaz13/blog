@@ -118,6 +118,8 @@ Route::post('blog/write/post', 'BlogController@blogwritten')->name('blogwritten'
 
 Route::get('blog/details/{slug}', 'BlogController@detailsblog')->name('blog.details');
 
+Route::post('comment/post', 'BlogController@comment_post');
+
 
 
 //Coupon Controller's Route
@@ -140,4 +142,6 @@ Route::get('login/github/callback', 'GithubController@handleProviderCallback');
 //Checkout Controller's Route
 Route::get('shop/checkout', 'CheckoutController@checkout')->name('checkout');
 
-Route::post('shop/checkout/post', 'CheckoutController@checkout_post');
+Route::post('shop/checkout/post', 'CheckoutController@checkout_post')->name('checkout.post');
+
+Route::post('get/city/list/ajax', 'CheckoutController@get_city_list_ajax');

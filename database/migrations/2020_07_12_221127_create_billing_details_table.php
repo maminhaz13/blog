@@ -22,6 +22,7 @@ class CreateBillingDetailsTable extends Migration
             $table->integer('city_id');
             $table->longText('address');
             $table->longText('notes')->nullable();
+            // $table->integer('payment_method');
             $table->timestamps();
             $table->softDeletes();
         });

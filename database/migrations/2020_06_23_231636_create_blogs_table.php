@@ -20,9 +20,6 @@ class CreateBlogsTable extends Migration
             $table->string('blog_writer')->nullable();
             $table->longText('blog_content')->nullable();
             $table->string('blog_thumbnail_picture')->nullable()->default('blog_thumbnail_picture.jpg');
-            $table->string('commentor_name')->nullable();
-            $table->string('commentor_email')->nullable();
-            $table->longText('comment')->nullable();
             $table->longText('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();

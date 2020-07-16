@@ -26,7 +26,7 @@
                 <div class="col-lg-8">
                     <div class="checkout-form form-style">
                         <h3>Billing Details</h3>
-                        <form action="{{ url('shop/checkout/post') }}" method="POST">
+                        <form action="{{ route('checkout.post') }}" method="post">
                         @csrf
                             <div class="row">
                                 <div class="col-sm-12">
@@ -46,7 +46,22 @@
 
                                 <div class="col-12">
                                     <p>Country *</p>
-                                    <select id="s_country" name="country_id">
+                                    <select class="js-example-basic-single" id="country_id_p1" name="country_id">
+                                        <option>Select a country</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6 col-12">
+                                    <p>Your Address *</p>
+                                    <input type="text" name="address">
+                                </div>
+
+                                <div class="col-sm-6 col-12">
+                                    <p>Town/City *</p>
+                                    <select id="s_country" name="city_id">
                                         <option value="1">Select a country</option>
                                         <option value="2">bangladesh</option>
                                         <option value="3">Algeria</option>
@@ -59,19 +74,9 @@
                                     </select>
                                 </div>
 
-                                <div class="col-sm-6 col-12">
-                                    <p>Your Address *</p>
-                                    <input type="text" name="address">
-                                </div>
-
-                                <div class="col-sm-6 col-12">
-                                    <p>Town/City *</p>
-                                    <input type="text" name="city_id">
-                                </div>
-
 
                                 <div class="col-12">
-                                    <input id="toggle2" type="checkbox">
+                                    <input id="toggle2" type="checkbox" name="shipping_address" value="1">
                                     <label class="fontsize" for="toggle2">Ship to a different address?</label>
                                     <div class="row" id="open2">
                                         <div class="col-sm-12">
@@ -86,12 +91,12 @@
 
                                         <div class="col-sm-6 col-12">
                                             <p>Phone No. *</p>
-                                            <input type="text">
+                                            <input type="text" >
                                         </div>
 
                                         <div class="col-12">
                                             <p>Country *</p>
-                                            <select id="s_country">
+                                            <select id="s_country" >
                                                 <option value="1">Select a country</option>
                                                 <option value="2">bangladesh</option>
                                                 <option value="3">Algeria</option>
@@ -111,7 +116,18 @@
 
                                         <div class="col-sm-6 col-12">
                                             <p>Town/City *</p>
-                                            <input type="text">
+                                            <select id="s_country">
+                                                <option value="1">Select a country</option>
+                                                <option value="2">bangladesh</option>
+                                                <option value="3">Algeria</option>
+                                                <option value="4">Afghanistan</option>
+                                                <option value="5">Ghana</option>
+                                                <option value="6">Albania</option>
+                                                <option value="7">Bahrain</option>
+                                                <option value="8">Colombia</option>
+                                                <option value="9">Dominican Republic</option>
+                                            </select>
+
                                         </div>
                                     </div>
                                 </div>
@@ -136,23 +152,15 @@
                             </ul>
                             <ul class="payment-method">
                                 <li>
-                                    <input name="payment_method" id="bank" type="radio">
-                                    <label for="bank">Direct Bank Transfer</label>
-                                </li>
-                                <li>
-                                    <input name="payment_method" id="paypal" type="radio">
-                                    <label for="paypal">Paypal</label>
-                                </li>
-                                <li>
-                                    <input name="payment_method" id="card" type="radio">
+                                    <input name="payment_method" id="card" type="radio" value="1">
                                     <label for="card">Credit Card</label>
                                 </li>
                                 <li>
-                                    <input name="payment_method" id="delivery" type="radio">
+                                    <input name="payment_method" id="delivery" type="radio" value="2">
                                     <label for="delivery">Cash on Delivery</label>
                                 </li>
                             </ul>
-                        <button>Place Order</button>
+                            <button type="submit" class="btn btn-primary">Place Order</button>
                         </form>
                     </div>
                 </div>
@@ -184,3 +192,34 @@
 
 @endsection
 
+@section('footer_scripts')
+    <script>
+        // Country Search code
+        $(document).ready(function() {
+            $('#country_id_p1').select2();
+
+            $('#country_id_p1').change(function(){
+                var country_id = $(this).val();
+                    // alert(country_id);
+
+                    //ajax setup
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    //ajax response start
+                    $.ajax({
+                        type : 'post',
+                        url : '/get/city/list/ajax',
+                        data : {country_id : country_id},
+                        success : function(data){
+                            alert(data);
+                        }
+                    });
+                    //ajax response end
+            });
+        });
+    </script>
+@endsection

@@ -21,7 +21,10 @@ class BlogController extends Controller
     }
 
     function detailsblog(){
-        return view('admin.frontend.blog_details');
+        return view('admin.frontend.blog_details', [
+            'blog_data' => Blog::all(),
+            'blog_post' => Blog::find(Auth::id()),
+        ]);
     }
 
     function writeblog(){
@@ -56,6 +59,17 @@ class BlogController extends Controller
             ]);
 
             return redirect('blog')->with('blog_thumbnail_picture_up_done', 'Your added blog thumbnail picture successfully');
+        }
+    }
+
+    function comment_post(Request $request){
+        // return $request->all();
+        if(Auth::check()){
+            return 'user';
+        }
+
+        else{
+            return 'guest';
         }
     }
 }
