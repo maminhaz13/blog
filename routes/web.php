@@ -145,3 +145,5 @@ Route::get('shop/checkout', 'CheckoutController@checkout')->name('checkout');
 Route::post('shop/checkout/post', 'CheckoutController@checkout_post')->name('checkout.post');
 
 Route::post('get/city/list/ajax', 'CheckoutController@get_city_list_ajax');
+
+Route::post('get/city/list/two/ajax', 'CheckoutController@get_city_list_two_ajax');

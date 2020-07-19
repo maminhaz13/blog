@@ -50,7 +50,9 @@ class CheckoutController extends Controller
                 // 'payment_method' => $request->payment_method,
                 'created_at' => Carbon::now(),
             ]);
-        } else {
+        }
+
+         else {
             BillingDetails::insert([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -67,7 +69,23 @@ class CheckoutController extends Controller
 
     function get_city_list_ajax(Request $request)
     {
-        echo City::where('country_id', $request->country_id)->get();
-        // return $request->country_id;
+        $datas_to_send = '';
+        $cities = City::where('country_id', $request->country_id)->get();
+        foreach ($cities as $city) {
+            $datas_to_send .= "<option value='". $city->id ."'>". $city->name ."</option>";
+
+        }
+        return $datas_to_send;
+    }
+
+    function get_city_list_two_ajax(Request $request)
+    {
+        $datas_to_send = '';
+        $cities = City::where('country_id', $request->country_id)->get();
+        foreach ($cities as $city) {
+            $datas_to_send .= "<option value='". $city->id ."'>". $city->name ."</option>";
+
+        }
+        return $datas_to_send;
     }
 }

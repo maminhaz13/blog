@@ -95,6 +95,9 @@
                                     <p>Enter Your Cupon Code if You Have One</p>
                                     <div class="cupon-wrap">
                                         <input type="text" id="apply_coupon_input" placeholder="Cupon Code" value="{{ $coupon_name }}">
+                                        @php
+                                            session(['coupon_name' => $coupon_name]);
+                                        @endphp
                                         <button type="button" id="apply_coupon_btn">Apply Cupon</button>
                                     </div>
                                 </div>
@@ -108,7 +111,7 @@
                                             session([ 'sub_total' => $sub_total ])
                                         @endphp
                                         <li><span class="pull-left">Discount(%) </span>{{ $coupon_discount }}%</li>
-                                        <li><span class="pull-left">Discount </span>${{ ($sub_total * $coupon_discount)/ 100 }}</li>
+                                        <li><span class="pull-left">Discount ( {{ session('coupon_name') ? session('coupon_name') : 'No coupon added'  }} )</span>${{ ($sub_total * $coupon_discount)/ 100 }}</li>
                                         @php
                                             session([ 'discount_amount' => ($sub_total * $coupon_discount)/ 100 ])
                                         @endphp

@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('front') }}/assets/css/responsive.css">
     <!-- modernizr css -->
     <script src="{{ asset('front') }}/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- select2 css -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
@@ -418,7 +419,7 @@
     <script src="{{ asset('front') }}/assets/js/jquery-ui.min.js"></script>
     <!-- main js -->
     <script src="{{ asset('front') }}/assets/js/scripts.js"></script>
-
+    <!-- select2 js -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
     

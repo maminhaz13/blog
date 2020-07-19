@@ -61,16 +61,8 @@
 
                                 <div class="col-sm-6 col-12">
                                     <p>Town/City *</p>
-                                    <select id="s_country" name="city_id">
-                                        <option value="1">Select a country</option>
-                                        <option value="2">bangladesh</option>
-                                        <option value="3">Algeria</option>
-                                        <option value="4">Afghanistan</option>
-                                        <option value="5">Ghana</option>
-                                        <option value="6">Albania</option>
-                                        <option value="7">Bahrain</option>
-                                        <option value="8">Colombia</option>
-                                        <option value="9">Dominican Republic</option>
+                                    <select id="city_id_p1" name="city_id">
+                                        <option value="">Select a city</option>
                                     </select>
                                 </div>
 
@@ -96,16 +88,11 @@
 
                                         <div class="col-12">
                                             <p>Country *</p>
-                                            <select id="s_country" >
-                                                <option value="1">Select a country</option>
-                                                <option value="2">bangladesh</option>
-                                                <option value="3">Algeria</option>
-                                                <option value="4">Afghanistan</option>
-                                                <option value="5">Ghana</option>
-                                                <option value="6">Albania</option>
-                                                <option value="7">Bahrain</option>
-                                                <option value="8">Colombia</option>
-                                                <option value="9">Dominican Republic</option>
+                                            <select class="js-example-basic-single" id="country_id_p2">
+                                                <option>Select a country</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -116,16 +103,8 @@
 
                                         <div class="col-sm-6 col-12">
                                             <p>Town/City *</p>
-                                            <select id="s_country">
-                                                <option value="1">Select a country</option>
-                                                <option value="2">bangladesh</option>
-                                                <option value="3">Algeria</option>
-                                                <option value="4">Afghanistan</option>
-                                                <option value="5">Ghana</option>
-                                                <option value="6">Albania</option>
-                                                <option value="7">Bahrain</option>
-                                                <option value="8">Colombia</option>
-                                                <option value="9">Dominican Republic</option>
+                                            <select id="city_id_p2">
+                                                <option value="">Select a City</option>
                                             </select>
 
                                         </div>
@@ -146,7 +125,7 @@
                                     <li>{{ $cart_item->relationship_with_cart->product_name." * ".$cart_item->product_quantity }}  <span class="pull-right">${{ $cart_item->relationship_with_cart->product_price }}</span></li>
                                 @endforeach
                                 <li>Subtotal <span class="pull-right"><strong>${{ session('sub_total') }}</strong></span></li>
-                                <li>Discount Amount <span class="pull-right">${{ session('discount_amount') }}</span></li>
+                                <li>Discount Amount ( {{ session('coupon_name') ? session('coupon_name') : 'No coupon added'  }} ) <span class="pull-right">${{ session('discount_amount') }}</span></li>
                                 <li>Shipping <span class="pull-right">Free</span></li>
                                 <li>Total<span class="pull-right">${{ session('sub_total') - session('discount_amount') }}</span></li>
                             </ul>
@@ -196,7 +175,12 @@
     <script>
         // Country Search code
         $(document).ready(function() {
+            //search in country list dropdown
             $('#country_id_p1').select2();
+            $('#country_id_p2').select2();
+            //search in city list dropdown
+            $('#city_id_p1').select2();
+            $('#city_id_p2').select2();
 
             $('#country_id_p1').change(function(){
                 var country_id = $(this).val();
@@ -215,7 +199,30 @@
                         url : '/get/city/list/ajax',
                         data : {country_id : country_id},
                         success : function(data){
-                            alert(data);
+                            $('#city_id_p1').html(data);
+                        }
+                    });
+                    //ajax response end
+            });
+
+            $('#country_id_p2').change(function(){
+                var country_id = $(this).val();
+                    // alert(country_id);
+
+                    //ajax setup
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    //ajax response start
+                    $.ajax({
+                        type : 'post',
+                        url : '/get/city/list/two/ajax',
+                        data : {country_id : country_id},
+                        success : function(data){
+                            $('#city_id_p2').html(data);
                         }
                     });
                     //ajax response end
