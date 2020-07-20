@@ -176,8 +176,20 @@
                                         @endphp
                                         @foreach(cart_items() as $cart_item)
                                             <li class="cart-items">
-                                                <div class="cart-img">
-                                                    <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $cart_item->relationship_with_cart->product_thumbnail_picture }}" alt="">
+                                                <div class="cart-img box">
+                                                    <style>
+                                                        .box {
+                                                            width: 70px;
+                                                            height: 90px;
+                                                            /* border: 3px dashed #FE2E2E; */
+                                                            }
+
+                                                        /* img {
+                                                            width: 50%;
+                                                            height: 50%;
+                                                        } */
+                                                    </style>
+                                                    <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $cart_item->relationship_with_cart->product_thumbnail_picture }}" class="img-fluid" height="150" width="200" alt="">
                                                 </div>
                                                 <div class="cart-content">
                                                     <a href="{{ url('product/details/') }}/{{ $cart_item->relationship_with_cart->slug }}">{{ $cart_item->relationship_with_cart->slug }}</a>

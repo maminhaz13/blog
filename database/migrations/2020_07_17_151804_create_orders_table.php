@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->float('subtotal');
+            $table->bigInteger('subtotal');
             $table->float('discount_amount');
             $table->string('coupon_name');
             $table->float('total');
