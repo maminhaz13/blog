@@ -20,13 +20,15 @@ Route::get('about', 'FrontendController@about')->name('about');
 
 Route::get('contact', 'FrontendController@contact')->name('contact');
 
-Route::get('contact/list', 'FrontendController@contactlist')->name('contactlist');
+Route::get('contact/list', 'FrontendController@contactlist')->name('contactlist')->middleware('auth');
 
 Route::post('contact/post', 'FrontendController@contactpost')->name('contactpost');
 
-Route::get('send/newsletter', 'FrontendController@send_newsletter')->name('sendnewsletter');
+Route::get('send/newsletter', 'FrontendController@send_newsletter')->name('sendnewsletter')->middleware('auth');
 
 Route::post('user/testmonial', 'FrontendController@usertestmonial')->name('usertestmonial');
+
+Route::post('newsletter/add', 'FrontendController@newsletter_add')->name('newsletter.add');
 
 Route::get('product/details/{slug}', 'FrontendController@productdetailsslug')->name('productdetailsslug');
 
@@ -54,45 +56,45 @@ Route::get('contact/list/download/{contact_id}', 'FrontendController@contactlist
 
 
 //Category Controller's Route
-Route::get('category/add', 'CategoryController@add_category')->name('addcategory');
+Route::get('category/add', 'CategoryController@add_category')->name('addcategory')->middleware('auth');
 
-Route::post('category/add/post', 'CategoryController@add_category_post')->name('addcategorypost');
+Route::post('category/add/post', 'CategoryController@add_category_post')->name('addcategorypost')->middleware('auth');
 
-Route::get('category/edit/{category_id}', 'CategoryController@edit_category')->name('editcategory');
+Route::get('category/edit/{category_id}', 'CategoryController@edit_category')->name('editcategory')->middleware('auth');
 
-Route::post('category/edit/post', 'CategoryController@edit_category_post')->name('editcategorypost');
+Route::post('category/edit/post', 'CategoryController@edit_category_post')->name('editcategorypost')->middleware('auth');
 
-Route::get('category/delete/{category_id}', 'CategoryController@delete_category')->name('deletecategory');
+Route::get('category/delete/{category_id}', 'CategoryController@delete_category')->name('deletecategory')->middleware('auth');
 
-Route::post('category/markdelete', 'CategoryController@markdelete_category')->name('markdeletecategory');
+Route::post('category/markdelete', 'CategoryController@markdelete_category')->name('markdeletecategory')->middleware('auth');
 
-Route::get('category/harddelete/{category_id}', 'CategoryController@harddelete_category')->name('harddeletecategory');
+Route::get('category/harddelete/{category_id}', 'CategoryController@harddelete_category')->name('harddeletecategory')->middleware('auth');
 
-Route::get('category/restore/{category_id}', 'CategoryController@restore_category')->name('restorecategory');
+Route::get('category/restore/{category_id}', 'CategoryController@restore_category')->name('restorecategory')->middleware('auth');
 
-Route::post('category/markrestore', 'CategoryController@markrestore_category')->name('markrestorecategory');
+Route::post('category/markrestore', 'CategoryController@markrestore_category')->name('markrestorecategory')->middleware('auth');
 
 
 
 //Profile Controller's Route
-Route::get('profile', 'ProfileController@profile')->name('profile');
+Route::get('profile', 'ProfileController@profile')->name('profile')->middleware('auth');
 
-Route::post('profile/edit/post', 'ProfileController@edit_profile')->name('editprofile');
+Route::post('profile/edit/post', 'ProfileController@edit_profile')->name('editprofile')->middleware('auth');
 
-Route::post('password/edit/post', 'ProfileController@edit_password')->name('editpassword');
+Route::post('password/edit/post', 'ProfileController@edit_password')->name('editpassword')->middleware('auth');
 
-Route::post('profilepicture/change', 'ProfileController@change_propicture')->name('changepropicture');
+Route::post('profilepicture/change', 'ProfileController@change_propicture')->name('changepropicture')->middleware('auth');
 
-Route::get('profile/userlist', 'ProfileController@userlist')->name('userlist');
+Route::get('profile/userlist', 'ProfileController@userlist')->name('userlist')->middleware('auth');
 
 
 
 //Product Controller's Route
 Route::resource('Product', 'ProductController');
 
-Route::get('product/restore/{product_id}', 'ProductController@productrestore')->name('productrestore');
+Route::get('product/restore/{product_id}', 'ProductController@productrestore')->name('productrestore')->middleware('auth');
 
-Route::get('product/foreverdelete/{product_id}', 'ProductController@productforeverdelete')->name('productforeverdelete');
+Route::get('product/foreverdelete/{product_id}', 'ProductController@productforeverdelete')->name('productforeverdelete')->middleware('auth');
 
 
 
@@ -112,9 +114,9 @@ Route::post('cart/update', 'CartController@cart_update')->name('cart.update');
 //Blog Controller's Route
 Route::get('blog', 'BlogController@blog')->name('blog');
 
-Route::get('blog/write', 'BlogController@writeblog')->name('blog.write');
+Route::get('blog/write', 'BlogController@writeblog')->name('blog.write')->middleware('auth');
 
-Route::post('blog/write/post', 'BlogController@blogwritten')->name('blogwritten');
+Route::post('blog/write/post', 'BlogController@blogwritten')->name('blogwritten')->middleware('auth');
 
 Route::get('blog/details/{slug}', 'BlogController@detailsblog')->name('blog.details');
 
@@ -123,12 +125,14 @@ Route::post('comment/post', 'BlogController@comment_post');
 
 
 //Coupon Controller's Route
-Route::resource('Coupon', 'CouponController');
+Route::resource('Coupon', 'CouponController')->middleware('auth');
 
 
 
 //Customer Controller's Route
-Route::get('customer/home', 'CustomerController@customer_home')->name('customer.home');
+Route::get('customer/home', 'CustomerController@customer_home')->name('customer.home')->middleware('auth');
+
+Route::get('customer/orders', 'CustomerController@customer_order')->name('customer.order')->middleware('auth');
 
 
 

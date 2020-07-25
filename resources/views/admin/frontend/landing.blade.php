@@ -46,7 +46,7 @@
                                 <div class="featured-img">
                                     <img src="{{ asset('uploads') }}/category_picture/{{ $act_cat->category_picture }}" class="img-fluid" alt="image not found">
                                     <div class="featured-content">
-                                        <a href="shop.html">{{ $act_cat->category_name }}</a> 
+                                        <a href="{{ route('shop') }}">{{ $act_cat->category_name }}</a> 
                                     </div>
                                 </div>
                             </div>
@@ -307,8 +307,9 @@
                     <div class="newsletter text-center">
                         <h3>Subscribe  Newsletter</h3>
                         <div class="newsletter-form">
-                            <form>
-                                <input type="text" class="form-control" placeholder="Enter Your Email Address...">
+                            <form method="POST" action="{{ route('newsletter.add') }}">
+                            @csrf
+                                <input type="email" name="newsletter_mail" class="form-control" placeholder="Enter Your Email Address..." required>
                                 <button type="submit"><i class="fa fa-send"></i></button>
                             </form>
                         </div>

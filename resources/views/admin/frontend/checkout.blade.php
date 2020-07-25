@@ -31,17 +31,17 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <p>Name *</p>
-                                    <input type="text" name="name">
+                                    <input type="text" name="name" value="{{ Auth::user()->name }}">
                                 </div>
 
                                 <div class="col-sm-6 col-12">
                                     <p>Email Address *</p>
-                                    <input type="email" name="email">
+                                    <input type="email" name="email" value="{{ Auth::user()->email }}">
                                 </div>
 
                                 <div class="col-sm-6 col-12">
                                     <p>Phone No. *</p>
-                                    <input type="text" name="phone_number">
+                                    <input type="text" name="phone_number" value="{{ Auth::user()->phone_number }}">
                                 </div>
 
                                 <div class="col-12">

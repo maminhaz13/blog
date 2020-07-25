@@ -23,7 +23,6 @@ class CreateOrdersTable extends Migration
             $table->integer('payment_method');
             $table->integer('billing_details_id');
             $table->integer('shipping_details_id');
-            $table->integer('order_details_id');
             $table->timestamps();
             $table->softDeletes();
         });

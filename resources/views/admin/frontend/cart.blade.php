@@ -88,7 +88,7 @@
                                     <div class="alert alert-warning  mb-3" role="alert">
                                         <div class="d-flex align-items-center justify-content-start">
                                             <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                                            <span><strong>{{ $coupon_error }}.</strong></span>
+                                            <span><strong>{{ $coupon_error }}</strong></span>
                                         </div>
                                     </div>
                                     <h3>Cupon</h3>

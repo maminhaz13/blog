@@ -326,7 +326,7 @@
                               @isset($deleted_d)
                                 <li>Time : {{ $deleted_d->deleted_at->format('h:i:s A') }}</li>
                                 <li>Date : {{ $deleted_d->deleted_at->format('d:m:Y') }}</li>
-                                <li>Duration : {{ $deleted_d->deleted_at->diffForHumans() }}</li>                                
+                                <li>Duration : {{ $deleted_d->deleted_at->diffForHumans() }}</li>
                               @endisset
                             </td>
                             <td>

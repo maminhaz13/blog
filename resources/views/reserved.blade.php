@@ -1,4 +1,4 @@
-<!-- ########## START: MAIN PANEL ########## -->
+//admin page main panel code
 <div class="sl-mainpanel">
 <nav class="breadcrumb sl-breadcrumb">
   <a class="breadcrumb-item" href="index.html">Starlight</a>
@@ -10,7 +10,7 @@
   <div class="sl-page-title">
     <h5>Blank Page</h5>
     <p>This is a starter page</p>
-  </div><!-- sl-page-title -->
+  </div>
 
     <div class="container">
       <div class="row">
@@ -21,247 +21,166 @@
       </div>
     </div>
 
-  </div><!-- sl-pagebody -->
-</div><!-- sl-mainpanel -->
-<!-- ########## END: MAIN PANEL ########## -->
+  </div>
+</div>
 
 
+//all alerts
+    <h6 class="card-body-title">Alert With Icons</h6>
+    <p class="mg-b-20 mg-sm-b-30">Using icons inside an alert box.</p>
 
-          <h6 class="card-body-title">Alert With Icons</h6>
-          <p class="mg-b-20 mg-sm-b-30">Using icons inside an alert box.</p>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="d-flex align-items-center justify-content-start">
+        <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+        <span><strong>Well done!</strong> Successful alert message.</span>
+      </div>
+    </div>
 
-          <div class="alert alert-success" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-            <div class="d-flex align-items-center justify-content-start">
-              <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-              <span><strong>Well done!</strong> Successful alert message.</span>
-            </div>
+    <div class="alert alert-info" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="d-flex align-items-center justify-content-start">
+        <i class="icon ion-ios-information alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+        <span><strong>Heads up!</strong> This alert needs your attention.</span>
+      </div>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="d-flex align-items-center justify-content-start">
+        <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+        <span><strong>Warning!</strong> Better check yourself.</span>
+      </div>
+    </div>
+
+    <div class="alert alert-danger" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="d-flex align-items-center justify-content-start">
+        <i class="icon ion-ios-close alert-icon tx-24"></i>
+        <span><strong>Oh snap!</strong> Error alert message.</span>
+      </div>
+    </div>
+  </div>      
+
+
+//alert code with session
+  @if(session()->has('restore_status'))
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="d-flex align-items-center justify-content-start">
+        <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+        <span><strong>Well done!</strong> {{ session()->get('restore_status') }}.</span>
+      </div>
+    </div>              
+  @endif     
+
+  @if(session()->has('mark_restore'))
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="d-flex align-items-center justify-content-start">
+        <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+        <span><strong>Well done!</strong> {{ session()->get('mark_restore') }}.</span>
+      </div>
+    </div>           
+  @endif     
+
+
+//complete table code with card
+  <div class="card bg-gray-200 mt-5">
+    <div class="card-header card-header-default">
+      Table header here
+    </div>
+    <div class="card-body">
+    <div class="card-body-title">
+      <h5>table description here..</h5>
+    </div>
+
+      {{-- @if(session()->has('delete_status'))
+        <div class="alert alert-warning" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <div class="d-flex align-items-center justify-content-start">
+            <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+            <span><strong>Warning!</strong> {{ session()->get('delete_status') }}.</span>
           </div>
+        </div>
+      @endif
 
-          <div class="alert alert-info" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-            <div class="d-flex align-items-center justify-content-start">
-              <i class="icon ion-ios-information alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-              <span><strong>Heads up!</strong> This alert needs your attention.</span>
-            </div>
+      @if(session()->has('edit_status'))
+        <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <div class="d-flex align-items-center justify-content-start">
+            <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+            <span><strong>Well done!</strong> {{ session()->get('edit_status') }}.</span>
           </div>
+        </div>
+      @endif --}}
 
-          <div class="alert alert-warning" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-            <div class="d-flex align-items-center justify-content-start">
-              <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-              <span><strong>Warning!</strong> Better check yourself.</span>
-            </div>
-          </div>
-
-          <div class="alert alert-danger" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-            <div class="d-flex align-items-center justify-content-start">
-              <i class="icon ion-ios-close alert-icon tx-24"></i>
-              <span><strong>Oh snap!</strong> Error alert message.</span>
-            </div>
-          </div>
-        </div>      
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Adminto - Responsive Admin Dashboard Template</title>
-
-
-    <style type="text/css">
-        img {
-            max-width: 100%;
-        }
-
-        body {
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-size-adjust: none;
-            width: 100% !important;
-            height: 100%;
-            line-height: 1.6em;
-        }
-
-        body {
-            background-color: #f6f6f6;
-        }
-
-        @media only screen and (max-width: 640px) {
-            body {
-                padding: 0 !important;
-            }
-
-            h1 {
-                font-weight: 800 !important;
-                margin: 20px 0 5px !important;
-            }
-
-            h2 {
-                font-weight: 800 !important;
-                margin: 20px 0 5px !important;
-            }
-
-            h3 {
-                font-weight: 800 !important;
-                margin: 20px 0 5px !important;
-            }
-
-            h4 {
-                font-weight: 800 !important;
-                margin: 20px 0 5px !important;
-            }
-
-            h1 {
-                font-size: 22px !important;
-            }
-
-            h2 {
-                font-size: 18px !important;
-            }
-
-            h3 {
-                font-size: 16px !important;
-            }
-
-            .container {
-                padding: 0 !important;
-                width: 100% !important;
-            }
-
-            .content {
-                padding: 0 !important;
-            }
-
-            .content-wrap {
-                padding: 10px !important;
-            }
-
-            .invoice {
-                width: 100% !important;
-            }
-        }
-    </style>
-</head>
-
-<body style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; width: 100% !important; height: 100%; line-height: 1.6em; background-color: #f6f6f6; margin: 0;"
-      bgcolor="#f6f6f6">
-
-<table class="body-wrap"
-       style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: #f6f6f6; margin: 0;"
-       bgcolor="#f6f6f6">
-    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-        <td style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;"
-            valign="top"></td>
-        <td class="container" width="600"
-            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; display: block !important; max-width: 600px !important; clear: both !important; margin: 0 auto;"
-            valign="top">
-            <div class="content"
-                 style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; max-width: 600px; display: block; margin: 0 auto; padding: 20px;">
-                <table class="main" width="100%" cellpadding="0" cellspacing="0" itemprop="action" itemscope
-                       itemtype="http://schema.org/ConfirmAction"
-                       style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; border-radius: 3px; margin: 0; border: none;"
-                       >
-                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                        <td class="content-wrap"
-                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;padding: 30px;border: 3px solid #71B6F9;border-radius: 7px; background-color: #fff;"
-                            valign="top">
-                            <meta itemprop="name" content="Confirm Email"
-                                  style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"/>
-                            <table width="100%" cellpadding="0" cellspacing="0"
-                                   style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                    <td class="content-block"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        Please confirm your email address by clicking the link below.
-                                    </td>
-                                </tr>
-                                <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                    <td class="content-block"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        We may need to send you critical information about our service and it is
-                                        important that we have an accurate email address.
-                                    </td>
-                                </tr>
-                                <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                    <td class="content-block" itemprop="handler" itemscope
-                                        itemtype="http://schema.org/HttpActionHandler"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        <a href="#" class="btn-primary" itemprop="url"
-                                           style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #10c469; margin: 0; border-color: #10c469; border-style: solid; border-width: 8px 16px;">Confirm
-                                            email address</a>
-                                    </td>
-                                </tr>
-                                <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                    <td class="content-block"
-                                        style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-                                        valign="top">
-                                        &mdash; <b>Adminto</b> - Admin Dashboard
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                <div class="footer"
-                     style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; clear: both; color: #999; margin: 0; padding: 20px;">
-                    <table width="100%"
-                           style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                        <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                            <td class="aligncenter content-block"
-                                style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; vertical-align: top; color: #999; text-align: center; margin: 0; padding: 0 0 20px;"
-                                align="center" valign="top"><a href="#"
-                                                               style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; color: #999; text-decoration: underline; margin: 0;">Unsubscribe</a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </td>
-        <td style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;"
-            valign="top"></td>
-    </tr>
-</table>
-</body>
-</html>
-
-
-                @if(session()->has('restore_status'))
-                  <div class="alert alert-success" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <div class="d-flex align-items-center justify-content-start">
-                      <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                      <span><strong>Well done!</strong> {{ session()->get('restore_status') }}.</span>
+        <form method="post" action="{{ url('markdeletecategory') }}">
+        @csrf
+        <div class="table-responsive">
+          <table class="table table-hover mg-b-0">
+            <thead>
+              <tr>
+                <th scope="col">Mark <input type="checkbox" id="checkAll" ></th>
+                <th scope="col">Serial No</th>
+                <th scope="col">Category Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{-- @forelse($categories as $category) --}}
+                <tr>
+                  <td>
+                    <input class="ckbox mg-b-0" type="checkbox" name="" value="" id="checkItem">
+                  </td>
+                  {{-- <td>{{ $loop->index +1 }}</td> --}}
+                  <td></td>
+                  {{-- <td>
+                    <img src="{{ asset('uploads') }}/category_picture/{{ $category->category_picture }}" class="img-fluid" alt="image not found">
+                  </td> --}}
+                  {{-- <td>
+                    @isset($category->updated_at)
+                      <li>Time : {{ $category->updated_at->format('h:i:s A') }}</li>
+                      <li>Date : {{ $category->updated_at->format('d:m:Y') }}</li>
+                      <li>Duration : {{ $category->updated_at->diffForHumans() }}</li>
+                    @endisset
+                  </td> --}}
+                  <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <a href="{{ url('') }}" type="button" class="btn btn-info btn-btn-sm mg-b-10 btn btn sm">
+                        Edit
+                      </a>
+                      <a href="{{ url('') }}" type="button" class="btn btn-danger disable btn-btn-sm mg-b-10" >Trash</a>
                     </div>
-                  </div>              
-                @endif     
-
-                @if(session()->has('mark_restore'))
-                  <div class="alert alert-success" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <div class="d-flex align-items-center justify-content-start">
-                      <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                      <span><strong>Well done!</strong> {{ session()->get('mark_restore') }}.</span>
-                    </div>
-                  </div>           
-                @endif     
+                  </td>
+                </tr>
+                {{-- @empty --}}
+                  <tr>
+                    <td colspan="100" class="text-center text-danger"> No more data available </td>  
+                  </tr>
+              {{-- @endforelse --}}
+            </tbody>
+          </table>
+        </div>
+        {{-- @if($categories->count() > 0)
+            <button type="submit" class="btn btn-dark active btn-btn-sm mg-b-10"> Mark Delete</button>  
+        @endif --}}
+      {{-- </form>      --}}
+    </div>
+  </div>
 

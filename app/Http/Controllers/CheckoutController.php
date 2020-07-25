@@ -12,7 +12,9 @@ use App\Order_details;
 use App\BillingDetails;
 use App\ShippingDetails;
 use Illuminate\Http\Request;
+use App\Mail\PurchaseConfirmation;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -40,7 +42,6 @@ class CheckoutController extends Controller
                 'city_id' => $request->city_id,
                 'address' => $request->address,
                 'notes' => $request->notes,
-                // 'payment_method' => $request->payment_method,
                 'created_at' => Carbon::now(),
             ]);
 
@@ -51,7 +52,6 @@ class CheckoutController extends Controller
                 'country_id' => $request->country_id,
                 'city_id' => $request->city_id,
                 'address' => $request->address,
-                // 'payment_method' => $request->payment_method,
                 'created_at' => Carbon::now(),
             ]);
         }
@@ -65,25 +65,33 @@ class CheckoutController extends Controller
                 'city_id' => $request->city_id,
                 'address' => $request->address,
                 'notes' => $request->notes,
-                // 'payment_method' => $request->payment_method,
+                'created_at' => Carbon::now(),
+            ]);
+
+            $shipping_id = ShippingDetails::insertGetId([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'country_id' => $request->country_id,
+                'city_id' => $request->city_id,
+                'address' => $request->address,
                 'created_at' => Carbon::now(),
             ]);
         }
 
-        $order_id = Order::insertGetId([
-            'user_id' => Auth::id(),
-            'subtotal' => session('sub_total'),
-            'discount_amount' => session('discount_amount'),
-            'coupon_name' => session('coupon_name'),
-            'total' => (session('sub_total') - session('discount_amount')),
-            'payment_method' => $request->payment_method,
-            'billing_details_id' => $billing_id,
-            'shipping_details_id' => $shipping_id,
-            'order_details_id' => 2,
-            'created_at' => Carbon::now(),
-        ]);
-
         foreach (cart_items() as $cart_data) {
+            $order_id = Order::insertGetId([
+                'user_id' => Auth::id(),
+                'subtotal' => session('sub_total'),
+                'discount_amount' => session('discount_amount'),
+                'coupon_name' => session('coupon_name'),
+                'total' => (session('sub_total') - session('discount_amount')),
+                'payment_method' => $request->payment_method,
+                'billing_details_id' => $billing_id,
+                'shipping_details_id' => $shipping_id,
+                'created_at' => Carbon::now(),
+            ]);
+
             $order_details_id = Order_details::insertGetId([
                 'order_id' => $order_id,
                 'product_id' => $cart_data->product_id,
@@ -91,10 +99,11 @@ class CheckoutController extends Controller
                 'product_price' => $cart_data->relationship_with_cart->product_price,
                 'created_at' => Carbon::now(),
             ]);
+
             Product::find($cart_data->product_id)->decrement('product_quantity', $cart_data->product_quantity);
             $cart_data->forceDelete();
         }
-        
+        Mail::to($request->email)->send(new PurchaseConfirmation);
         return redirect('cart');
 
 
