@@ -16,9 +16,10 @@ class PurchaseConfirmation extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $order_details_infos = "";
+    public function __construct($order_details_details)
     {
-        //
+        $this->order_details_infos = $order_details_details;
     }
 
     /**
@@ -28,6 +29,8 @@ class PurchaseConfirmation extends Mailable
      */
     public function build()
     {
-        return $this->view('Mail.purchase_confirm');
+        return $this->view('Mail.purchase_confirm', [
+            'order_details_information' => $this->order_details_infos,
+        ]);
     }
 }

@@ -103,10 +103,14 @@ class CheckoutController extends Controller
             Product::find($cart_data->product_id)->decrement('product_quantity', $cart_data->product_quantity);
             $cart_data->forceDelete();
         }
-        Mail::to($request->email)->send(new PurchaseConfirmation);
+        $order_details_details = Order_details::where('order_id', $order_id)->get();
+        Mail::to($request->email)->send(new PurchaseConfirmation($order_details_details));
         return redirect('cart');
+    }
 
-
+    function testmail(){
+        $order_details = Order_details::where('order_id', 1)->get();
+        return (new PurchaseConfirmation($order_details))->render();
     }
 
     function get_city_list_ajax(Request $request)

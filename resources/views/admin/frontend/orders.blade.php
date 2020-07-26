@@ -71,6 +71,7 @@
                                     <th scope="col">Discount Amount</th>
                                     <th scope="col">Coupon Name</th>
                                     <th scope="col">Total</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -86,13 +87,9 @@
                                         <td>{{ $orders->discount_amount }}</td>
                                         <td>{{ $orders->coupon_name }}</td>
                                         <td>{{ $orders->subtotal - $orders->discount_amount }}</td>
-                                        {{-- <td>
-                                            @isset($category->updated_at)
-                                            <li>Time : {{ $category->updated_at->format('h:i:s A') }}</li>
-                                            <li>Date : {{ $category->updated_at->format('d:m:Y') }}</li>
-                                            <li>Duration : {{ $category->updated_at->diffForHumans() }}</li>
-                                            @endisset
-                                        </td> --}}
+                                        <td>
+                                            <a href="{{ route('customer.invoice.download', $orders->id) }}"> <i class="fa fa-download"> download invoice</i></a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="100" class="text-center text-dark">

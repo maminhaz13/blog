@@ -134,6 +134,8 @@ Route::get('customer/home', 'CustomerController@customer_home')->name('customer.
 
 Route::get('customer/orders', 'CustomerController@customer_order')->name('customer.order')->middleware('auth');
 
+Route::get('customer/invoice/download/{order_id}', 'CustomerController@customer_invoice_download')->name('customer.invoice.download')->middleware('auth');
+
 
 
 //Github Controller's Route
@@ -151,3 +153,5 @@ Route::post('shop/checkout/post', 'CheckoutController@checkout_post')->name('che
 Route::post('get/city/list/ajax', 'CheckoutController@get_city_list_ajax');
 
 Route::post('get/city/list/two/ajax', 'CheckoutController@get_city_list_two_ajax');
+
+Route::get('testmail', 'CheckoutController@testmail');
