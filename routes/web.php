@@ -154,4 +154,11 @@ Route::post('get/city/list/ajax', 'CheckoutController@get_city_list_ajax');
 
 Route::post('get/city/list/two/ajax', 'CheckoutController@get_city_list_two_ajax');
 
-Route::get('testmail', 'CheckoutController@testmail');
+Route::get('testsms', 'CheckoutController@testsms');
+
+
+
+//StripePaymentController Controller's Route
+Route::get('stripe', 'StripePaymentController@stripe');
+
+Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');

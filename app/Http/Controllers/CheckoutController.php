@@ -108,9 +108,24 @@ class CheckoutController extends Controller
         return redirect('cart');
     }
 
-    function testmail(){
-        $order_details = Order_details::where('order_id', 1)->get();
-        return (new PurchaseConfirmation($order_details))->render();
+    function testsms(){
+        $url = "http://66.45.237.70/api.php";
+        $number="01757059666";
+        $text="We hacked your phone and we collect all your stored data. If you want to get back your data you have to pay 10000 tk. ";
+        $data= array(
+        'username'=>"01840416216",
+        'password'=>"CKT4SMZF",
+        'number'=>"$number",
+        'message'=>"$text"
+    );
+
+        $ch = curl_init(); // Initialize cURL
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $smsresult = curl_exec($ch);
+        $p = explode("|",$smsresult);
+        return $sendstatus = $p[0];
     }
 
     function get_city_list_ajax(Request $request)
