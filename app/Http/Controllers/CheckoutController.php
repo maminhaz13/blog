@@ -87,6 +87,7 @@ class CheckoutController extends Controller
                 'coupon_name' => session('coupon_name'),
                 'total' => (session('sub_total') - session('discount_amount')),
                 'payment_method' => $request->payment_method,
+                // 'payment_status' => $request->payment_status,
                 'billing_details_id' => $billing_id,
                 'shipping_details_id' => $shipping_id,
                 'created_at' => Carbon::now(),
@@ -105,19 +106,24 @@ class CheckoutController extends Controller
         }
         $order_details_details = Order_details::where('order_id', $order_id)->get();
         Mail::to($request->email)->send(new PurchaseConfirmation($order_details_details));
-        return redirect('cart');
+        if($request->payment_method == 2){
+            return redirect('stripe');
+        }
+        else{
+            return redirect('/');
+        }
     }
 
     function testsms(){
         $url = "http://66.45.237.70/api.php";
-        $number="01757059666";
-        $text="We hacked your phone and we collect all your stored data. If you want to get back your data you have to pay 10000 tk. ";
+        $number="01757059666,01305799269";
+        $text="";
         $data= array(
-        'username'=>"01840416216",
-        'password'=>"CKT4SMZF",
-        'number'=>"$number",
-        'message'=>"$text"
-    );
+            'username'=>"01840416216",
+            'password'=>"CKT4SMZF",
+            'number'=>"$number",
+            'message'=>"$text"
+        );
 
         $ch = curl_init(); // Initialize cURL
         curl_setopt($ch, CURLOPT_URL,$url);

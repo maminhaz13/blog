@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('coupon_name');
             $table->float('total');
             $table->integer('payment_method');
+            $table->integer('payment_status')->default(1);
             $table->integer('billing_details_id');
             $table->integer('shipping_details_id');
             $table->timestamps();

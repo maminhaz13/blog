@@ -159,6 +159,6 @@ Route::get('testsms', 'CheckoutController@testsms');
 
 
 //StripePaymentController Controller's Route
-Route::get('stripe', 'StripePaymentController@stripe');
+Route::get('stripe', 'StripePaymentController@stripe')->name('stripe');
 
 Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');

@@ -132,15 +132,19 @@
                             <ul class="payment-method">
                                 <li>
                                     <input name="payment_method" id="card" type="radio" value="1">
-                                    <label for="card">Credit Card</label>
+                                    <label for="card">Cash on Delivery</label>
                                 </li>
                                 <li>
                                     <input name="payment_method" id="delivery" type="radio" value="2">
-                                    <label for="delivery">Cash on Delivery</label>
+                                    <label for="delivery">Credit Card</label>
                                 </li>
                             </ul>
                             <button type="submit" class="btn btn-primary">Place Order</button>
                         </form>
+                        <!--session of user id -->
+                        @php
+                            session(['user_id_checkout' => Auth::loginUsingId()])
+                        @endphp
                     </div>
                 </div>
             </div>
