@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Stripe;
 use Session;
+use App\Order;
 use Illuminate\Http\Request;
 
 class StripePaymentController extends Controller
@@ -15,7 +16,12 @@ class StripePaymentController extends Controller
      */
     public function stripe()
     {
-        return view('stripe');
+        if(session('order_id_checkout')){
+            return view('stripe');
+        }
+        else {
+            abort(404);
+        }
     }
   
     /**
@@ -34,7 +40,20 @@ class StripePaymentController extends Controller
         ]);
   
         Session::flash('success', 'Payment successful!');
-          
+        //updating payment status start
+        Order::find(session('order_id_checkout'))->update([
+            'payment_status' => 2,
+        ]);
+        //updating payment status end
+        //removing session data after payment start
+        session([
+            'coupon_name' => '',
+            'sub_total' => '',
+            'discount_amount' => '',
+            'order_id_checkout' => '',
+        ]);
+        session()->forget('user_id_checkout');
+        //removing session data after payment end
         return redirect('/');
     }
 }

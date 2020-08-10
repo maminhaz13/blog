@@ -25,10 +25,9 @@
 <body>
   
 <div class="container">
-  
     <h1 class="text-center"> Ironman Payment </h1>
     <p class="text-center"> Powered by <strong>Stripe</strong></p>
-    <p class="text-center"><strong>{{ session('user_id_checkout') }}</strong></p>
+    <p class="text-center"><strong>Order ID : {{ session('order_id_checkout') }}</strong></p>
   
     <div class="row">
         <div class="col-md-6 col-md-offset-3">

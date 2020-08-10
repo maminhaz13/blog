@@ -35,7 +35,7 @@ class CartController extends Controller
         ]);
     }
 
-    return back();
+    return redirect('shop');
     }
 
     // function cart(){
@@ -82,7 +82,7 @@ class CartController extends Controller
     }
 
     function cart_delete($cart_id){
-        return Cart::find($cart_id)->forceDelete();
+        Cart::find($cart_id)->forceDelete();
         return back();
     }
 

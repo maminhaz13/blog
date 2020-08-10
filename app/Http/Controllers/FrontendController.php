@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
-use App\User;
-use App\Category;
-use App\Home;
-use App\Product;
-use App\Testmonial;
-use App\Contact;
-use Carbon\Carbon;
-use Image;
 use Mail;
+use Image;
+use App\Home;
+use App\User;
+use App\Contact;
+use App\Product;
+use App\Category;
+use Carbon\Carbon;
+use App\Testmonial;
+use App\Order_details;
 use App\Mail\NewsLetter;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 
 class FrontendController extends Controller
@@ -40,6 +41,7 @@ class FrontendController extends Controller
             'password' => Hash::make($request->password),
             'role' => 2,
         ]);
+        
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             return redirect('customer/home');
         }
@@ -158,19 +160,49 @@ class FrontendController extends Controller
     }
 
     function productdetailsslug(Request $request, $slug){
-        $cat_id = Product::where('slug', $slug)->firstOrFail();
-        $related_products = Product::where('category_id', $cat_id->category_id)->where('id', '!=', $cat_id->id)->get();
+
+        $product_info = Product::where('slug', $slug)->firstOrFail();
+
+        $related_products = Product::where('category_id', $product_info->category_id)->where('id', '!=', $product_info->id)->limit(4)->get();
+
+        $review_form_flag = 0;
+
+        if (Order_details::where('user_id', Auth::id())->where('product_id', $product_info->id)->whereNull('review')->exists()){
+            $review_form_flag = 1;
+            $order_detail_id = Order_details::where('user_id', Auth::id())->where('product_id', $product_info->id)->whereNull('review')->first()->id;
+            // $order_details_id = Order_detail::where('user_id', Auth::id())->where('product_id', $product_info->id)->whereNull('review')->first()->id;
+        }
+
+        else{
+            $review_form_flag = 2;
+            $order_detail_id = 0;
+        }
+
+        $review = Order_details::where('product_id', $product_info->id)->whereNotNull('review')->get();
+
         return view('admin.frontend.single_product', [
-            'single_product_info' => Product::where('slug', $slug)->first(),
+            'single_product_info' => $product_info,
             'related_products' => $related_products,
+            'review_form_flag' => $review_form_flag,
+            'order_details_id' => $order_detail_id,
+            'review_details' => $review,
         ]);
     }
 
     function shop(Request $request){
+
         return view('admin.frontend.shop', [
             'categories' => Category::all(),
             'products' => Product::all(),
         ]);
+    }
+
+    function product_review(Request $request){
+        Order_details::find($request->order_details_id)->update([
+            'stars' => $request->stars,
+            'review' => $request->review,
+        ]);
+        return back();
     }
 
 }

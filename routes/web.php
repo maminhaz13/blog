@@ -38,6 +38,8 @@ Route::get('register/user', 'FrontendController@user_registration')->name('user.
 
 Route::post('register/user/post', 'FrontendController@user_registration_post')->name('user.registration.post');
 
+Route::post('product/review', 'FrontendController@product_review')->name('product.review');
+
 
 
 //Home Controller's Route
@@ -162,3 +164,15 @@ Route::get('testsms', 'CheckoutController@testsms');
 Route::get('stripe', 'StripePaymentController@stripe')->name('stripe');
 
 Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
+
+
+
+//WishlistController Controller's Route
+Route::get('wishlist', 'WishlistController@wishlist')->name('wishlist');
+
+Route::get('wishlist/add/{product_id}', 'WishlistController@wishlist_add')->name('wishlist.add');
+
+
+
+//Coupon Controller's Route
+Route::resource('Coupon', 'CouponController')->middleware('auth');

@@ -93,8 +93,8 @@
         <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
         <span><strong>Well done!</strong> {{ session()->get('mark_restore') }}.</span>
       </div>
-    </div>           
-  @endif     
+    </div>
+  @endif
 
 
 //complete table code with card

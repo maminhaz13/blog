@@ -2,9 +2,9 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -18,6 +18,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name', 'email', 'password', 'profile_pictures',
     ];
+
+    // function relationship_with_category_for_catname(){
+    //     return $this->hasOne('App\Category', 'id', 'category_id')->withTrashed();
+    // }
 
     /**
      * The attributes that should be hidden for arrays.

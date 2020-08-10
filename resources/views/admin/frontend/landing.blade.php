@@ -250,11 +250,13 @@
 
                                 </p>
                                 <ul class="pull-right d-flex">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star-half-o"></i></li>
+                                    @if (avg_rating_count($prodata->id) == 0)
+                                        No rating yet..
+                                    @endif
+                                    @for($i = 0; $i < avg_rating_count($prodata->id); $i++)
+                                        <li><i class="fa fa-star"></i></li>
+                                    @endfor
+                                    {{-- <li><i class="fa fa-star-half-o"></i></li> --}}
                                 </ul>
                             </div>
                         </div>

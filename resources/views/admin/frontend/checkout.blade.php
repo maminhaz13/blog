@@ -127,7 +127,8 @@
                                 <li>Subtotal <span class="pull-right"><strong>${{ session('sub_total') }}</strong></span></li>
                                 <li>Discount Amount ( {{ session('coupon_name') ? session('coupon_name') : 'No coupon added'  }} ) <span class="pull-right">${{ session('discount_amount') }}</span></li>
                                 <li>Shipping <span class="pull-right">Free</span></li>
-                                <li>Total<span class="pull-right">${{ session('sub_total') - session('discount_amount') }}</span></li>
+                                {{-- <li>Total<span class="pull-right">${{ (session('sub_total') - session('discount_amount'))>1 ? (session('sub_total') - session('discount_amount')) : '' }}</span></li>  --}}
+                                <li>Total<span class="pull-right">${{ session()->has(['sub_total', 'discount_amount']) ? (session('sub_total') - session('discount_amount')) : '' }}</span></li> 
                             </ul>
                             <ul class="payment-method">
                                 <li>
@@ -141,10 +142,6 @@
                             </ul>
                             <button type="submit" class="btn btn-primary">Place Order</button>
                         </form>
-                        <!--session of user id -->
-                        @php
-                            session(['user_id_checkout' => Auth::loginUsingId()])
-                        @endphp
                     </div>
                 </div>
             </div>

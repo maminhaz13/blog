@@ -76,7 +76,26 @@
                     <div class="col-md-6 col-12">
                         <ul class="d-flex account_login-area">
                             <li>
-                                <a href=""><i class="fa fa-user"></i> My Account ></i></a></li>
+                                @auth
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa fa-user"></i> {{ Auth::user()->name ? Auth::user()->name : 'My Account' }} <i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown_style">
+                                            <li>
+                                                <a href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">Login
+                                                </a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endauth
+                                @guest
+                                    <a href=""><i class="fa fa-user"></i> My Account ></i></a>
+                                @endguest
+                            </li>
                             <li><a href="{{ route('user.registration') }}"> Login/Register </a></li>
                         </ul>
                     </div>
@@ -103,10 +122,10 @@
                                     <a href="about.html">About</a>
                                 </li>
                                 <li class="@yield('menu_shop_active')">
-                                    <a href="{{ route('shop') }}">Shop Page</a>
+                                    <a href="{{ route('shop') }}">Shop</a>
                                 </li>
                                 <li class="@yield('menu_wishlist_active')">
-                                    <a href="wishlist.html">Wishlist</a>
+                                    <a href="{{ route('wishlist') }}">Wishlist</a>
                                 </li>
                                 <li class="@yield('menu_blog_active')">
                                     <a href="{{ route('blog') }}">Blog</a>
@@ -216,9 +235,9 @@
                                 </li>
                                 <li><a href="about.html">About</a></li>
                                 <li>
-                                    <a href="shop.html">Shop Page</a>
+                                    <a href="shop.html">Shop</a>
                                 </li>
-                                    <a href="wishlist.html">Wishlist</a>
+                                    <a href="{{ url('wishlist') }}">Wishlist</a>
                                 </li>
                                 <li >
                                     <a href="{{ route('blog') }}">Blog</a>

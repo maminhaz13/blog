@@ -15,7 +15,7 @@
                     <div class="breadcumb-wrap text-center">
                         <h2>Shop Page</h2>
                         <ul>
-                            <li><a href="index-2.html">Home</a></li>
+                            <li><a href="{{ route('shop') }}">Home</a></li>
                             <li><span>Shop</span></li>
                         </ul>
                     </div>
@@ -125,7 +125,7 @@
                                             <div class="product-icon flex-style">
                                                 <ul>
                                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="wishlist.html"><i class="fa fa-heart"></i></a></li>
+                                                    <li><a href="{{ route('wishlist.add', $single_product->id) }}"><i class="fa fa-heart"></i></a></li>
                                                     <li><a href="cart.html"><i class="fa fa-shopping-bag"></i></a></li>
                                                 </ul>
                                             </div>
@@ -163,7 +163,7 @@
                                             <div class="product-icon flex-style">
                                                 <ul>
                                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="wishlist.html"><i class="fa fa-heart"></i></a></li>
+                                                    <li><a href=""><i class="fa fa-heart"></i></a></li>
                                                     <li><a href="cart.html"><i class="fa fa-shopping-bag"></i></a></li>
                                                 </ul>
                                             </div>

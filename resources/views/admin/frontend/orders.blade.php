@@ -67,6 +67,7 @@
                                     <th scope="col">Serial No</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Payment Method</th>
+                                    <th scope="col">Payment Status</th>
                                     <th scope="col">Sub Total</th>
                                     <th scope="col">Discount Amount</th>
                                     <th scope="col">Coupon Name</th>
@@ -82,7 +83,20 @@
                                         </td> --}}
                                         <td>{{ $loop->index +1 }}</td>
                                         <td>{{ $orders->created_at->diffForHumans() }}</td>
-                                        <td>{{ $orders->payment_method }}</td>
+                                        <td>
+                                            @if($orders->payment_method == 1)
+                                                Cash On Delivery
+                                            @else
+                                                Credit Card
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($orders->payment_status == 2)
+                                                <span class="badge badge-pill badge-success">Paid</span>
+                                            @else
+                                                <span class="badge badge-pill badge-danger">Unpaid</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $orders->subtotal }}</td>
                                         <td>{{ $orders->discount_amount }}</td>
                                         <td>{{ $orders->coupon_name }}</td>
@@ -100,7 +114,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="100" class="text-center text-danger"> No more data available </td>  
+                                        <td colspan="100" class="text-center text-danger"> Orders data unavailable </td>  
                                     </tr>
                                 @endforelse
                                 </tbody>

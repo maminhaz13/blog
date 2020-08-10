@@ -79,7 +79,6 @@ class CheckoutController extends Controller
             ]);
         }
 
-        foreach (cart_items() as $cart_data) {
             $order_id = Order::insertGetId([
                 'user_id' => Auth::id(),
                 'subtotal' => session('sub_total'),
@@ -93,8 +92,10 @@ class CheckoutController extends Controller
                 'created_at' => Carbon::now(),
             ]);
 
+        foreach (cart_items() as $cart_data) {
             $order_details_id = Order_details::insertGetId([
                 'order_id' => $order_id,
+                'user_id' => Auth::id(),
                 'product_id' => $cart_data->product_id,
                 'product_quantity' => $cart_data->product_quantity,
                 'product_price' => $cart_data->relationship_with_cart->product_price,
@@ -106,6 +107,7 @@ class CheckoutController extends Controller
         }
         $order_details_details = Order_details::where('order_id', $order_id)->get();
         Mail::to($request->email)->send(new PurchaseConfirmation($order_details_details));
+        session(['order_id_checkout' => $order_id]);
         if($request->payment_method == 2){
             return redirect('stripe');
         }

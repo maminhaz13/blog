@@ -1,7 +1,7 @@
 <?php
 
   function total_product_count(){
-    print_r(App\Product::count());
+    return App\Product::count();
   }
 
   function cart_product_quantity(){
@@ -10,5 +10,19 @@
 
   function cart_items(){
     return App\Cart::where('generated_cart_id', Cookie::get('g_cart_id'))->get();
-    // return App\Cart::all();
+  }
+
+  function review_customer_count($product_id){
+    return App\Order_details::where('product_id', $product_id)->WhereNotNull('review')->count();
+  }
+
+  function avg_rating_count($product_id){
+    $stars_count = App\Order_details::where('product_id', $product_id)->WhereNotNull('review')->count();
+    $sum_amount = App\Order_details::where('product_id', $product_id)->WhereNotNull('review')->sum('stars');
+    if($sum_amount == 0){
+      return 0;
+    }
+    else{
+      return $sum_amount/$stars_count;
+    }
   }

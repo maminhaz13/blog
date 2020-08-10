@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    //protected $fillable = [''];
+    protected $fillable = ['payment_status'];
     //protected $guarded = [''];
 
     use SoftDeletes;
