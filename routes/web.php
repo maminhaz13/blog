@@ -40,6 +40,8 @@ Route::post('register/user/post', 'FrontendController@user_registration_post')->
 
 Route::post('product/review', 'FrontendController@product_review')->name('product.review');
 
+Route::post('subscriber/added', 'FrontendController@subscriber')->name('subscriber');
+
 
 
 //Home Controller's Route
@@ -174,5 +176,7 @@ Route::get('wishlist/add/{product_id}', 'WishlistController@wishlist_add')->name
 
 
 
-//Coupon Controller's Route
-Route::resource('Coupon', 'CouponController')->middleware('auth');
+//Order Controller's Route
+Route::resource('order', 'OrderController')->middleware('auth');
+
+Route::get('order/cancel/{order_id}', 'OrderController@order_cancel')->name('order.cancel')->middleware('auth');

@@ -254,13 +254,32 @@
         </div>
     </header>
     <!-- header-area end -->
-    
 
 
     @yield('frontend_content')
 
 
-
+    <!-- start social-newsletter-section -->
+    <section class="social-newsletter-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="newsletter text-center">
+                        <h3>Subscribe  Newsletter</h3>
+                        <div class="newsletter-form">
+                            <form action="{{ route('subscriber') }}" method="POST">
+                                @csrf
+                                <input name="subscriber" type="text" class="form-control" placeholder="Enter Your Email Address...">
+                                <button type="submit"><i class="fa fa-send"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end container -->
+    </section>
+    <!-- end social-newsletter-section -->
     <!-- .footer-area start -->
     <div class="footer-area">
         <div class="footer-top">

@@ -89,7 +89,7 @@
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
 
-          <a href="{{ route('order.manage') }}" class="sl-menu-link @yield('order_manage_active')">
+          <a href="{{ route('order.index') }}" class="sl-menu-link @yield('order_manage_active')">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
               <span class="menu-item-label">Order Management</span>

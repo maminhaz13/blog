@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\Product;
+use App\Order_details;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,7 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.order.order_index', [
+            'order_info' => Order::all()
+        ]);
     }
 
     /**
@@ -45,7 +50,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -68,7 +73,10 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Order::find($id)->update([
+            'payment_status' => 2,
+        ]);
+        return back();
     }
 
     /**
@@ -80,5 +88,26 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Cancel any kind of orders.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function order_cancel($order_id)
+    {
+        $order_details = Order_details::where('order_id', $order_id)->get();
+        
+        foreach ($order_details as $order_detail) {
+            Product::find($order_detail->product_id)->increment('product_quantity', $order_detail->product_quantity);
+        }
+        
+        Order::find($order_id)->update([
+            'payment_status' => 3
+        ]);
+
+        return back();
     }
 }

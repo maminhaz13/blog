@@ -11,6 +11,7 @@ use App\Contact;
 use App\Product;
 use App\Category;
 use Carbon\Carbon;
+use App\Subscriber;
 use App\Testmonial;
 use App\Order_details;
 use App\Mail\NewsLetter;
@@ -95,11 +96,13 @@ class FrontendController extends Controller
     }
 
     function send_newsletter(){
-        Mail::to(User::find(17)->email)->send(new NewsLetter());
-        return 'done';
-        // foreach (User::all()->pluck('email') as $email) {
-        //     Mail::to($email)->send(new NewsLetter());
-        // }
+        foreach (User::all()->pluck('email') as $email) {
+            Mail::to($email)->queue(new NewsLetter());
+        }
+
+        return back();
+        // Mail::to(User::find(17)->email)->send(new NewsLetter());
+        // return 'done';
     }
 
     function usertestmonial(Request $request){
@@ -205,4 +208,15 @@ class FrontendController extends Controller
         return back();
     }
 
+    function subscriber(Request $request){
+        $request->validate([
+        'subscriber' => 'email:rfc,dns',
+        ]);
+
+        Subscriber::insert([
+            'subscriber' => $request->subscriber,
+            'created_at' => Carbon::Now()
+        ]);
+        return redirect('/');
+    }
 }
