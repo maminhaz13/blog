@@ -265,6 +265,21 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="newsletter text-center">
+
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-warning" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <div class="d-flex align-items-center justify-content-start">
+                                        <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                                        <span><strong>{{ $error }}..</strong></span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+
                         <h3>Subscribe  Newsletter</h3>
                         <div class="newsletter-form">
                             <form action="{{ route('subscriber') }}" method="POST">

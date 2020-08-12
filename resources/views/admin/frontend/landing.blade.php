@@ -6,6 +6,21 @@
 
 @section('frontend_content')
 
+<div class="container mt-5 mb-3">
+    <div class="row">
+        <div class="col-md-12">
+            @if(session('subscriber_added'))
+                <div class="alert alert-success alert-bordered pd-y-20" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong class="d-block d-sm-inline-block-force">{{ session('subscriber_added') }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+
     <!-- slider-area start -->
 @foreach($banners as $Single_banner)
     <div class="slider-area">

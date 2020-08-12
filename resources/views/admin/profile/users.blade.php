@@ -27,6 +27,22 @@
             <div class="row">
                 <div class="col-md-12">
 
+                    <div class="container mt-5 mb-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @if(session('newsletter_sent'))
+                                    <div class="alert alert-success alert-bordered pd-y-20" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <strong class="d-block d-sm-inline-block-force">{{ session('newsletter_sent') }}</strong>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="card bg-gray-200">
                         <h3 class="">Total Users : {{ $total_users }} </h3>
                             <div class="card-body">
@@ -37,7 +53,7 @@
                                 @endif
                                 
                                 <div class="table-responsive">
-                                    <table class="table table-hover mg-b-0">
+                                    <table id="tableOne" class="table table-hover mg-b-0">
                                         <thead>
                                             <tr>
                                             <th scope="col">Serial No</th>
@@ -100,3 +116,20 @@
 </div>
 
 @endsection  
+
+@section('footer_scripts')
+    
+  <script>
+      $(document).ready( function () {
+          $('#tableOne').DataTable();
+      } );
+  </script>
+
+
+@endsection
+
+
+
+
+
+

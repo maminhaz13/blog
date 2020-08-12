@@ -100,9 +100,11 @@ class FrontendController extends Controller
             Mail::to($email)->queue(new NewsLetter());
         }
 
-        return back();
-        // Mail::to(User::find(17)->email)->send(new NewsLetter());
-        // return 'done';
+        foreach (Subscriber::all()->pluck('subscriber') as $email) {
+            Mail::to($email)->queue(new NewsLetter());
+        }
+
+        return back()->with('newsletter_sent', 'You have sent newsletter to all your subscribers');
     }
 
     function usertestmonial(Request $request){
@@ -214,9 +216,10 @@ class FrontendController extends Controller
         ]);
 
         Subscriber::insert([
+            'user_id' => Auth::id(),
             'subscriber' => $request->subscriber,
             'created_at' => Carbon::Now()
         ]);
-        return redirect('/');
+        return redirect('/')->with('subscriber_added', 'From now you will get newsletter daily..');
     }
 }
