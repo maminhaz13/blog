@@ -249,8 +249,16 @@
                     <li class="col-xl-3 col-lg-4 col-sm-6 col-12  moreload">
                         <div class="product-wrap">
                             <div class="product-img">
+                                <style>
+                                    #img {
+                                        width: 700px;
+                                        height: 300px;
+                                        border: 1px dashed #FE2E2E;
+                                        }
+
+                                </style>
                                 <span>New</span>
-                                <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $prodata->product_thumbnail_picture }}" width="400" height="150" alt="img not found">
+                                <img id="img" src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $prodata->product_thumbnail_picture }}" width="400" height="150" alt="img not found">
                                 <div class="product-icon flex-style">
                                     <ul>
                                         <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>

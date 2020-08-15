@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Coupon;
+use App\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -35,12 +36,13 @@ class CartController extends Controller
         ]);
     }
 
-    return redirect('shop');
+    if (Wishlist::where('product_id', $request->product_id)->exists()) {
+        Wishlist::where('product_id', $request->product_id)->forceDelete();
+        return back();
     }
 
-    // function cart(){
-    //     return view('admin.frontend.cart');
-    // }
+    return redirect('shop');
+    }
 
     function cart($coupon_name = ""){
         $coupon_error ="";

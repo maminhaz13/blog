@@ -115,19 +115,6 @@ Route::post('cart/update', 'CartController@cart_update')->name('cart.update');
 
 
 
-//Blog Controller's Route
-Route::get('blog', 'BlogController@blog')->name('blog');
-
-Route::get('blog/write', 'BlogController@writeblog')->name('blog.write')->middleware('auth');
-
-Route::post('blog/write/post', 'BlogController@blogwritten')->name('blogwritten')->middleware('auth');
-
-Route::get('blog/details/{slug}', 'BlogController@detailsblog')->name('blog.details');
-
-Route::post('comment/post', 'BlogController@comment_post');
-
-
-
 //Coupon Controller's Route
 Route::resource('Coupon', 'CouponController')->middleware('auth');
 
@@ -173,6 +160,9 @@ Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post')
 Route::get('wishlist', 'WishlistController@wishlist')->name('wishlist');
 
 Route::get('wishlist/add/{product_id}', 'WishlistController@wishlist_add')->name('wishlist.add');
+
+Route::get('wishlist/remove/{product_id}', 'WishListController@removeWishList')->name('removeWishList');
+
 
 
 

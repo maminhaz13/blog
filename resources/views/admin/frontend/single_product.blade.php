@@ -25,7 +25,7 @@
                     <div class="product-single-img">
                         <div class="product-active owl-carousel">
                             <div class="item">
-                                <img src="{{ asset('uploadS') }}/main_banner_picture/{{ $single_product_info->product_thumbnail_picture }}" alt="">
+                                <img src="{{ asset('uploads') }}/main_banner_picture/{{ $single_product_info->product_thumbnail_picture }}" alt="">
                             </div>
                             @foreach($single_product_info->onetomanyrelationship_with_product_multiple_table as $single_multiple_picture)
                                 <div class="item">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="product-thumbnil-active  owl-carousel">
                             <div class="item">
-                                <img src="{{ asset('uploadS') }}/main_banner_picture/{{ $single_product_info->product_thumbnail_picture }}" alt="">
+                                <img src="{{ asset('uploads') }}/main_banner_picture/{{ $single_product_info->product_thumbnail_picture }}" alt="">
                             </div>
                             @foreach($single_product_info->onetomanyrelationship_with_product_multiple_table as $single_multiple_picture)
                                 <div class="item">
@@ -57,7 +57,6 @@
                                 @for($i = 0; $i < avg_rating_count($single_product_info->id); $i++)
                                     <li><i class="fa fa-star"></i></li>
                                 @endfor
-                                {{-- {{ avg_rating_count($single_product_info->id) }} --}}
                                 <li>({{ review_customer_count($single_product_info->id) }} Customar Review)</li>
 
                             </ul>

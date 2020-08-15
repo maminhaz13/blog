@@ -75,28 +75,29 @@
                     </div>
                     <div class="col-md-6 col-12">
                         <ul class="d-flex account_login-area">
-                            <li>
-                                @auth
+                            @if(Auth::check())
                                     <li>
-                                        <a href="javascript:void(0);"><i class="fa fa-user"></i> {{ Auth::user()->name ? Auth::user()->name : 'My Account' }} <i class="fa fa-angle-down"></i></a>
-                                        <ul class="dropdown_style">
-                                            <li>
-                                                <a href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">Login
-                                                </a>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                    @csrf
-                                                </form>
-                                            </li>
-                                        </ul>
+                                        <a href=""><i class="fa fa-user"></i> {{ Auth::user()->name }} </a>
                                     </li>
-                                @endauth
-                                @guest
-                                    <a href=""><i class="fa fa-user"></i> My Account ></i></a>
-                                @endguest
-                            </li>
-                            <li><a href="{{ route('user.registration') }}"> Login/Register </a></li>
+                                @else
+                                    <li>
+                                        <a href=""><i class="fa fa-user"></i> Guest </i></a>
+                                    </li>
+                            @endif
+                            @if(Auth::check())
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">Logout
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @else
+                                <li><a href="{{ route('user.registration') }}"> Sign up </a></li>
+                                <li><a href="{{ route('login') }}"> Login </a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -127,9 +128,6 @@
                                 <li class="@yield('menu_wishlist_active')">
                                     <a href="{{ route('wishlist') }}">Wishlist</a>
                                 </li>
-                                <li class="@yield('menu_blog_active')">
-                                    <a href="{{ route('blog') }}">Blog</a>
-                                </li>
                                 <li class="@yield('menu_contact_active')">
                                     <a href="{{ route('contact') }}">Contact</a>
                                 </li>
@@ -140,31 +138,40 @@
                         <ul class="search-cart-wrapper d-flex">
                             <li class="search-tigger"><a href="javascript:void(0);"><i class="flaticon-search"></i></a></li>
                             <li>
-                                <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>2</span></a>
+                                <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>{{ wish_count() }}</span></a>
                                 <ul class="cart-wrap dropdown_style">
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="assets/images/cart/1.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="{{ asset('front') }}/assets/images/cart/3.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li>Subtotol: <span class="pull-right">$70.00</span></li>
+                                    @php
+                                        $sub_total_wish = 0;
+                                    @endphp
+                                    @foreach(wish_items() as $wish_items)
+                                        <li class="cart-items">
+                                            <div class="cart-img">
+                                                <style>
+                                                    #img1 {
+                                                        width: 70px;
+                                                        height: 90px;
+                                                    }
+
+                                                    /* img {
+                                                        width: 50%;
+                                                        height: 50%;
+                                                    } */
+                                                    }
+                                                </style>
+                                                <img id="img1" src="{{ asset('uploads/product_thumbnail_picture') }}/{{ $wish_items->product->product_thumbnail_picture }}" alt="">
+                                            </div>
+                                            <div class="cart-content">
+                                                <a href="{{ url('product/details') }}/{{ $wish_items->product->slug }}">{{ $wish_items->product->slug }}</a>
+                                                <p>${{ $wish_items->product->product_price }}</p>
+                                                <i class="fa fa-times" title="delete"></i>
+                                            </div>
+                                        </li>
+                                    @php
+                                        $sub_total_wish = $sub_total_wish + $wish_items->product->product_price
+                                    @endphp
+                                    @endforeach
+                                    <li>
+                                        Subtotol: <span class="pull-right">${{ $sub_total_wish }}</span></li>
                                     <li>
                                         <button>Check Out</button>
                                     </li>
@@ -183,8 +190,7 @@
                                                         .box {
                                                             width: 70px;
                                                             height: 90px;
-                                                            /* border: 3px dashed #FE2E2E; */
-                                                            }
+                                                        }
 
                                                         /* img {
                                                             width: 50%;
@@ -206,7 +212,7 @@
                                         @endforeach
                                         <li>Subtotal: <span class="pull-right">${{ $sub_total }}</span></li>
                                         <li>
-                                            <a href="{{ route('cart') }}">Go To Cart</butaton>
+                                            <a href="{{ route('cart') }}">Go To Cart</a>
                                         </li>
                                     </ul>
 

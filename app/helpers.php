@@ -26,3 +26,15 @@
       return $sum_amount/$stars_count;
     }
   }
+  
+  // wishList Items and counter starts
+
+  function wish_items(){
+      return App\Wishlist::where('generated_wish_id', Cookie::get('g_wish_id'))->get();
+  }
+
+  function wish_count(){
+      return App\Wishlist::where('generated_wish_id', Cookie::get('g_wish_id'))->count();
+  }
+
+  // wishList Items and counter ends
