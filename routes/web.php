@@ -24,11 +24,11 @@ Route::get('contact/list', 'FrontendController@contactlist')->name('contactlist'
 
 Route::post('contact/post', 'FrontendController@contactpost')->name('contactpost');
 
-Route::get('send/newsletter', 'FrontendController@send_newsletter')->name('sendnewsletter')->middleware('auth');
-
 Route::post('user/testmonial', 'FrontendController@usertestmonial')->name('usertestmonial');
 
 Route::post('newsletter/add', 'FrontendController@newsletter_add')->name('newsletter.add');
+
+Route::get('send/newsletter', 'FrontendController@send_newsletter')->name('sendnewsletter')->middleware('auth');
 
 Route::get('product/details/{slug}', 'FrontendController@productdetailsslug')->name('productdetailsslug');
 
@@ -42,20 +42,20 @@ Route::post('product/review', 'FrontendController@product_review')->name('produc
 
 Route::post('subscriber/added', 'FrontendController@subscriber')->name('subscriber');
 
+Route::resource('banner', 'BannerController');
+
+Route::get('banner/restore/{id}', 'BannerController@restore')->name('banner.restore');
+
+Route::get('banner/delete/{id}', 'BannerController@delete')->name('banner.delete');
+
+Route::get('contact/list/download/{contact_id}', 'FrontendController@contactlistdownload')->name('contactlistdownload');
+
 
 
 //Home Controller's Route
 Auth::routes(['verify' => true]);
 
 Route::get('home', 'HomeController@index')->name('home')->middleware('verified');
-
-Route::get('frontend', 'FrontendController@frontend')->name('frontend');
-
-Route::post('frontend/main_banner/post', 'FrontendController@frontend_mainbanner_post')->name('frontend.mainbanner.post');
-
-Route::post('frontend/discount_banner/post', 'FrontendController@frontend_discountbanner_post')->name('frontend.discountbanner.post');
-
-Route::get('contact/list/download/{contact_id}', 'FrontendController@contactlistdownload')->name('contactlistdownload');
 
 
 

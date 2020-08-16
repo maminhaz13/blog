@@ -42,7 +42,7 @@
               <div class="card-body">
                 <h5 class="card-title">Add Your Main Banner Here</h5>
                 {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
-                <form method="POST" action="{{ route('frontend.mainbanner.post') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('banner.mainbanner.post') }}" enctype="multipart/form-data">
                   @csrf
 
                   <div class="col-md-12 form-group">

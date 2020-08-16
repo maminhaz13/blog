@@ -67,25 +67,25 @@
           <a href="" class="sl-menu-link @yield('frontend_active')">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
-              <span class="menu-item-label">Frontend</span>
+              <span class="menu-item-label">Customize Info</span>
               <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
           <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="{{ route('frontend') }}" class="nav-link">Frontend</a></li>
+            <li class="nav-item"><a href="{{ route('banner.index') }}" class="nav-link">Banners</a></li>
           </ul>
 
           <a href="{{ route('addcategory') }}" class="sl-menu-link @yield('category_active')">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-              <span class="menu-item-label">Category</span>
+              <span class="menu-item-label">Category Management</span>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
 
           <a href="{{ route('Product.index') }}" class="sl-menu-link @yield('product_active')">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-              <span class="menu-item-label">Product</span>
+              <span class="menu-item-label">Product Management</span>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
 
