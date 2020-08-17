@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Banner extends Model
 {
-    protected $fillable = ['main_banner_picture', 'main_banner_title', 'main_banner_short_description'];
+    protected $fillable = ['main_banner_picture', 'main_banner_title', 'main_banner_short_description', 'show_status'];
     //protected $guarded = [''];
 
     use SoftDeletes;

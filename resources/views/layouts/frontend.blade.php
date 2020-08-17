@@ -52,8 +52,14 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2 col-12">
                     <div class="search-form">
-                        <form action="http://themepresss.com/tf/html/tohoney/search">
-                            <input type="text" placeholder="Search Here...">
+                        <form action="{{ url('search') }}" method="GET">
+                            <input type="text" placeholder="Search Here..." name="filter[product_name]">
+                            <select name="filter[id]" id="" class="form-control">
+                                <option value="">--select a option--</option>
+                                @foreach($active_categories as $cat)
+                                    <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
+                                @endforeach
+                            </select>
                             <button><i class="fa fa-search"></i></button>
                         </form>
                     </div>

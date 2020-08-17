@@ -22,32 +22,32 @@
 </div>
 
     <!-- slider-area start -->
-@foreach($banners as $Single_banner)
     <div class="slider-area">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide overlay">
-                    <div class="single-slider slide-inner slide-inner1" style = "background: url({{ asset('uploads') }}/main_banner_picture/{{ $Single_banner->main_banner_picture }};">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12 col-lg-9 col-12">
-                                    <div class="slider-content">
-                                        <div class="slider-shape">
-                                            <h2 data-swiper-parallax="-500">{{ $Single_banner->main_banner_title }}</h2>
-                                            <p data-swiper-parallax="-400">{{ $Single_banner->main_banner_short_description }}</p>
-                                            <a href="shop.html" data-swiper-parallax="-300">Shop Now</a>
+                @foreach($banners as $single_banner)
+                    <div class="swiper-slide overlay">
+                        <div class="single-slider slide-inner slide-inner1" style = "background: url({{ asset('uploads') }}/main_banner_picture/{{ $single_banner->main_banner_picture }}); background-size: cover; background-repeat: no-repeat;">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 col-lg-9 col-12">
+                                        <div class="slider-content">
+                                            <div class="slider-shape">
+                                                <h2 data-swiper-parallax="-500">{{ $single_banner->main_banner_title }}</h2>
+                                                <p data-swiper-parallax="-400">{{ $single_banner->main_banner_short_description }}</p>
+                                                <a href="shop.html" data-swiper-parallax="-300">Shop Now</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
             <div class="swiper-pagination"></div>
         </div>
     </div>
-@endforeach
     <!-- slider-area end -->
 
     <!-- featured-area start -->
@@ -218,21 +218,6 @@
         </div>
     </div>
     <!-- product-area end -->
-    <!-- banner-area start -->
-    <div class="banner-area bg-img-8">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-6 col-md-8 offset-md-4">
-                    <div class="banner-wrap">
-                        <p>Neture Oil Collection</p>
-                        <h2>upto<span>50%</span> Off</h2>
-                        <a href="shop.html">Shop Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- banner-area end -->
     <!-- product-area start -->
     <div class="product-area">
         <div class="fluid-container">

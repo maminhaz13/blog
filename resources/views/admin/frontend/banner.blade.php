@@ -32,6 +32,18 @@
           </div>
         @endif
 
+        @if(session()->has('main_banner_shown_done'))
+          <div class="alert alert-success" role="alert">
+            <button type="button" class="close" a-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <div class="d-flex align-items-center justify-content-start">
+              <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+              <span><strong>Well done!</strong> {{ session()->get('main_banner_shown_done') }}.</span>
+            </div>
+          </div>
+        @endif
+
         @if(session()->has('main_banner_restore_done'))
           <div class="alert alert-success" role="alert">
             <button type="button" class="close" a-dismiss="alert" aria-label="Close">
@@ -52,6 +64,18 @@
             <div class="d-flex align-items-center justify-content-start">
               <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
               <span><strong>Warning!</strong> {{ session()->get('main_banner_trash_done') }}.</span>
+            </div>
+          </div>
+        @endif
+
+        @if(session()->has('main_banner_unshown_done'))
+          <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <div class="d-flex align-items-center justify-content-start">
+              <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+              <span><strong>Warning!</strong> {{ session()->get('main_banner_unshown_done') }}.</span>
             </div>
           </div>
         @endif
@@ -116,10 +140,10 @@
                           <img src="{{ asset('uploads') }}/main_banner_picture/{{ $banners->main_banner_picture }}" class="img-fluid" alt="image not found">
                         </td>
                         <td>
-                          @if($banners->show_status==2)
-                            <span class="badge badge-pill badge-info">Not Shown</span>
-                          @else
+                          @if($banners->show_status==1)
                             <span class="badge badge-pill badge-success">Shown</span>
+                          @else
+                            <span class="badge badge-pill badge-info">Not Shown</span>
                           @endif
                         </td>
                         <td>
@@ -130,9 +154,11 @@
                         </td>
                         <td>
                           <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="" type="button" class="btn btn-info btn-btn-sm mg-b-10 btn btn sm">
-                              Show
-                            </a>
+                            @if($banners->show_status == 1)
+                              <a href="{{ route('banner.deactivate', $banners->id) }}" type="button" class="btn btn-info btn-btn-sm mg-b-10 btn btn sm">Hide</a>
+                            @else
+                              <a href="{{ route('banner.activate', $banners->id) }}" type="button" class="btn btn-info btn-btn-sm mg-b-10 btn btn sm">Show</a>
+                            @endif
                             <a href="{{ route('banner.edit', $banners->id) }}" type="button" class="btn btn-secondary btn-btn-sm mg-b-10" >Edit</a>
                             <form action="{{ route('banner.destroy', $banners->id) }}" method="POST">
                               @csrf

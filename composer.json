@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "nesbot/carbon": "^2.36",
+        "spatie/laravel-query-builder": "^2.8",
         "stripe/stripe-php": "^7.44"
     },
     "require-dev": {

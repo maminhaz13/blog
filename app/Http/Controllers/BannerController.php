@@ -93,7 +93,7 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Banner::find($id)->update([
+        Banner::findOrFail($id)->update([
             'main_banner_title' => $request->main_banner_title,
             'main_banner_short_description' => $request->main_banner_short_description,
             'created_at' => Carbon::now()
@@ -111,7 +111,7 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        Banner::find($id)->delete();
+        Banner::findOrFail($id)->delete();
         return redirect('banner')->with('main_banner_trash_done', 'Your trashed a banner. You can manage it in banner trash table..');
     }
 
@@ -135,5 +135,31 @@ class BannerController extends Controller
     {
         Banner::withTrashed()->findOrFail($id)->forceDelete();
         return redirect('banner')->with('main_banner_delete_done', 'Your deleted a banner successfully');
+    }
+
+    /**
+     * activate banner here.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function activate($id)
+    {
+        Banner::findOrFail($id)->update([
+            'show_status' => 1,
+        ]);
+        return redirect('banner')->with('main_banner_shown_done', 'Your showed a banner successfully');
+    }
+
+    /**
+     * deactivate banner here.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deactivate($id)
+    {
+        Banner::findOrFail($id)->update([
+            'show_status' => 2,
+        ]);
+        return redirect('banner')->with('main_banner_unshown_done', 'Your hide a banner successfully');
     }
 }

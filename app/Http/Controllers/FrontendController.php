@@ -7,6 +7,7 @@ use Mail;
 use Image;
 use App\Home;
 use App\User;
+use App\Banner;
 use App\Contact;
 use App\Product;
 use App\Category;
@@ -17,6 +18,7 @@ use App\Order_details;
 use App\Mail\NewsLetter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -53,7 +55,7 @@ class FrontendController extends Controller
         return view('admin.frontend.landing', [
             'active_categories' => Category::all(),
             'active_products' => Product::all(),
-            'banners' => Home::all(),
+            'banners' => Banner::where('show_status', 1)->get(),
             'testmonials' => Testmonial::all(),
         ]);
     }
@@ -114,56 +116,6 @@ class FrontendController extends Controller
         return back();
     }
 
-    function frontend()
-    {
-        return view('admin.frontend.homepage');
-    }
-
-    function frontend_mainbanner_post(Request $request){
-        $banner_id = Home::insertGetId([
-            'main_banner_title' => $request->main_banner_title,
-            'main_banner_short_description' => $request->main_banner_short_description,
-            'created_at' => Carbon::now(),
-        ]);
-
-        if ($request->hasFile('main_banner_picture')){
-
-            $uploaded_picture = $request->file('main_banner_picture');
-            $photo_file_extention = $banner_id.".".$uploaded_picture->getClientOriginalExtension();
-            $picture_new_location = 'public/uploads/main_banner_picture/'.$photo_file_extention;
-            Image::make($uploaded_picture)->resize(500,500)->save(base_path($picture_new_location));
-            Home::find($banner_id)->update([
-                'main_banner_picture' => $photo_file_extention,
-            ]);
-            
-        }
-
-        return back()->with('main_banner_update_done', 'Your succesfully added new banner.');
-    }
-
-    function frontend_discountbanner_post(Request $request){
-        $banner_id = Home::insertGetId([
-            'discount_banner_title' => $request->discount_banner_title,
-            'discount_banner_percentage' => $request->discount_banner_percentage,
-            'discount_banner_text_one' => $request->discount_banner_text_one,
-            'discount_banner_text_two' => $request->discount_banner_text_two,
-            'created_at' => Carbon::now(),
-        ]);
-
-        if ($request->hasFile('discount_banner_picture')){
-
-            $uploaded_picture = $request->file('discount_banner_picture');
-            $photo_file_extention = $banner_id.".".$uploaded_picture->getClientOriginalExtension();
-            $picture_new_location = 'public/uploads/discount_banner_picture/'.$photo_file_extention;
-            Image::make($uploaded_picture)->resize(500,500)->save(base_path($picture_new_location));
-            Home::find($banner_id)->update([
-                'discount_banner_picture' => $photo_file_extention,
-            ]);
-        }
-
-        return back()->with('discount_banner_update_done', 'Your succesfully added new discount banner.');
-    }
-
     function productdetailsslug(Request $request, $slug){
 
         $product_info = Product::where('slug', $slug)->firstOrFail();
@@ -221,5 +173,15 @@ class FrontendController extends Controller
             'created_at' => Carbon::Now()
         ]);
         return redirect('/')->with('subscriber_added', 'From now you will get newsletter daily..');
+    }
+
+    function search(){
+        $products = QueryBuilder::for(Product::class)
+            ->allowedFilters('product_name')
+            ->get();
+        return view('admin.frontend.search', [
+            'products' => $products,
+            // 'category' => Category::all(),
+        ]);
     }
 }

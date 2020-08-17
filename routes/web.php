@@ -42,13 +42,22 @@ Route::post('product/review', 'FrontendController@product_review')->name('produc
 
 Route::post('subscriber/added', 'FrontendController@subscriber')->name('subscriber');
 
+Route::get('contact/list/download/{contact_id}', 'FrontendController@contactlistdownload')->name('contactlistdownload');
+
+Route::get('search', 'FrontendController@search');
+
+
+
+//Banner Controller's Route
 Route::resource('banner', 'BannerController');
+
+Route::get('banner/status/activate/{id}', 'BannerController@activate')->name('banner.activate');
+
+Route::get('banner/status/deactivate/{id}', 'BannerController@deactivate')->name('banner.deactivate');
 
 Route::get('banner/restore/{id}', 'BannerController@restore')->name('banner.restore');
 
 Route::get('banner/delete/{id}', 'BannerController@delete')->name('banner.delete');
-
-Route::get('contact/list/download/{contact_id}', 'FrontendController@contactlistdownload')->name('contactlistdownload');
 
 
 
