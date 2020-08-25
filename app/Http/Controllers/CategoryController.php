@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\CategoryForm;
+use Auth;
+use Image;
+use App\User;
 use App\Category;
 use Carbon\Carbon;
-use Auth;
-use App\User;
-use Image;
+use Illuminate\Http\Request;
+use App\Http\Requests\CategoryForm;
 
 class CategoryController extends Controller
 {
@@ -80,6 +80,14 @@ class CategoryController extends Controller
     }
 
     function harddelete_category($category_id){
+        //delete picture from storage start
+        $cat = Category::withTrashed()->find($category_id);
+        if($cat->category_picture != 'default_cat_pic.png'){
+            $old_picture_location = 'public/uploads/category_picture/'.$cat->category_picture;
+            unlink(base_path($old_picture_location));
+        }
+        //delete picture from storage end
+
         Category::withTrashed()->find($category_id)->forceDelete();
         return back()->with('forever_delete', 'Your category deleted for forever.');
     }

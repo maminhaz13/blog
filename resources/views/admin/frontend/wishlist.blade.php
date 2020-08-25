@@ -65,7 +65,7 @@
                                 <th class="images">Image</th>
                                 <th class="product">Product</th>
                                 <th class="ptice">Price</th>
-                                <th class="remove">Remove</th>
+                                <th class="remove">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,7 +77,7 @@
                                     <td>
                                         <ul>
                                             <li class="mb-3">
-                                                <a href="{{ route('removeWishList', $wish_item->id) }}" class = "btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                                                <a href="{{ route('removeWishList', $wish_item->id) }}" title="Remove" class ="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
                                             </li>
                                             <li class="input-style">
                                                 <form action="{{ route('cart.store') }}" method="POST">
@@ -86,7 +86,7 @@
                                                     <li class="quantity cart-plus-minus">
                                                         <input type="text" value="1" name="product_quantity"/>
                                                     </li>
-                                                    <li><button type="submit" class="btn btn-danger">Add to Cart</button></li>
+                                                    <li><button title="Add to cart" type="submit" class="btn btn-danger">Add to Cart</button></li>
                                                 </form>
                                             </li>
                                         </ul>

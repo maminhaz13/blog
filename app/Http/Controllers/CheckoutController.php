@@ -108,6 +108,7 @@ class CheckoutController extends Controller
         $order_details_details = Order_details::where('order_id', $order_id)->get();
         Mail::to($request->email)->send(new PurchaseConfirmation($order_details_details));
         session(['order_id_checkout' => $order_id]);
+        session(['phone_number' => $request->phone_number]);
         if($request->payment_method == 2){
             return redirect('stripe');
         }
@@ -119,7 +120,7 @@ class CheckoutController extends Controller
     function testsms(){
         $url = "http://66.45.237.70/api.php";
         $number="01757059666,01305799269";
-        $text="";
+        $text="Thanks for staying with us and buy some products from us. Kindly wait for your product delivery. You are wolcomed for your next visit.";
         $data= array(
             'username'=>"01840416216",
             'password'=>"CKT4SMZF",

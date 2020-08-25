@@ -40,11 +40,13 @@ class StripePaymentController extends Controller
         ]);
   
         Session::flash('success', 'Payment successful!');
+
         //updating payment status start
         Order::find(session('order_id_checkout'))->update([
             'payment_status' => 2,
         ]);
         //updating payment status end
+
         //removing session data after payment start
         session([
             'coupon_name' => '',
@@ -54,6 +56,27 @@ class StripePaymentController extends Controller
         ]);
         session()->forget('user_id_checkout');
         //removing session data after payment end
+
+        // //bulk sms start
+        // $url = "http://66.45.237.70/api.php";
+        // $number="01757059666,01305799269";
+        // $text="Thanks for staying with us and buy some products from us. Kindly wait for your product delivery. You are wolcomed for your next visit.";
+        // $data= array(
+        //     'username'=>"01840416216",
+        //     'password'=>"CKT4SMZF",
+        //     'number'=>"$number",
+        //     'message'=>"$text"
+        // );
+
+        // $ch = curl_init(); // Initialize cURL
+        // curl_setopt($ch, CURLOPT_URL,$url);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // $smsresult = curl_exec($ch);
+        // $p = explode("|",$smsresult);
+        // return $sendstatus = $p[0];
+        // //bulk sms end
+
         return redirect('/');
     }
 }

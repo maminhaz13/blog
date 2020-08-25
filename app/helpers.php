@@ -28,7 +28,6 @@
   }
   
   // wishList Items and counter starts
-
   function wish_items(){
       return App\Wishlist::where('generated_wish_id', Cookie::get('g_wish_id'))->get();
   }
@@ -36,5 +35,25 @@
   function wish_count(){
       return App\Wishlist::where('generated_wish_id', Cookie::get('g_wish_id'))->count();
   }
-
   // wishList Items and counter ends
+
+  function product(){
+    return App\Product::all();
+  }
+
+  function category(){
+    return App\Category::all();
+  }
+
+  //auth check for feedback form start
+  function review_show_status(){
+    if (Auth::check()) {
+        return 1;
+    }
+
+    else{
+      return 0;
+    }
+  } 
+
+  //auth check for feedback form end

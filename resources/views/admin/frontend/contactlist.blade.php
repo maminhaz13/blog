@@ -27,7 +27,7 @@
                             @endif --}}
                             
                             <div class="table-responsive">
-                                <table class="table table-hover mg-b-0">
+                                <table id="tableOne" class="table table-hover mg-b-0">
                                     <thead>
                                         <tr>
                                         <th scope="col">Serial No</th>
@@ -66,7 +66,6 @@
                                         @endforelse
                                     </tbody>
                                 </table>
-                            {{ $contact_details->links() }}
                             </div>
                         </div>
                 </div>
@@ -79,3 +78,13 @@
 </div>
 
 @endsection  
+
+  @section('footer_scripts')
+
+  <script>
+      $(document).ready( function () {
+          $('#tableOne').DataTable();
+      } );
+  </script>
+
+  @endsection

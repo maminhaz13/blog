@@ -7,6 +7,7 @@ use Mail;
 use Image;
 use App\Home;
 use App\User;
+use App\About;
 use App\Banner;
 use App\Contact;
 use App\Product;
@@ -17,8 +18,10 @@ use App\Testmonial;
 use App\Order_details;
 use App\Mail\NewsLetter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -52,16 +55,34 @@ class FrontendController extends Controller
     }
 
     function index(){
+        $bestseller_asc = DB::table('Order_details')
+            ->select('product_id', DB::raw('count(*) as total'))
+            ->groupBy('product_id')
+            ->get();
+        $bestseller_desc = $bestseller_asc->sortByDesc('total')->take(8);
         return view('admin.frontend.landing', [
             'active_categories' => Category::all(),
             'active_products' => Product::all(),
             'banners' => Banner::where('show_status', 1)->get(),
-            'testmonials' => Testmonial::all(),
+            'testmonials' => Testmonial::where('show_status', 2)->latest()->get(),
+            'bestseller_desc' => $bestseller_desc,
         ]);
     }
-    
-    function about(){
-        return view('about');
+
+    /**
+     * Display about page for customers.
+     */
+    public function aboutus()
+    {
+        $bestseller_asc = DB::table('Order_details')
+            ->select('product_id', DB::raw('count(*) as total'))
+            ->groupBy('product_id')
+            ->get();
+        $bestseller_desc = $bestseller_asc->sortByDesc('total')->take(8);
+        return view('admin.frontend.about', [
+            'bestseller_desc' => $bestseller_desc,
+            'our_stories' => About::where('show_status', 2)->whereNotNull('story')->get(),
+        ]);
     }
 
     function contact(){ 
@@ -110,10 +131,36 @@ class FrontendController extends Controller
     }
 
     function usertestmonial(Request $request){
-        Testmonial::insert($request->except('_token'), [
+        Testmonial::insert([
+            'user_id' => Auth::id(),
+            'reviewer_name' => Auth::user()->name,
+            'reviewer_email' => Auth::user()->email,
+            'review_full' => $request->review_full,
             'created_at' => Carbon::now(),
         ]);
         return back();
+    }
+
+    function testmoniallist(){
+        return view('admin.frontend.testimonial_list', [
+            'testmonial_all' => Testmonial::all(),
+        ]);
+    }
+
+    function testmonial_show($testimonial_id){
+        Testmonial::findOrFail($testimonial_id)->update([
+            'show_status' => 2,
+            'updated_at' => Carbon::now(),
+        ]);
+        return back()->with('testi_shown', 'You shown a user testimonial');
+    }
+
+    function testmonial_hide($testimonial_id){
+        Testmonial::findOrFail($testimonial_id)->update([
+            'show_status' => 1,
+            'updated_at' => Carbon::now(),
+        ]);
+        return back()->with('testi_hidden', 'You hidden a user testimonial');
     }
 
     function productdetailsslug(Request $request, $slug){
@@ -177,7 +224,8 @@ class FrontendController extends Controller
 
     function search(){
         $products = QueryBuilder::for(Product::class)
-            ->allowedFilters('product_name')
+            ->allowedFilters('product_name', 'category_id')
+            ->allowedSorts('product_name')
             ->get();
         return view('admin.frontend.search', [
             'products' => $products,

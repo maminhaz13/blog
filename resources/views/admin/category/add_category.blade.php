@@ -103,7 +103,7 @@
                             
                             <button type="submit" class="btn btn-dark active btn-btn-sm mg-b-10">
                               <i class="fa fa-send mg-r-10">
-                                Add Category
+                                Insert Category
                               </i>
                             </button>
                           </form>
@@ -172,7 +172,7 @@
                   </div>
                 @endif
 
-                  <form method="post" action="{{ route('markdeletecategory') }}">
+                <form method="post" action="{{ route('markdeletecategory') }}">
                   @csrf
                   <div class="table-responsive">
                     <table id="table" class="table table-hover mg-b-0">
@@ -345,7 +345,7 @@
                       </table>  
                     </div>
                     @if($deleted_data->count() > 0)
-                      <button type="submit" class="btn btn-dark active btn-btn-sm mg-b-10">Mark Restore</button>                    
+                      <button type="submit" class="btn btn-dark active btn-btn-sm mg-b-10">Mark Restore</button>
                     @endif
                 </form>
               </div>

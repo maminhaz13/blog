@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Category;
-use App\Product;
-use App\Picture_Multiple;
 use Auth;
 use Image;
-use App\Http\Requests\ProductStore;
-use Illuminate\Support\Str;
+use App\Product;
+use App\Category;
 use Carbon\Carbon;
+use App\Picture_Multiple;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Requests\ProductStore;
 
 class ProductController extends Controller
 {
@@ -162,7 +162,26 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function productforeverdelete(Request $request, $id){
+        // //delete picture from storage start
+        // $product = Product::withTrashed()->find($id);
+        // if($product->product_thumbnail_picture != 'default_product_thumbnail_photo'){
+        //     $old_picture_location = 'public/uploads/product_thumbnail_picture/'.$product->product_thumbnail_picture;
+        //     unlink(base_path($old_picture_location));
+        // }
+        // //delete picture from storage end
+
         Product::withTrashed()->find($id)->forceDelete();
         return back()->with('product_force_delete_success', 'Your product Deleted for forever successfully');
+    }
+
+    /**
+     * Delete the marked products forever.
+     *
+     * @param  \Illuminate\Http\Request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function product_mark_delete(Request $request, $id){
+        return "hello";
     }
 }

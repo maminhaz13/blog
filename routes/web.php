@@ -16,15 +16,23 @@ use Illuminate\Support\Facades\Route;
 //Frontend Controller's Route
 Route::get('/', 'FrontendController@index')->name('index');
 
-Route::get('about', 'FrontendController@about')->name('about');
-
 Route::get('contact', 'FrontendController@contact')->name('contact');
+
+Route::get('aboutus', 'FrontendController@aboutus')->name('aboutus');
 
 Route::get('contact/list', 'FrontendController@contactlist')->name('contactlist')->middleware('auth');
 
 Route::post('contact/post', 'FrontendController@contactpost')->name('contactpost');
 
+Route::get('contact/list/download/{contact_id}', 'FrontendController@contactlistdownload')->name('contactlistdownload');
+
 Route::post('user/testmonial', 'FrontendController@usertestmonial')->name('usertestmonial');
+
+Route::get('testmonial/list', 'FrontendController@testmoniallist')->name('testmoniallist');
+
+Route::get('testmonial/single/hide/{testimonial_id}', 'FrontendController@testmonial_hide')->name('testimonial.deactivate');
+
+Route::get('testmonial/single/show/{testimonial_id}', 'FrontendController@testmonial_show')->name('testimonial.activate');
 
 Route::post('newsletter/add', 'FrontendController@newsletter_add')->name('newsletter.add');
 
@@ -41,8 +49,6 @@ Route::post('register/user/post', 'FrontendController@user_registration_post')->
 Route::post('product/review', 'FrontendController@product_review')->name('product.review');
 
 Route::post('subscriber/added', 'FrontendController@subscriber')->name('subscriber');
-
-Route::get('contact/list/download/{contact_id}', 'FrontendController@contactlistdownload')->name('contactlistdownload');
 
 Route::get('search', 'FrontendController@search');
 
@@ -109,6 +115,8 @@ Route::get('product/restore/{product_id}', 'ProductController@productrestore')->
 
 Route::get('product/foreverdelete/{product_id}', 'ProductController@productforeverdelete')->name('productforeverdelete')->middleware('auth');
 
+Route::post('product/delete/mark', 'ProductController@product_mark_delete')->name('product.mark.delete')->middleware('auth');
+
 
 
 //Cart Controller's Route
@@ -174,8 +182,20 @@ Route::get('wishlist/remove/{product_id}', 'WishListController@removeWishList')-
 
 
 
-
 //Order Controller's Route
 Route::resource('order', 'OrderController')->middleware('auth');
 
 Route::get('order/cancel/{order_id}', 'OrderController@order_cancel')->name('order.cancel')->middleware('auth');
+
+
+
+//About Controller's Route
+Route::resource('about', 'AboutController');
+
+Route::get('about/status/activate/{id}', 'AboutController@activate')->name('about.activate');
+
+Route::get('about/status/deactivate/{id}', 'AboutController@deactivate')->name('about.deactivate');
+
+Route::get('about/information/restore/{id}', 'AboutController@restore')->name('about.restore');
+
+Route::get('about/delete/{id}', 'AboutController@delete')->name('about.delete');

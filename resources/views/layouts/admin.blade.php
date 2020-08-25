@@ -38,20 +38,21 @@
     <link href="{{ asset('dashboard_starlight') }}/lib/datatables/jquery.dataTables.css" rel="stylesheet">
     <link href="{{ asset('dashboard_starlight') }}/lib/select2/css/select2.min.css" rel="stylesheet">
 
-    <script src="cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"></script>
-
+    <!-- css datatable -->
+    <script src="{{ asset('dashboard_starlight') }}/css/jquery.dataTables.min.css"></script>
 
     <link rel="shortcut icon" type="image/png" href="{{ asset('uploads') }}/favicon/favicon.png">
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard_starlight') }}/css/starlight.css">
+
     
   </head>
 
   <body>
 
     <!-- ########## START: LEFT PANEL ########## -->
-    <div class="sl-logo"><a href="{{ route('index') }}"><i class="icon ion-android-star-outline"></i> {{ env('APP_NAME') }}</a></div>
+    <div class="sl-logo"><a href="{{ route('home') }}"><i class="icon ion-android-star-outline"></i> {{ env('APP_NAME') }}</a></div>
     <div class="sl-sideleft">
       <div class="input-group input-group-search">
         <input type="search" name="search" class="form-control" placeholder="Search">
@@ -63,7 +64,6 @@
       <label class="sidebar-label">Navigation</label>
       <div class="sl-sideleft-menu">
 
-        @if(Auth::user()->role == 1)
           <a href="" class="sl-menu-link @yield('frontend_active')">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
@@ -71,8 +71,15 @@
               <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
+          {{-- <a href="{{ route('about_manage') }}" class="sl-menu-link @yield('about_manage_active')">
+            <div class="sl-menu-item">
+              <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+              <span class="menu-item-label">About Us</span>
+            </div><!-- menu-item -->
+          </a><!-- sl-menu-link --> --}}
           <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{ route('banner.index') }}" class="nav-link">Banners</a></li>
+            <li class="nav-item"><a href="{{ route('about.index') }}" class="nav-link">About Us</a></li>
           </ul>
 
           <a href="{{ route('addcategory') }}" class="sl-menu-link @yield('category_active')">
@@ -95,20 +102,21 @@
               <span class="menu-item-label">Order Management</span>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
-        @else
-          <a href="{{ route('home') }}" class="sl-menu-link @yield('home_active')">
+
+          <a href="{{ route('contactlist') }}" class="sl-menu-link @yield('contacts_active')">
             <div class="sl-menu-item">
-              <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
-              <span class="menu-item-label">Home</span>
+              <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+              <span class="menu-item-label">Contacts Management</span>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
-          <a href="{{ route('customer.order') }}" class="sl-menu-link @yield('order_active')">
+
+          <a href="{{ route('testmoniallist') }}" class="sl-menu-link @yield('testmonial_active')">
             <div class="sl-menu-item">
-              <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
-              <span class="menu-item-label">Orders</span>
+              <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+              <span class="menu-item-label">Testimonials</span>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
-        @endif
+
       </div><!-- sl-sideleft-menu -->
 
       <br>
@@ -331,7 +339,10 @@
     <script src="{{ asset('dashboard_starlight') }}/lib/select2/js/select2.min.js"></script>
     <script src="{{ asset('dashboard_starlight') }}/js/starlight.js"></script>
 
-    <script src="cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- cdn chart.js -->
+    <script src="{{ asset('dashboard_starlight') }}/cdn/jquery.dataTables.min.js"></script>
+    <!-- cdn chart.js -->
+    <script src="{{ asset('dashboard_starlight') }}/cdn/chart.js@2.8.0"></script>
 
     @yield('footer_scripts')
   </body>

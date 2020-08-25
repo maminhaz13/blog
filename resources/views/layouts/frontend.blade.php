@@ -42,9 +42,9 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
     <!--Start Preloader-->
-    {{-- <div class="preloader-wrap">
+    <div class="preloader-wrap">
         <div class="spinner"></div>
-    </div> --}}
+    </div>
     <!-- search-form here -->
     <div class="search-area flex-style">
         <span class="closebar">Close</span>
@@ -54,11 +54,15 @@
                     <div class="search-form">
                         <form action="{{ url('search') }}" method="GET">
                             <input type="text" placeholder="Search Here..." name="filter[product_name]">
-                            <select name="filter[id]" id="" class="form-control">
-                                <option value="">--select a option--</option>
-                                @foreach($active_categories as $cat)
+                            <select name="filter[category_id]" id="" class="form-control">
+                                <option value="">--> select a option <--</option>
+                                @foreach(category() as $cat)
                                     <option value="{{ $cat->id }}">{{ $cat->category_name }}</option>
                                 @endforeach
+                            </select>
+                            <select name="sort" id="" class="form-control">
+                                <option value="product_name">--> sort by a-z <--</option>
+                                <option value="-product_name">-- > sort by z-a <--</option>
                             </select>
                             <button><i class="fa fa-search"></i></button>
                         </form>
@@ -126,13 +130,16 @@
                                     <a href="{{ route('index') }}">Home</a>
                                 </li>
                                 <li class="@yield('menu_about_active')">
-                                    <a href="about.html">About</a>
+                                    <a href="{{ url('about') }}">About</a>
                                 </li>
                                 <li class="@yield('menu_shop_active')">
                                     <a href="{{ route('shop') }}">Shop</a>
                                 </li>
                                 <li class="@yield('menu_wishlist_active')">
                                     <a href="{{ route('wishlist') }}">Wishlist</a>
+                                </li>
+                                <li class="@yield('menu_orders_active')">
+                                    <a href="{{ route('customer.order') }}">Your Orders</a>
                                 </li>
                                 <li class="@yield('menu_contact_active')">
                                     <a href="{{ route('contact') }}">Contact</a>
@@ -305,62 +312,31 @@
     </section>
     <!-- end social-newsletter-section -->
     <!-- .footer-area start -->
-    <div class="footer-area">
+    <div class="footer-area mb-3">
         <div class="footer-top">
-            <div class="container">
-                <div class="footer-top-item">
-                    <div class="row">
-                        <div class="col-lg-12 col-12">
-                            <div class="footer-top-text text-center">
-                                <ul>
-                                    <li><a href="home.html">home</a></li>
-                                    <li><a href="#">our story</a></li>
-                                    <li><a href="#">feed shop</a></li>
-                                    <li><a href="blog.html">how to eat blog</a></li>
-                                    <li><a href="contact.html">contact</a></li>
-                                </ul>
+            @if(review_show_status() == 1)
+                <section class="social-newsletter-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="newsletter text-center">
+                                    <h3>Share your feedback with us...</h3>
+                                    <div class="newsletter-form">
+                                        <form action="{{ route('usertestmonial') }}" method="POST">
+                                            @csrf
+                                            <input name="review_full" type="text" class="form-control" placeholder="Share your feedback...">
+                                            <button type="submit"><i class="fa fa-send"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <br>
-            <div class=" col-8 m-auto justify-content-center mt-5">
-                <div class="card">
-                    <div class="card-header">Review Submit Form</div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ url('user/testmonial') }}">
-                            @csrf
-                            <div class="form-group">
-                                <label for="">Your Name</label>
-                                <input type="text" name="reviewer_name" class="form-control" id="">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Your Email Address</label>
-                                <input type="email" name="reviewer_email" class="form-control" id="" aria-describedby="emailHelp">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Your Position</label>
-                                <input type="text" name="reviewer_position" class="form-control" id="">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Email Subject for Review</label>
-                                <input type="text" name="review_subject" class="form-control" id="" >
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Review </label>
-                                <textarea type="text" name="review_full" class="form-control" name="" rows="4" cols="50"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                    <!-- end container -->
+                </section>
+            @endif
         </div>
+
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">

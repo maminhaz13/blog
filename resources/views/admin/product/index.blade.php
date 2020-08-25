@@ -34,64 +34,70 @@
               @endif
                 </div>
                 {{-- Added products table start --}}
-                <div class="table-responsive mb-5 mt-5">
-                  <table id="table" class="table table-hover mg-b-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Mark <input type="checkbox" id="checkAll"></th>
-                        <th scope="col">Serial No</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Category Name</th>
-                        <th scope="col">Product Short Description</th>
-                        <th scope="col">Product Long Description</th>
-                        <th scope="col">Product Quantity</th>
-                        <th scope="col">Product Alert Quantity</th>
-                        <th scope="col">Product Price</th>
-                        <th scope="col">Product Picture</th>
-                        <th scope="col">Action</th>
+                <form action="{{ url('product/delete/mark') }}" method="POST">
+                @csrf
+                  <div class="table-responsive mb-5 mt-5">
+                    <table id="table" class="table table-hover mg-b-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">Mark <input type="checkbox" id="checkAll"></th>
+                          <th scope="col">Serial No</th>
+                          <th scope="col">Product Name</th>
+                          <th scope="col">Category Name</th>
+                          <th scope="col">Product Short Description</th>
+                          <th scope="col">Product Long Description</th>
+                          <th scope="col">Product Quantity</th>
+                          <th scope="col">Product Alert Quantity</th>
+                          <th scope="col">Product Price</th>
+                          <th scope="col">Product Picture</th>
+                          <th scope="col">Action</th>
 
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @forelse($product_data as $prodata)
-                        <tr>
-                          <td>
-                            <input class="ckbox mg-b-0" type="checkbox" name="product_data" value= "$prodata->id" id="checkItem">
-                          </td>
-                          <td>{{ $loop->index+1 }}</td>
-                          <td>{{ $prodata->product_name }}</td>
-                          <td>{{ $prodata->relationship_with_category_for_catname->category_name }}</td>
-                          <td>{{ $prodata->product_short_description }}</td>
-                          <td>{{ $prodata->product_long_description }}</td>
-                          <td>{{ $prodata->product_quantity }}</td>
-                          <td>{{ $prodata->product_alert_quantity }}</td>
-                          <td>{{ $prodata->product_price }}</td>
-                          <td>
-                            <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $prodata->product_thumbnail_picture }}" class="img-fluid" alt="image not found">
-                          </td>
-                          <td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                              <a href="{{ route('Product.edit', $prodata->id) }}" type="button" class="btn btn-info active btn-btn-sm mg-b-10 btn btn sm">
-                                Edit
-                              </a>
-                              <form method="POST" action="{{ route('Product.destroy', $prodata->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger active btn-btn-sm mg-b-10 btn btn sm" >
-                                  Trash
-                                </button>
-                              </form>
-                            </div>
-                          </td>
                         </tr>
-                      @empty
-                        <tr>
-                          <td colspan="100" class="text-center text-danger"> No more data available </td>  
-                        </tr>                
-                      @endforelse
-                    </tbody>
-                  </table>
-                </div>
+                      </thead>
+                      <tbody>
+                        @forelse($product_data as $prodata)
+                          <tr>
+                            <td>
+                              <input class="ckbox mg-b-0" type="checkbox" name="product_data" value= "{{ $prodata->id }}" id="checkItem">
+                            </td>
+                            <td>{{ $loop->index+1 }}</td>
+                            <td>{{ $prodata->product_name }}</td>
+                            <td>{{ $prodata->relationship_with_category_for_catname->category_name }}</td>
+                            <td>{{ $prodata->product_short_description }}</td>
+                            <td>{{ $prodata->product_long_description }}</td>
+                            <td>{{ $prodata->product_quantity }}</td>
+                            <td>{{ $prodata->product_alert_quantity }}</td>
+                            <td>{{ $prodata->product_price }}</td>
+                            <td>
+                              <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $prodata->product_thumbnail_picture }}" class="img-fluid" alt="image not found">
+                            </td>
+                            <td>
+                              <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="{{ route('Product.edit', $prodata->id) }}" type="button" class="btn btn-info active btn-btn-sm mg-b-10 btn btn sm">
+                                  Edit
+                                </a>
+                                <form method="POST" action="{{ route('Product.destroy', $prodata->id) }}">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-danger active btn-btn-sm mg-b-10 btn btn sm" >
+                                    Trash
+                                  </button>
+                                </form>
+                              </div>
+                            </td>
+                          </tr>
+                        @empty
+                          <tr>
+                            <td colspan="100" class="text-center text-danger"> No more data available </td>  
+                          </tr>
+                        @endforelse
+                      </tbody>
+                    </table>
+                    @if($prodata->count() > 0)
+                      <button type="submit" class="btn btn-dark active btn-btn-sm mg-b-10"> Mark Delete</button>
+                    @endif
+                  </div>
+                </form>
                 {{-- Added products table end --}}
               </div>
           </div>
@@ -355,7 +361,7 @@
   <script>
       $(document).ready( function () {
           $('#tableOne').DataTable();
-      } );
+      });
   </script>
 
   @endsection

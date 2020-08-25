@@ -133,6 +133,14 @@ class BannerController extends Controller
      */
     public function delete($id)
     {
+        //delete picture from storage start
+        $banner = Banner::withTrashed()->findOrFail($id);
+        if($banner->main_banner_picture != 'default_main_banner_picture.png'){
+            $old_picture_location = 'public/uploads/main_banner_picture/'.$banner->main_banner_picture;
+            unlink(base_path($old_picture_location));
+        }
+        //delete picture from storage end
+
         Banner::withTrashed()->findOrFail($id)->forceDelete();
         return redirect('banner')->with('main_banner_delete_done', 'Your deleted a banner successfully');
     }
