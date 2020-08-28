@@ -9,7 +9,7 @@
 
 <div class="sl-mainpanel">
 <nav class="breadcrumb sl-breadcrumb">
-  <a class="breadcrumb-item" href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
+  <a class="breadcrumb-item" href="{{ route('home') }}">{{ config('app.name') }}</a>
   <a class="breadcrumb-item" href="{{ route('about.index') }}">About Us</a>
   <span class="breadcrumb-item active">Edit About Us</span>
 </nav>
@@ -28,26 +28,6 @@
                     <div class="col-md-12 form-group">
                         <label>Our Story</label>
                         <input type="text" class="form-control" id="" name="story" value="{{ $about_info->story }}">
-                    </div>
-
-                    <div class="col-md-12 form-group">
-                        <label>Address</label>
-                        <input type="text" class="form-control" id="" name="address" value="{{ $about_info->address }}">
-                    </div>
-
-                    <div class="col-md-12 form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" id="" name="email" value="{{ $about_info->email }}">
-                    </div>
-
-                    <div class="col-md-12 form-group">
-                        <label>Telephone</label>
-                        <input type="number" class="form-control" id="" name="telephone" value="{{ $about_info->telephone }}">
-                    </div>
-
-                    <div class="col-md-12 form-group">
-                        <label>Phone Number</label>
-                        <input type="number" class="form-control" id="" name="phone" value="{{ $about_info->phone }}">
                     </div>
 
                     <button type="submit" class="btn btn-dark active mg-b-10 btn-btn-sm">Submit</button>

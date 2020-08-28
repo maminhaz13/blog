@@ -66,21 +66,25 @@
                         <ul>
                             <li>
                                 <i class="fa fa-home"></i> Address:
-                                <p>1234, Contrary to popular Sed ut perspiciatis unde 1234</p>
+                                @foreach(contact_info() as $contact_h)
+                                    <p>{{ $contact_h->address }}</p>
+                                @endforeach
                             </li>
                             <li>
                                 <i class="fa fa-phone"></i> Email address:
-                                <p>
-                                    <span>info@yoursite.com </span>
-                                    <span>info@yoursite.com </span>
-                                </p>
+                                @foreach(contact_info() as $contact_h)
+                                    <p>
+                                        <span>{{ $contact_h->email }} </span>
+                                    </p>
+                                @endforeach
                             </li>
                             <li>
                                 <i class="fa fa-envelope"></i> phone number:
-                                <p>
-                                    <span>+0123456789</span>
-                                    <span>+1234567890</span>
-                                </p>
+                                @foreach(contact_info() as $contact_h)
+                                    <p>
+                                        <span>{{ $contact_h->phone }}</span>
+                                    </p>
+                                @endforeach
                             </li>
                         </ul>
                     </div>

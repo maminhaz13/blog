@@ -79,7 +79,8 @@
           </a><!-- sl-menu-link --> --}}
           <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{ route('banner.index') }}" class="nav-link">Banners</a></li>
-            <li class="nav-item"><a href="{{ route('about.index') }}" class="nav-link">About Us</a></li>
+            <li class="nav-item"><a href="{{ route('about.index') }}" class="nav-link">About - Our Story</a></li>
+            <li class="nav-item"><a href="{{ route('custom.contact.index') }}" class="nav-link">Contact Information</a></li>
           </ul>
 
           <a href="{{ route('addcategory') }}" class="sl-menu-link @yield('category_active')">

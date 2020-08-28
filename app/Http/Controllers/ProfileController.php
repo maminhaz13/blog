@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
+use Hash;
+use Mail;
+use Image;
 use App\User;
 use Carbon\Carbon;
-use Hash;
-use Image;
-use Mail;
+use Illuminate\Http\Request;
 use App\Mail\PasswordChangeMail;
 
 class ProfileController extends Controller
@@ -20,8 +20,8 @@ class ProfileController extends Controller
 
     function edit_profile(Request $request){
 
-        $request->validate([
         //Validating The Profile Start
+        $request->validate([
             'profile_name' => 'required|alpha'
         ],[
             'profile_name.required' => 'Fill up the form correctly',

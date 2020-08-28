@@ -79,8 +79,13 @@
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <ul class="d-flex header-contact">
-                            <li><i class="fa fa-phone"></i> +01 123 456 789</li>
-                            <li><i class="fa fa-envelope"></i> youremail@gmail.com</li>
+                            @foreach(contact_info_header() as $contact_h)
+                                <li><i class="fa fa-phone"></i> {{ $contact_h->telephone }}</li>
+                            @endforeach
+                            @foreach(contact_info_header() as $contact_h)
+                                <li><i class="fa fa-envelope"></i> {{ $contact_h->email }}</li>
+                            @endforeach
+
                         </ul>
                     </div>
                     <div class="col-md-6 col-12">
@@ -275,67 +280,54 @@
     @yield('frontend_content')
 
 
-    <!-- start social-newsletter-section -->
-    <section class="social-newsletter-section">
+    <div class="footer-area ptb-100">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="newsletter text-center">
-
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <div class="alert alert-warning" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                    <div class="d-flex align-items-center justify-content-start">
-                                        <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                                        <span><strong>{{ $error }}..</strong></span>
-                                    </div>
+                <div class="col-lg-6 col-12">
+                    @if(review_show_status() == 1)
+                        <!-- start user-testimonial-section -->
+                        <section class="social-newsletter-section">
+                            <div class="newsletter text-center">
+                                <h3>Share your feedback with us...</h3>
+                                <div class="newsletter-form">
+                                    <form action="{{ route('usertestmonial') }}" method="POST">
+                                        @csrf
+                                        <input name="review_full" type="text" class="form-control" placeholder="Share your feedback...">
+                                        <button type="submit"><i class="fa fa-send"></i></button>
+                                    </form>
                                 </div>
-                            @endforeach
-                        @endif
+                            </div>
+                        </section>
+                        <!-- end user-testimonial-section -->
+                    @endif
+                </div>
 
-                        <h3>Subscribe  Newsletter</h3>
-                        <div class="newsletter-form">
-                            <form action="{{ route('subscriber') }}" method="POST">
-                                @csrf
-                                <input name="subscriber" type="text" class="form-control" placeholder="Enter Your Email Address...">
-                                <button type="submit"><i class="fa fa-send"></i></button>
-                            </form>
+                <div class="col-lg-6">
+                    <!-- start social-newsletter-section -->
+                    <section class="social-newsletter-section">
+                        <div class="newsletter text-center">
+                            <h3>Subscribe  Newsletter</h3>
+                            <div class="newsletter-form">
+                                <form action="{{ route('subscriber') }}" method="POST">
+                                    @csrf
+                                    <input name="subscriber" type="text" class="form-control" placeholder="Enter Your Email Address...">
+                                    <button type="submit"><i class="fa fa-send"></i></button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    </section>
+                    <!-- end social-newsletter-section -->
                 </div>
             </div>
         </div>
-        <!-- end container -->
-    </section>
-    <!-- end social-newsletter-section -->
+    </div>
+
+
+
     <!-- .footer-area start -->
     <div class="footer-area mb-3">
-        <div class="footer-top">
-            @if(review_show_status() == 1)
-                <section class="social-newsletter-section">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="newsletter text-center">
-                                    <h3>Share your feedback with us...</h3>
-                                    <div class="newsletter-form">
-                                        <form action="{{ route('usertestmonial') }}" method="POST">
-                                            @csrf
-                                            <input name="review_full" type="text" class="form-control" placeholder="Share your feedback...">
-                                            <button type="submit"><i class="fa fa-send"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end container -->
-                </section>
-            @endif
-        </div>
+        {{-- <div class="footer-top">
+        </div> --}}
 
         <div class="footer-bottom">
             <div class="container">
@@ -358,9 +350,15 @@
                     <div class="col-lg-3 col-md-8 col-sm-12">
                         <div class="footer-adress">
                             <ul>
-                                <li><a href="#"><span>Email:</span> domain@gmail.com</a></li>
-                                <li><a href="#"><span>Tel:</span> 0131234567</a></li>
-                                <li><a href="#"><span>Adress:</span> 52 Web Bangale , Adress line2 , ip:3105</a></li>
+                                @foreach(contact_info() as $contact)
+                                    <li><a href="#"><span>Email:</span> {{ $contact->email }}</a></li>
+                                @endforeach
+                                @foreach(contact_info() as $contact)
+                                    <li><a href="#"><span>Tel:</span> {{ $contact->telephone }}</a></li>
+                                @endforeach
+                                @foreach(contact_info() as $contact)
+                                    <li><a href="#"><span>Adress:</span> {{ $contact->address }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -376,6 +374,7 @@
         </div>
     </div>
     <!-- .footer-area end -->
+
     <!-- Modal area start -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">

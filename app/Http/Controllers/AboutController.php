@@ -40,12 +40,14 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
+        // Validating abouts' story Start
+        $validatedData = $request->validate([
+            'story' => ['unique:abouts,story', 'string', 'required'],
+        ]);
+        // Validating abouts' story End
+
         About::insert([
             'story' => $request->story,
-            'email' => $request->email,
-            'telephone' => $request->telephone,
-            'phone' => $request->phone,
-            'address' => $request->address,
             'created_at' => Carbon::now(),
         ]);
         return back()->with('about_added', 'You added a story successfully');
@@ -86,10 +88,7 @@ class AboutController extends Controller
     {
         About::findOrFail($id)->update([
             'story' => $request->story,
-            'email' => $request->email,
-            'telephone' => $request->telephone,
-            'phone' => $request->phone,
-            'address' => $request->address,
+            'updated_at' => Carbon::now(),
         ]);
 
         return redirect('about')->with('about_edit_done', 'Your succesfully edited your existing about information.');
@@ -138,7 +137,8 @@ class AboutController extends Controller
     public function activate($id)
     {
         About::findOrFail($id)->update([
-            'show_status' => 2,
+            'show_story' => 2,
+            'updated_at' => Carbon::now(),
         ]);
         return redirect('about')->with('about_shown_done', 'Your showed some information publically');
     }
@@ -151,7 +151,8 @@ class AboutController extends Controller
     public function deactivate($id)
     {
         About::findOrFail($id)->update([
-            'show_status' => 1,
+            'show_story' => 1,
+            'updated_at' => Carbon::now(),
         ]);
         return redirect('about')->with('about_unshown_done', 'Your hid some information form puclic page..');
     }

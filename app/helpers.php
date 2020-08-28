@@ -55,5 +55,16 @@
       return 0;
     }
   } 
-
   //auth check for feedback form end
+
+  //contact info all
+  function contact_info(){
+    return App\Contact_info::where('show_status', 2)->latest()->get();
+  //contact info end
+  }
+
+  //contact info all
+  function contact_info_header(){
+    return App\Contact_info::where('show_status', 2)->latest()->get()->take(1);
+  //contact info end
+  }

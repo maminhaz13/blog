@@ -17,6 +17,21 @@
                     <strong class="d-block d-sm-inline-block-force">{{ session('subscriber_added') }}</strong>
                 </div>
             @endif
+
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-warning" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <div class="d-flex align-items-center justify-content-start">
+                            <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                            <span><strong>{{ $error }}..</strong></span>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+
         </div>
     </div>
 </div>

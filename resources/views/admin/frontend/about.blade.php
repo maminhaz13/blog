@@ -15,7 +15,7 @@
                     <div class="breadcumb-wrap text-center">
                         <h2>About us</h2>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="{{ route('index') }}">Home</a></li>
                             <li><span>About</span></li>
                         </ul>
                     </div>
@@ -34,7 +34,7 @@
                         @forelse ($our_stories as $story)
                             <p class="mb-0">{{ $story->story }}</p>
                         @empty
-                            <p class="mb-0"> Author did not share story... Keep patience till author write stories  </p>
+                            <strong><p class="mb-0"> Author did not share story... Keep patience till author write stories  </p></strong>
                         @endforelse
                     </div>
                 </div>

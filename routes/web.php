@@ -52,6 +52,24 @@ Route::post('subscriber/added', 'FrontendController@subscriber')->name('subscrib
 
 Route::get('search', 'FrontendController@search');
 
+Route::get('customize/contact_info', 'FrontendController@custom_contact')->name('custom.contact.index');
+
+Route::post('customize/contact_info/add', 'FrontendController@custom_contact_add')->name('custom.contact.add');
+
+Route::get('customize/contact_info/edit/{id}', 'FrontendController@custom_contact_edit')->name('custom.contact.edit');
+
+Route::post('customize/contact_info/update/{id}', 'FrontendController@custom_contact_update')->name('custom.contact.update');
+
+Route::get('customize/contact_info/trash/{id}', 'FrontendController@custom_contact_trash')->name('custom.contact.trash');
+
+Route::get('customize/contact_info/restore/{id}', 'FrontendController@custom_contact_restore')->name('custom.contact.restore');
+
+Route::get('customize/contact_info/delete/{id}', 'FrontendController@custom_contact_delete')->name('custom.contact.delete');
+
+Route::get('customize/contact_info/activate/{id}', 'FrontendController@custom_contact_activate')->name('custom.contact.activate');
+
+Route::get('customize/contact_info/deactivate/{id}', 'FrontendController@custom_contact_deactivate')->name('custom.contact.deactivate');
+
 
 
 //Banner Controller's Route
