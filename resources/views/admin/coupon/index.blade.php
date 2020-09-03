@@ -4,7 +4,7 @@
 
 <div class="sl-mainpanel">
   <nav class="breadcrumb sl-breadcrumb">
-    <a class="breadcrumb-item" href="{{ route('index') }}">{{ env('APP_NAME') }}</a>
+    <a class="breadcrumb-item" href="{{ route('index') }}">{{ config('app.name') }}</a>
     <a class="breadcrumb-item" href="">Coupon</a>
     {{-- <span class="breadcrumb-item active">{{ $edit_data->category_name }}</span> --}}
   </nav>

@@ -52,7 +52,7 @@
   <body>
 
     <!-- ########## START: LEFT PANEL ########## -->
-    <div class="sl-logo"><a href="{{ route('home') }}"><i class="icon ion-android-star-outline"></i> {{ env('APP_NAME') }}</a></div>
+    <div class="sl-logo"><a href="{{ route('home') }}"><i class="icon ion-android-star-outline"></i> {{ config('app.name') }}</a></div>
     <div class="sl-sideleft">
       <div class="input-group input-group-search">
         <input type="search" name="search" class="form-control" placeholder="Search">
@@ -71,17 +71,12 @@
               <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
-          {{-- <a href="{{ route('about_manage') }}" class="sl-menu-link @yield('about_manage_active')">
-            <div class="sl-menu-item">
-              <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-              <span class="menu-item-label">About Us</span>
-            </div><!-- menu-item -->
-          </a><!-- sl-menu-link --> --}}
           <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{ route('banner.index') }}" class="nav-link">Banners</a></li>
             <li class="nav-item"><a href="{{ route('about.index') }}" class="nav-link">About - Our Story</a></li>
             <li class="nav-item"><a href="{{ route('custom.contact.index') }}" class="nav-link">Contact Information</a></li>
           </ul>
+
 
           <a href="{{ route('addcategory') }}" class="sl-menu-link @yield('category_active')">
             <div class="sl-menu-item">
@@ -90,12 +85,18 @@
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
 
-          <a href="{{ route('Product.index') }}" class="sl-menu-link @yield('product_active')">
+          <a href="" class="sl-menu-link @yield('faq_active')">
             <div class="sl-menu-item">
-              <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+              <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
               <span class="menu-item-label">Product Management</span>
+              <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
+          <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="{{ route('Product.index') }}" class="nav-link">All Products</a></li>
+            <li class="nav-item"><a href="{{ route('faq.index') }}" class="nav-link">Product FAQ</a></li>
+            <li class="nav-item"><a href="{{ route('Product.discount') }}" class="nav-link">Manage product Discount</a></li>
+          </ul>
 
           <a href="{{ route('order.index') }}" class="sl-menu-link @yield('order_manage_active')">
             <div class="sl-menu-item">
@@ -107,7 +108,7 @@
           <a href="{{ route('contactlist') }}" class="sl-menu-link @yield('contacts_active')">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-              <span class="menu-item-label">Contacts Management</span>
+              <span class="menu-item-label">Customers Messages</span>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
 

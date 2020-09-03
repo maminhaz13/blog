@@ -49,7 +49,7 @@
                     <div class="card text-center">
                       <div class="card-header">Graph three</div>
                       <div class="card-body">
-                          <canvas id="myChart_3"></canvas>
+                          <canvas></canvas>
                       </div>
                     </div>
                 </div>
@@ -110,23 +110,4 @@
             options: {}
         });
     </script>
-    {{-- <script>
-        var ctx = document.getElementById('myChart_3').getContext('2d');
-        var chart = new Chart(ctx, {
-
-        new Morris.Donut({
-            element: 'morrisDonut1',
-                data: [
-                    {label: "Men", value: 12},
-                    {label: "Women", value: 30},
-                    {label: "Kids", value: 20}
-                ],
-                colors: ['#3D449C','#268FB2','#74DE00'],
-                    resize: true
-                });
-
-            // Configuration options go here
-            options: {}
-        });
-    </script> --}}
 @endsection

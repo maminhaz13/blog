@@ -41,7 +41,8 @@ class CategoryController extends Controller
             $picture_new_location = 'public/uploads/category_picture/'.$photo_file_extention;
             Image::make($uploaded_picture)->resize(500,500)->save(base_path($picture_new_location), 20);
             Category::find($category_id)->update([
-                'category_picture' => $photo_file_extention
+                'category_picture' => $photo_file_extention,
+                'updated_at' => Carbon::now(),
             ]);
 
             return back()->with('picture_up_done', 'Your category picture added successfully');      
@@ -69,6 +70,7 @@ class CategoryController extends Controller
         Category::find($request->category_id)->update([
             'category_name' => $request->category_name,
             'category_description' => $request->category_description,
+            'updated_at' => Carbon::now(),
         ]);
 
         return redirect('category/add')->with('edit_status', 'Your category edited successfully');

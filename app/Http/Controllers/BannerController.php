@@ -96,7 +96,7 @@ class BannerController extends Controller
         Banner::findOrFail($id)->update([
             'main_banner_title' => $request->main_banner_title,
             'main_banner_short_description' => $request->main_banner_short_description,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
 
         return redirect('banner')->with('main_banner_edit_done', 'Your succesfully edited your existing banner.');
@@ -154,6 +154,7 @@ class BannerController extends Controller
     {
         Banner::findOrFail($id)->update([
             'show_status' => 1,
+            'updated_at' => Carbon::now(),
         ]);
         return redirect('banner')->with('main_banner_shown_done', 'Your showed a banner successfully');
     }
@@ -167,6 +168,7 @@ class BannerController extends Controller
     {
         Banner::findOrFail($id)->update([
             'show_status' => 2,
+            'updated_at' => Carbon::now(),
         ]);
         return redirect('banner')->with('main_banner_unshown_done', 'Your hide a banner successfully');
     }

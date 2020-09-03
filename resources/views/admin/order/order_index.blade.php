@@ -9,16 +9,11 @@
 
     <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
-            <a class="breadcrumb-item" href="index.html">Starlight</a>
-            <a class="breadcrumb-item" href="index.html">Pages</a>
-            <span class="breadcrumb-item active">Blank Page</span>
+            <a class="breadcrumb-item" href="{{ route('home') }}">{{ config('app.name') }}</a>
+            <a class="breadcrumb-item active" href="">Customers' Orders</a>
         </nav>
 
         <div class="sl-pagebody">
-            <div class="sl-page-title">
-            <h5>Blank Page</h5>
-            <p>This is a starter page</p>
-            </div>
 
             <div class="card bg-gray-200 mt-5">
                 <div class="card-header card-header-default">

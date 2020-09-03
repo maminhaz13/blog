@@ -91,13 +91,13 @@
                     <div class="col-md-6 col-12">
                         <ul class="d-flex account_login-area">
                             @if(Auth::check())
-                                    <li>
-                                        <a href=""><i class="fa fa-user"></i> {{ Auth::user()->name }} </a>
-                                    </li>
-                                @else
-                                    <li>
-                                        <a href=""><i class="fa fa-user"></i> Guest </i></a>
-                                    </li>
+                                <li>
+                                    <a href=""><i class="fa fa-user"></i> {{ Auth::user()->name }} </a>
+                                </li>
+                            @else
+                                <li>
+                                    <a href=""><i class="fa fa-user"></i> Guest </i></a>
+                                </li>
                             @endif
                             @if(Auth::check())
                                 <li>
@@ -135,7 +135,7 @@
                                     <a href="{{ route('index') }}">Home</a>
                                 </li>
                                 <li class="@yield('menu_about_active')">
-                                    <a href="{{ url('about') }}">About</a>
+                                    <a href="{{ route('aboutus') }}">About</a>
                                 </li>
                                 <li class="@yield('menu_shop_active')">
                                     <a href="{{ route('shop') }}">Shop</a>
@@ -162,28 +162,34 @@
                                         $sub_total_wish = 0;
                                     @endphp
                                     @foreach(wish_items() as $wish_items)
-                                        <li class="cart-items">
-                                            <div class="cart-img">
-                                                <style>
-                                                    #img1 {
-                                                        width: 70px;
-                                                        height: 90px;
-                                                    }
+                                        @if(!empty($wish_items))
+                                            <li class="cart-items">
+                                                <div class="cart-img">
+                                                    <style>
+                                                        #img1 {
+                                                            width: 70px;
+                                                            height: 90px;
+                                                        }
 
-                                                    /* img {
-                                                        width: 50%;
-                                                        height: 50%;
-                                                    } */
-                                                    }
-                                                </style>
-                                                <img id="img1" src="{{ asset('uploads/product_thumbnail_picture') }}/{{ $wish_items->product->product_thumbnail_picture }}" alt="">
+                                                        /* img {
+                                                            width: 50%;
+                                                            height: 50%;
+                                                        } */
+                                                        }
+                                                    </style>
+                                                    <img id="img1" src="{{ asset('uploads/product_thumbnail_picture') }}/{{ $wish_items->product->product_thumbnail_picture }}" alt="">
+                                                </div>
+                                                <div class="cart-content">
+                                                    <a href="{{ url('product/details') }}/{{ $wish_items->product->slug }}">{{ $wish_items->product->slug }}</a>
+                                                    <p>${{ $wish_items->product->product_price }}</p>
+                                                    <i class="fa fa-times" title="delete"></i>
+                                                </div>
+                                            </li>
+                                        @else
+                                            <div>
+                                                <h4>no product found</h4>
                                             </div>
-                                            <div class="cart-content">
-                                                <a href="{{ url('product/details') }}/{{ $wish_items->product->slug }}">{{ $wish_items->product->slug }}</a>
-                                                <p>${{ $wish_items->product->product_price }}</p>
-                                                <i class="fa fa-times" title="delete"></i>
-                                            </div>
-                                        </li>
+                                        @endif
                                     @php
                                         $sub_total_wish = $sub_total_wish + $wish_items->product->product_price
                                     @endphp
@@ -452,9 +458,13 @@
     <!-- main js -->
     <script src="{{ asset('front') }}/assets/js/scripts.js"></script>
     <!-- select2 js -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="{{ asset('front') }}/assets/js/select2.min.js"></script>
+    <!-- jorenvh/laravel-share js -->
+    <script src="{{ asset('front') }}/assets/cdn/jquery-3.1.1.min.js"></script>
+    <!-- jorenvh/laravel-share cdn -->
+    <script src="js/share.js"></script>
 
-    
+
     @yield('footer_scripts')
 </body>
 

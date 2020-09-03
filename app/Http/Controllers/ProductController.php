@@ -64,7 +64,8 @@ class ProductController extends Controller
             $picture_location = 'public/uploads/product_thumbnail_picture/'.$picture_name;
             Image::make($uploaded_picture)->save(base_path($picture_location));
             Product::find($cat_id)->update([
-                'product_thumbnail_picture' => $picture_name
+                'product_thumbnail_picture' => $picture_name,
+                'updated_at' => Carbon::now(),
             ]);      
         }
 
@@ -114,7 +115,7 @@ class ProductController extends Controller
         return view('admin.product.edit', [
             'product_info' => Product::findOrFail($id),
             'category_info' => Category::all(),
-        ]);        
+        ]);
     }
 
     /**
@@ -126,7 +127,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product, $id)
     {
-        Product::find($id)->update($request->except('_token', '_method'));
+        Product::find($id)->update($request->except('_token', '_method') + [
+            'updated_at' => Carbon::now(),
+        ]);
         return back();
     }
 
@@ -183,5 +186,24 @@ class ProductController extends Controller
      */
     public function product_mark_delete(Request $request, $id){
         return "hello";
+    }
+
+    /**
+     * manage all products discount.
+     *
+     */
+    public function product_discount(Request $request){
+        return view('admin.product_discount.index', [
+            'product_data' => Product::all(),
+            'deleted_product_data' => Product::onlyTrashed()->get(),
+        ]);
+    }
+
+    /**
+     * Add a products discount.
+     *
+     */
+    public function product_discount_add(Request $request){
+        return "hello ";
     }
 }

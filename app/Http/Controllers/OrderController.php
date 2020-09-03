@@ -75,6 +75,7 @@ class OrderController extends Controller
     {
         Order::find($id)->update([
             'payment_status' => 2,
+            'updated_at' => Carbon::now(),
         ]);
         return back();
     }
@@ -105,7 +106,8 @@ class OrderController extends Controller
         }
         
         Order::find($order_id)->update([
-            'payment_status' => 3
+            'payment_status' => 3,
+            'updated_at' => Carbon::now(),
         ]);
 
         return back();

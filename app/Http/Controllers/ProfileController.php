@@ -32,7 +32,8 @@ class ProfileController extends Controller
         //Profile Time Count and Update Start
         if( Auth::user()->updated_at->addDays(30) < Carbon::now()){
         User::find(Auth::id())->update([
-            'name' => $request->profile_name
+            'name' => $request->profile_name,
+            'updated_at' => Carbon::now(),
         ]);
         //Profile Time Count and Update End
 
@@ -66,7 +67,8 @@ class ProfileController extends Controller
             else {
 
                 User::find(Auth::id())->update([
-                    'password' => Hash::make($request->password)
+                    'password' => Hash::make($request->password),
+                    'updated_at' => Carbon::now(),
                 ]);
 
                 // //Sending password changing notification email start 
@@ -100,7 +102,8 @@ class ProfileController extends Controller
             $picture_new_location = 'public/uploads/profile_pictures/'.$photo_file_extention;
             Image::make($uploaded_picture)->resize(1024,1024)->save(base_path($picture_new_location), 20);
             User::find(Auth::id())->update([
-                'profile_pictures' => $photo_file_extention
+                'profile_pictures' => $photo_file_extention,
+                'updated_at' => Carbon::now(),
             ]);
         //Uploading Profile Picture End
 

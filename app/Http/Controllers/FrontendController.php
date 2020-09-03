@@ -82,7 +82,7 @@ class FrontendController extends Controller
         $bestseller_desc = $bestseller_asc->sortByDesc('total')->take(8);
         return view('admin.frontend.about', [
             'bestseller_desc' => $bestseller_desc,
-            'our_stories' => About::where('show_status', 2)->whereNotNull('story')->get(),
+            'our_stories' => About::where('show_story', 2)->whereNotNull('story')->get(),
         ]);
     }
 
@@ -103,6 +103,7 @@ class FrontendController extends Controller
              );
         Contact::find($contact_id)->update([
             'contact_attachment' => $path,
+            'updated_at' => Carbon::now(),
           ]);
         }
         return back();
@@ -206,6 +207,7 @@ class FrontendController extends Controller
         Order_details::find($request->order_details_id)->update([
             'stars' => $request->stars,
             'review' => $request->review,
+            'updated_at' => Carbon::now(),
         ]);
         return back();
     }
@@ -330,6 +332,7 @@ class FrontendController extends Controller
     {
         Contact_info::findOrFail($id)->update([
             'show_status' => 2,
+            'updated_at' => Carbon::now(),
         ]);
         return redirect('customize/contact_info')->with('contact_shown_done', 'Your showed some information publically');
     }
@@ -342,6 +345,7 @@ class FrontendController extends Controller
     {
         Contact_info::findOrFail($id)->update([
             'show_status' => 1,
+            'updated_at' => Carbon::now(),
         ]);
         return redirect('customize/contact_info')->with('contact_unshown_done', 'Your hid some contact information form homepage..');
     }

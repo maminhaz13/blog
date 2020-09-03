@@ -20,7 +20,7 @@ Route::get('contact', 'FrontendController@contact')->name('contact');
 
 Route::get('aboutus', 'FrontendController@aboutus')->name('aboutus');
 
-Route::get('contact/list', 'FrontendController@contactlist')->name('contactlist')->middleware('auth');
+Route::get('contact/list', 'FrontendController@contactlist')->name('contactlist')->middleware('auth')->middleware('auth');
 
 Route::post('contact/post', 'FrontendController@contactpost')->name('contactpost');
 
@@ -28,11 +28,11 @@ Route::get('contact/list/download/{contact_id}', 'FrontendController@contactlist
 
 Route::post('user/testmonial', 'FrontendController@usertestmonial')->name('usertestmonial');
 
-Route::get('testmonial/list', 'FrontendController@testmoniallist')->name('testmoniallist');
+Route::get('testmonial/list', 'FrontendController@testmoniallist')->name('testmoniallist')->middleware('auth');
 
-Route::get('testmonial/single/hide/{testimonial_id}', 'FrontendController@testmonial_hide')->name('testimonial.deactivate');
+Route::get('testmonial/single/hide/{testimonial_id}', 'FrontendController@testmonial_hide')->name('testimonial.deactivate')->middleware('auth');
 
-Route::get('testmonial/single/show/{testimonial_id}', 'FrontendController@testmonial_show')->name('testimonial.activate');
+Route::get('testmonial/single/show/{testimonial_id}', 'FrontendController@testmonial_show')->name('testimonial.activate')->middleware('auth');
 
 Route::post('newsletter/add', 'FrontendController@newsletter_add')->name('newsletter.add');
 
@@ -52,36 +52,36 @@ Route::post('subscriber/added', 'FrontendController@subscriber')->name('subscrib
 
 Route::get('search', 'FrontendController@search');
 
-Route::get('customize/contact_info', 'FrontendController@custom_contact')->name('custom.contact.index');
+Route::get('customize/contact_info', 'FrontendController@custom_contact')->name('custom.contact.index')->middleware('auth');
 
-Route::post('customize/contact_info/add', 'FrontendController@custom_contact_add')->name('custom.contact.add');
+Route::post('customize/contact_info/add', 'FrontendController@custom_contact_add')->name('custom.contact.add')->middleware('auth');
 
-Route::get('customize/contact_info/edit/{id}', 'FrontendController@custom_contact_edit')->name('custom.contact.edit');
+Route::get('customize/contact_info/edit/{id}', 'FrontendController@custom_contact_edit')->name('custom.contact.edit')->middleware('auth');
 
-Route::post('customize/contact_info/update/{id}', 'FrontendController@custom_contact_update')->name('custom.contact.update');
+Route::post('customize/contact_info/update/{id}', 'FrontendController@custom_contact_update')->name('custom.contact.update')->middleware('auth');
 
-Route::get('customize/contact_info/trash/{id}', 'FrontendController@custom_contact_trash')->name('custom.contact.trash');
+Route::get('customize/contact_info/trash/{id}', 'FrontendController@custom_contact_trash')->name('custom.contact.trash')->middleware('auth');
 
-Route::get('customize/contact_info/restore/{id}', 'FrontendController@custom_contact_restore')->name('custom.contact.restore');
+Route::get('customize/contact_info/restore/{id}', 'FrontendController@custom_contact_restore')->name('custom.contact.restore')->middleware('auth');
 
-Route::get('customize/contact_info/delete/{id}', 'FrontendController@custom_contact_delete')->name('custom.contact.delete');
+Route::get('customize/contact_info/delete/{id}', 'FrontendController@custom_contact_delete')->name('custom.contact.delete')->middleware('auth');
 
-Route::get('customize/contact_info/activate/{id}', 'FrontendController@custom_contact_activate')->name('custom.contact.activate');
+Route::get('customize/contact_info/activate/{id}', 'FrontendController@custom_contact_activate')->name('custom.contact.activate')->middleware('auth');
 
-Route::get('customize/contact_info/deactivate/{id}', 'FrontendController@custom_contact_deactivate')->name('custom.contact.deactivate');
+Route::get('customize/contact_info/deactivate/{id}', 'FrontendController@custom_contact_deactivate')->name('custom.contact.deactivate')->middleware('auth');
 
 
 
 //Banner Controller's Route
-Route::resource('banner', 'BannerController');
+Route::resource('banner', 'BannerController')->middleware('auth');
 
-Route::get('banner/status/activate/{id}', 'BannerController@activate')->name('banner.activate');
+Route::get('banner/status/activate/{id}', 'BannerController@activate')->name('banner.activate')->middleware('auth');
 
-Route::get('banner/status/deactivate/{id}', 'BannerController@deactivate')->name('banner.deactivate');
+Route::get('banner/status/deactivate/{id}', 'BannerController@deactivate')->name('banner.deactivate')->middleware('auth');
 
-Route::get('banner/restore/{id}', 'BannerController@restore')->name('banner.restore');
+Route::get('banner/restore/{id}', 'BannerController@restore')->name('banner.restore')->middleware('auth');
 
-Route::get('banner/delete/{id}', 'BannerController@delete')->name('banner.delete');
+Route::get('banner/delete/{id}', 'BannerController@delete')->name('banner.delete')->middleware('auth');
 
 
 
@@ -135,6 +135,10 @@ Route::get('product/foreverdelete/{product_id}', 'ProductController@productforev
 
 Route::post('product/delete/mark', 'ProductController@product_mark_delete')->name('product.mark.delete')->middleware('auth');
 
+Route::get('product/discount/index', 'ProductController@product_discount')->name('Product.discount')->middleware('auth');
+
+Route::get('product/discount/add/{product_id}', 'ProductController@product_discount_add')->name('Product.discount.add')->middleware('auth');
+
 
 
 //Cart Controller's Route
@@ -172,11 +176,11 @@ Route::get('login/github/callback', 'GithubController@handleProviderCallback');
 
 
 //Checkout Controller's Route
-Route::get('shop/checkout', 'CheckoutController@checkout')->name('checkout');
+Route::get('shop/checkout', 'CheckoutController@checkout')->name('checkout')->middleware('auth');
 
-Route::post('shop/checkout/post', 'CheckoutController@checkout_post')->name('checkout.post');
+Route::post('shop/checkout/post', 'CheckoutController@checkout_post')->name('checkout.post')->middleware('auth');
 
-Route::post('get/city/list/ajax', 'CheckoutController@get_city_list_ajax');
+Route::post('get/city/list/ajax', 'CheckoutController@get_city_list_ajax')->middleware('auth');
 
 Route::post('get/city/list/two/ajax', 'CheckoutController@get_city_list_two_ajax');
 
@@ -208,12 +212,25 @@ Route::get('order/cancel/{order_id}', 'OrderController@order_cancel')->name('ord
 
 
 //About Controller's Route
-Route::resource('about', 'AboutController');
+Route::resource('about', 'AboutController')->middleware('auth');
 
-Route::get('about/status/activate/{id}', 'AboutController@activate')->name('about.activate');
+Route::get('about/status/activate/{id}', 'AboutController@activate')->name('about.activate')->middleware('auth');
 
-Route::get('about/status/deactivate/{id}', 'AboutController@deactivate')->name('about.deactivate');
+Route::get('about/status/deactivate/{id}', 'AboutController@deactivate')->name('about.deactivate')->middleware('auth');
 
-Route::get('about/information/restore/{id}', 'AboutController@restore')->name('about.restore');
+Route::get('about/information/restore/{id}', 'AboutController@restore')->name('about.restore')->middleware('auth');
 
-Route::get('about/delete/{id}', 'AboutController@delete')->name('about.delete');
+Route::get('about/delete/{id}', 'AboutController@delete')->name('about.delete')->middleware('auth');
+
+
+
+//faq Controller's Route
+Route::resource('products/faq', 'FAQController')->middleware('auth');
+
+// Route::get('about/status/activate/{id}', 'AboutController@activate')->name('about.activate')->middleware('auth');
+
+// Route::get('about/status/deactivate/{id}', 'AboutController@deactivate')->name('about.deactivate')->middleware('auth');
+
+// Route::get('about/information/restore/{id}', 'AboutController@restore')->name('about.restore')->middleware('auth');
+
+// Route::get('about/delete/{id}', 'AboutController@delete')->name('about.delete')->middleware('auth');

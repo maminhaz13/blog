@@ -1,24 +1,21 @@
-  @extends('layouts.admin')
+@extends('layouts.admin')
 
-  {{-- @php
-    error_reporting(0);
-  @endphp --}}
-
-  @section('product_active')
+@section('product_active')
     active
-  @endsection
+@endsection
 
-  @section('admin_content')
+@section('admin_content')
+
 
   <div class="sl-mainpanel">
     <nav class="breadcrumb sl-breadcrumb">
       <a class="breadcrumb-item" href="{{ route('home') }}">{{ config('app.name') }}</a>
-      <a class="breadcrumb-item active" href="{{ route('Product.index') }}">Product</a>
+      <a class="breadcrumb-item active" href="{{ route('Product.discount') }}">Products discount</a>
       {{-- <span class="breadcrumb-item active">{{ $edit_data->category_name }}</span> --}}
     </nav>
 
-    <div class="container">
-      <div class="row">
+    {{-- <div class="container">
+      <div class="row"> --}}
         <div class="col-md-12">
           <div class="card mb-5 mt-5">
             <div class="card-header card-header-default">Product Table</div>
@@ -76,7 +73,7 @@
                               <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $prodata->product_thumbnail_picture }}" class="img-fluid" alt="image not found">
                             </td>
                             <td>
-                              <div class="btn-group" role="group" aria-label="Basic example">
+                              {{-- <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="{{ route('Product.edit', $prodata->id) }}" type="button" class="btn btn-info active btn-btn-sm mg-b-10 btn btn sm">
                                   Edit
                                 </a>
@@ -86,7 +83,17 @@
                                   <button type="submit" class="btn btn-danger active btn-btn-sm mg-b-10 btn btn sm" >
                                     Trash
                                   </button>
-                                </form>
+                                </form> --}}
+
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true">
+                                    Actions
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="triggerId">
+                                    <a class="dropdown-item btn btn-danger active mg-b-5" href="{{ route('Product.discount.add', $prodata->id) }}">Add discount on product</a>
+                                    <a class="dropdown-item btn btn-danger active mg-b-5" href="#">Edit discount of product</a>
+                                    <a class="dropdown-item btn btn-danger active mg-b-5" href="#">Trash discount of product</a>
+                                </div>
+
                               </div>
                             </td>
                           </tr>
@@ -195,156 +202,8 @@
         </div>
         {{-- Deleted products table end --}}
 
-
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header card-header-default">Product</div>
-              <div class="card-body">
-
-                @if (session('product_insert_success'))
-                  <div class="alert alert-success" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <div class="d-flex align-items-center justify-content-start">
-                      <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                      <span><strong>Well done!</strong> {{ session('product_insert_success') }}.</span>
-                    </div>
-                  </div>
-                @endif
-                
-                <form method="post" action="{{ route('Product.store') }}" enctype="multipart/form-data">
-                  @csrf
-                  <div class="form-group mb-3">
-                    <label >Product Name</label>
-                      <input type="text" class="form-control" name="product_name" placeholder="Enter Product Name" value="">
-
-                      @error('product_name')
-                        <div class="alert alert-danger" role="alert">
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                          </button>
-                          <div class="d-flex align-items-center justify-content-start">
-                            <i class="icon ion-ios-close alert-icon tx-24"></i>
-                            <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                          </div>
-                        </div>
-                    @enderror
-
-                  </div>
-
-                  <div class="form-group mb-3">
-                    <label>Product category</label>
-                    <select class="form-control" name="category_id">
-                      <option value="">Select one--</option>
-                      @foreach($category_data as $cat_data)
-                        <option value="{{ $cat_data->id }}">{{ $cat_data->category_name }}</option>
-                      @endforeach
-                    </select>
-                  </div>
-
-                  <div class="form-group mb-3">
-                    <label >Product Short Description</label>
-                    <input type="text" class="form-control" name="product_short_description" placeholder="Enter Product Short Description" value="">
-
-                    @error('product_short_description')
-                      <div class="alert alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="d-flex align-items-center justify-content-start">
-                          <i class="icon ion-ios-close alert-icon tx-24"></i>
-                          <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                        </div>
-                      </div>
-                    @enderror
-                  </div>
-
-                  <div class="form-group mb-3">
-                    <label >Product Long Description</label>
-                    <textarea type="text" class="form-control" name="product_long_description" id="" cols="30" rows="10" placeholder="Enter Product Long Description"></textarea>
-
-                    @error('product_long_description')
-                      <div class="alert alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="d-flex align-items-center justify-content-start">
-                          <i class="icon ion-ios-close alert-icon tx-24"></i>
-                          <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                        </div>
-                      </div>      
-                    @enderror
-                  </div>
-
-                  <div class="form-group mb-3">
-                    <label >Product Quantity</label>
-                    <input type="number" class="form-control" name="product_quantity" placeholder="Enter Product Quantity" value="">
-
-                    @error('product_quantity')
-                      <div class="alert alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="d-flex align-items-center justify-content-start">
-                          <i class="icon ion-ios-close alert-icon tx-24"></i>
-                          <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                        </div>
-                      </div>      
-                    @enderror
-                  </div>
-
-                  <div class="form-group mb-3">
-                    <label >Product Quantity Alert</label>
-                    <input type="number" class="form-control" name="product_alert_quantity" placeholder="Enter Product Quantity Alert" value="">
-
-                    @error('product_alert_quantity')
-                      <div class="alert alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="d-flex align-items-center justify-content-start">
-                          <i class="icon ion-ios-close alert-icon tx-24"></i>
-                          <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                        </div>
-                      </div>      
-                    @enderror
-                  </div>
-
-                  <div class="form-group">
-                    <label >Product Price </label>
-                    <input type="number" class="form-control" name="product_price" placeholder="Enter Product Price" value="">
-
-                    @error('product_price')
-                      <div class="alert alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="d-flex align-items-center justify-content-start">
-                          <i class="icon ion-ios-close alert-icon tx-24"></i>
-                          <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                        </div>
-                      </div>      
-                    @enderror
-                  </div>
-
-                  <div class="form-group mb-3">
-                    <label>Product Thumbnail Picture</label>
-                    <input type="file" class="form-control" name="product_thumbnail_picture" value="">
-                  </div>
-
-                  <div class="form-group mb-3">
-                    <label>Product Multiple Picture</label>
-                    <input type="file" class="form-control" name="product_multiple_picture[]" value="" multiple>
-                  </div>
-
-                  <button type="submit" class="btn btn-dark active btn-btn-sm mg-b-10">Create Product</button>
-                </form>        
-              </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      {{-- </div>
+    </div> --}}
   </div>
 
   @endsection
@@ -369,3 +228,4 @@
   </script>
 
   @endsection
+

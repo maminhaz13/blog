@@ -9,8 +9,8 @@
 
 <div class="sl-mainpanel">
   <nav class="breadcrumb sl-breadcrumb">
-    <a class="breadcrumb-item" href="index.html">{{ env('APP_NAME') }}</a>
-    {{-- <a class="breadcrumb-item" href="index.html">Pages</a> --}}
+    <a class="breadcrumb-item" href="index.html">{{ config('app.name') }}</a>
+    <a class="breadcrumb-item active" href="">Banners</a>
     {{-- <span class="breadcrumb-item active">Blank Page</span> --}}
   </nav>
 

@@ -44,6 +44,7 @@ class StripePaymentController extends Controller
         //updating payment status start
         Order::find(session('order_id_checkout'))->update([
             'payment_status' => 2,
+            'updated_at' => Carbon::now(),
         ]);
         //updating payment status end
 

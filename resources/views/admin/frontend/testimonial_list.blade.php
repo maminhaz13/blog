@@ -5,15 +5,15 @@
 @endphp --}}
 
 @section('testmonial_active')
-
+  active
 @endsection
 
 @section('admin_content')
 
 <div class="sl-mainpanel">
   <nav class="breadcrumb sl-breadcrumb">
-    <a class="breadcrumb-item" href="index.html">{{ env('APP_NAME') }}</a>
-    {{-- <a class="breadcrumb-item" href="index.html">Pages</a> --}}
+    <a class="breadcrumb-item" href="{{ route('home') }}">{{ config('app.name') }}</a>
+    <a class="breadcrumb-item active" href="">Testimonials</a>
     {{-- <span class="breadcrumb-item active">Blank Page</span> --}}
   </nav>
 

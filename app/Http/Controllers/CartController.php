@@ -92,6 +92,7 @@ class CartController extends Controller
         foreach ($request->product_info as $cart_id => $product_quantity) {
             Cart::find($cart_id)->update([
                 'product_quantity' => $product_quantity,
+                'updated_at' => Carbon::now(),
             ]);
         };
         return back();
