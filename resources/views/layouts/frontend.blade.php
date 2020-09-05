@@ -123,7 +123,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-7 col-sm-6 col-6">
                         <div class="logo">
-                            <a href="index-2.html">
+                            <a href="{{ route('index') }}">
                         <img src="{{ asset('front') }}/assets/images/logo.png" alt="">
                         </a>
                         </div>
@@ -161,8 +161,9 @@
                                     @php
                                         $sub_total_wish = 0;
                                     @endphp
+                                    
                                     @foreach(wish_items() as $wish_items)
-                                        @if(!empty($wish_items))
+                                        @if(!($wish_items == ''))
                                             <li class="cart-items">
                                                 <div class="cart-img">
                                                     <style>
@@ -182,64 +183,60 @@
                                                 <div class="cart-content">
                                                     <a href="{{ url('product/details') }}/{{ $wish_items->product->slug }}">{{ $wish_items->product->slug }}</a>
                                                     <p>${{ $wish_items->product->product_price }}</p>
-                                                    <i class="fa fa-times" title="delete"></i>
+                                                    <a href="{{ route('removeWishList', $wish_items->id) }}"><i class="fa fa-times" title="delete"></i></a>
                                                 </div>
                                             </li>
-                                        @else
-                                            <div>
-                                                <h4>no product found</h4>
-                                            </div>
+                                            
+                                            @php
+                                                $sub_total_wish = $sub_total_wish + $wish_items->product->product_price
+                                            @endphp
                                         @endif
-                                    @php
-                                        $sub_total_wish = $sub_total_wish + $wish_items->product->product_price
-                                    @endphp
                                     @endforeach
                                     <li>
                                         Subtotol: <span class="pull-right">${{ $sub_total_wish }}</span></li>
                                     <li>
-                                        <button>Check Out</button>
+                                        <a href="{{ route('wishlist') }}">Go to wishlist</a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>{{ cart_product_quantity() }}</span></a>
-                                    <ul class="cart-wrap dropdown_style">
-                                        @php
-                                            $sub_total = 0;
-                                        @endphp
-                                        @foreach(cart_items() as $cart_item)
-                                            <li class="cart-items">
-                                                <div class="cart-img box">
-                                                    <style>
-                                                        .box {
-                                                            width: 70px;
-                                                            height: 90px;
-                                                        }
+                                <ul class="cart-wrap dropdown_style">
+                                    @php
+                                        $sub_total = 0;
+                                    @endphp
+                                    @foreach(cart_items() as $cart_item)
+                                        <li class="cart-items">
+                                            <div class="cart-img box">
+                                                <style>
+                                                    .box {
+                                                        width: 70px;
+                                                        height: 90px;
+                                                    }
 
-                                                        /* img {
-                                                            width: 50%;
-                                                            height: 50%;
-                                                        } */
-                                                    </style>
-                                                    <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $cart_item->relationship_with_cart->product_thumbnail_picture }}" class="img-fluid" height="150" width="200" alt="">
-                                                </div>
-                                                <div class="cart-content">
-                                                    <a href="{{ url('product/details/') }}/{{ $cart_item->relationship_with_cart->slug }}">{{ $cart_item->relationship_with_cart->slug }}</a>
-                                                    <span>QTY : {{ $cart_item->product_quantity }}</span>
-                                                    <p>${{ $cart_item->product_quantity * $cart_item->relationship_with_cart->product_price }}</p>
-                                                    <a href="{{ route('cart.delete', $cart_item->id) }}"><i class="fa fa-times"></i></a>
-                                                </div>
-                                            </li>
-                                            @php
-                                                $sub_total = $sub_total + ($cart_item->product_quantity * $cart_item->relationship_with_cart->product_price)
-                                            @endphp
-                                        @endforeach
-                                        <li>Subtotal: <span class="pull-right">${{ $sub_total }}</span></li>
-                                        <li>
-                                            <a href="{{ route('cart') }}">Go To Cart</a>
+                                                    /* img {
+                                                        width: 50%;
+                                                        height: 50%;
+                                                    } */
+                                                </style>
+                                                <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $cart_item->relationship_with_cart->product_thumbnail_picture }}" class="img-fluid" height="150" width="200" alt="">
+                                            </div>
+                                            <div class="cart-content">
+                                                <a href="{{ url('product/details/') }}/{{ $cart_item->relationship_with_cart->slug }}">{{ $cart_item->relationship_with_cart->slug }}</a>
+                                                <span>QTY : {{ $cart_item->product_quantity }}</span>
+                                                <p>${{ $cart_item->product_quantity * $cart_item->relationship_with_cart->product_price }}</p>
+                                                <a href="{{ route('cart.delete', $cart_item->id) }}"><i class="fa fa-times"></i></a>
+                                            </div>
                                         </li>
-                                    </ul>
-
+                                        @php
+                                            $sub_total = $sub_total + ($cart_item->product_quantity * $cart_item->relationship_with_cart->product_price)
+                                        @endphp
+                                    @endforeach
+                                    <li>Subtotal: <span class="pull-right">${{ $sub_total }}</span></li>
+                                    <li>
+                                        <a href="{{ route('cart') }}">Go To Cart</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>

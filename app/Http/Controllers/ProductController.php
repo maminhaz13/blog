@@ -203,7 +203,7 @@ class ProductController extends Controller
      * Add a products discount.
      *
      */
-    public function product_discount_add(Request $request){
-        return "hello ";
+    public function product_discount_add(Request $request, $product_id){
+        return $product_id;
     }
 }

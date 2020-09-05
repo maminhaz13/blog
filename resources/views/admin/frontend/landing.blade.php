@@ -122,7 +122,7 @@
             </div>  
             <ul class="row">
                 @foreach($bestseller_desc as $bestseller)
-                    @if(empty($bestseller))
+                    @if(!$bestseller == '')
                         <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
                             <div class="product-wrap">
                                 <div class="product-img">
@@ -178,16 +178,20 @@
                                         width: 700px;
                                         height: 300px;
                                         border: 1px dashed #FE2E2E;
-                                        }
-
+                                    }
                                 </style>
                                 <span>New</span>
                                 <img id="img" src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $prodata->product_thumbnail_picture }}" width="400" height="150" alt="img not found">
                                 <div class="product-icon flex-style">
                                     <ul>
                                         <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="wishlist.html"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-bag"></i></a></li>
+                                        <li><a href="{{ route('wishlist.add', $prodata->id) }}"><i class="fa fa-heart"></i></a></li>
+                                        <form action="{{ route('cart.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $prodata->id }}">
+                                            <input type="hidden" name="product_quantity" value="{{ 1 }}">
+                                            <li><button type="submit" class="btn btn-danger">Add to Cart</button></li>
+                                        </form>
                                     </ul>
                                 </div>
                             </div>

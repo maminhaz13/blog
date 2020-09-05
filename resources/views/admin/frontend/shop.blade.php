@@ -114,56 +114,62 @@
                 </div>
             </div>
             <div class="tab-content">
-                    <div class="tab-pane active" id="all">
-                        <ul class="row">
-                            @foreach($products as $single_product)
-                                <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                                    <div class="product-wrap">
-                                        <div class="product-img">
-                                            <style>
-                                                #img {
-                                                    width: 700px;
-                                                    height: 300px;
-                                                    border-style: 2px dotted solid double dashed #FE2E2E;
-                                                    }
-
-                                                img {
-                                                    width: 90%;
-                                                    height: 60%;
+                <div class="tab-pane active" id="all">
+                    <ul class="row">
+                        @foreach($products as $single_product)
+                            <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                                <div class="product-wrap">
+                                    <div class="product-img">
+                                        <style>
+                                            #img {
+                                                width: 700px;
+                                                height: 300px;
+                                                border: 1px dashed #FE2E2E;
+                                                border-style: 2px dotted solid double dashed #FE2E2E;
                                                 }
-                                            </style>
-                                            <span>Sale</span>
-                                            <img id="img" src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $single_product->product_thumbnail_picture }}" class="img-fluid" alt="">
-                                            <div class="product-icon flex-style">
-                                                <ul>
-                                                    <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="{{ route('wishlist.add', $single_product->id) }}"><i class="fa fa-heart"></i></a></li>
-                                                    <li><a href="cart.html"><i class="fa fa-shopping-bag"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-content">
-                                            <h3><a href="{{ url('product/details/') }}/{{ $single_product->slug }}">{{ $single_product->product_name }}</a></h3>
-                                            <p class="pull-left">${{ $single_product->product_price }}
-                                                <del>$156</del>
-                                            </p>
-                                            <ul class="pull-right d-flex">
-                                                @if (avg_rating_count($single_product->id) == 0)
-                                                    No rating yet..
-                                                @endif
-                                                @for($i = 0; $i < avg_rating_count($single_product->id); $i++)
-                                                    <li><i class="fa fa-star"></i></li>
-                                                @endfor
+
+                                            /* img {
+                                                width: 90%;
+                                                height: 60%;
+                                            } */
+                                        </style>
+                                        <span>Sale</span>
+                                        <img id="img" src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $single_product->product_thumbnail_picture }}" class="img-fluid" alt="">
+                                        <div class="product-icon flex-style">
+                                            <ul>
+                                                <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
+                                                <li><a href="{{ route('wishlist.add', $single_product->id) }}"><i class="fa fa-heart"></i></a></li>
+                                                <form action="{{ route('cart.store') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="product_id" value="{{ $single_product->id }}">
+                                                    <input type="hidden" name="product_quantity" value="{{ 1 }}">
+                                                    <li><button type="submit" class="btn btn-danger">Add to Cart</button></li>
+                                                </form>
                                             </ul>
                                         </div>
                                     </div>
-                                </li>
-                            @endforeach
-                            <li class="col-12 text-center">
-                                <a class="loadmore-btn" href="javascript:void(0);">Load More</a>
+                                    <div class="product-content">
+                                        <h3><a href="{{ url('product/details/') }}/{{ $single_product->slug }}">{{ $single_product->product_name }}</a></h3>
+                                        <p class="pull-left">${{ $single_product->product_price }}
+                                            <del>$156</del>
+                                        </p>
+                                        <ul class="pull-right d-flex">
+                                            @if (avg_rating_count($single_product->id) == 0)
+                                                No rating yet..
+                                            @endif
+                                            @for($i = 0; $i < avg_rating_count($single_product->id); $i++)
+                                                <li><i class="fa fa-star"></i></li>
+                                            @endfor
+                                        </ul>
+                                    </div>
+                                </div>
                             </li>
-                        </ul>
-                    </div>
+                        @endforeach
+                        <li class="col-12 text-center">
+                            <a class="loadmore-btn" href="javascript:void(0);">Load More</a>
+                        </li>
+                    </ul>
+                </div>
                 @foreach($categories as $category)
                     <div class="tab-pane" id="category_id_{{ $category->id }}">
                         <ul class="row">
@@ -178,24 +184,23 @@
                                                     border: 1px dashed #FE2E2E;
                                                     }
 
-                                                img {
+                                                /* img {
                                                     width: 90%;
                                                     height: 60%;
-                                                }
+                                                } */
                                             </style>
                                             <span>Sale</span>
                                             <img id="img1" src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $product_data->product_thumbnail_picture }}" height="500" width="700" alt="">
                                             <div class="product-icon flex-style">
                                                 <ul>
                                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href=""><i class="fa fa-heart"></i></a></li>
-                                                    {{-- <form action="{{ route('cart.store') }}" method="POST">
+                                                    <li><a href="{{ route('wishlist.add', $product_data->id) }}"><i class="fa fa-heart"></i></a></li>
+                                                    <form action="{{ route('cart.store') }}" method="POST">
                                                         @csrf
                                                         <input type="hidden" name="product_id" value="{{ $single_product->id }}">
                                                         <input type="hidden" name="product_quantity" value="{{ 1 }}">
                                                         <li><button type="submit" class="btn btn-danger">Add to Cart</button></li>
-                                                    </form> --}}
-                                                    <li><a href="cart.html"><i class="fa fa-shopping-bag"></i></a></li>
+                                                    </form>
                                                 </ul>
                                             </div>
                                         </div>

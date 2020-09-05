@@ -22,17 +22,17 @@
               <div class="card-body">
                 <div>
                   
-              @if(session('product_trashed'))
-                <div class="alert alert-warning" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                <div class="d-flex align-items-center justify-content-start">
-                  <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                  <span><strong>Warning!</strong> Better check yourself.</span>
-                </div>
-                </div>
-              @endif
+                  {{-- @if(session('product_trashed'))
+                    <div class="alert alert-warning" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    <div class="d-flex align-items-center justify-content-start">
+                      <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                      <span><strong>Warning!</strong> Better check yourself.</span>
+                    </div>
+                    </div>
+                  @endif --}}
                 </div>
                 {{-- Added products table start --}}
                 <form action="{{ url('product/delete/mark') }}" method="POST">
@@ -47,12 +47,10 @@
                           <th scope="col">Category Name</th>
                           <th scope="col">Product Short Description</th>
                           <th scope="col">Product Long Description</th>
-                          <th scope="col">Product Quantity</th>
-                          <th scope="col">Product Alert Quantity</th>
                           <th scope="col">Product Price</th>
+                          <th scope="col">Product discount visibility</th>
                           <th scope="col">Product Picture</th>
                           <th scope="col">Action</th>
-
                         </tr>
                       </thead>
                       <tbody>
@@ -66,15 +64,23 @@
                             <td>{{ $prodata->relationship_with_category_for_catname->category_name }}</td>
                             <td>{{ $prodata->product_short_description }}</td>
                             <td>{{ $prodata->product_long_description }}</td>
-                            <td>{{ $prodata->product_quantity }}</td>
-                            <td>{{ $prodata->product_alert_quantity }}</td>
                             <td>{{ $prodata->product_price }}</td>
+                            <td>
+                              @if($prodata->show_discount == 1)
+                                  <span class="badge badge-pill badge-info">Discount unavailable</span>
+                              @elseif($prodata->show_discount == 2)
+                                  <span class="badge badge-pill badge-warning">Discount not shown</span>
+                              @elseif($prodata->show_discount == 3)
+                                  <span class="badge badge-pill badge-success">Discount shown</span>
+                              @endif
+                            </td>
                             <td>
                               <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ $prodata->product_thumbnail_picture }}" class="img-fluid" alt="image not found">
                             </td>
                             <td>
-                              {{-- <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{{ route('Product.edit', $prodata->id) }}" type="button" class="btn btn-info active btn-btn-sm mg-b-10 btn btn sm">
+                              <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-indigo active mg-b-10 btn btn-sm" data-toggle="modal" data-target="#exampleModalCenter">Add Discount</button>
+                                <a href="{{ route('Product.discount.add', $prodata->id) }}" type="button" class="btn btn-indigo active mg-b-10 btn btn-sm">
                                   Edit
                                 </a>
                                 <form method="POST" action="{{ route('Product.destroy', $prodata->id) }}">
@@ -83,17 +89,7 @@
                                   <button type="submit" class="btn btn-danger active btn-btn-sm mg-b-10 btn btn sm" >
                                     Trash
                                   </button>
-                                </form> --}}
-
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true">
-                                    Actions
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="triggerId">
-                                    <a class="dropdown-item btn btn-danger active mg-b-5" href="{{ route('Product.discount.add', $prodata->id) }}">Add discount on product</a>
-                                    <a class="dropdown-item btn btn-danger active mg-b-5" href="#">Edit discount of product</a>
-                                    <a class="dropdown-item btn btn-danger active mg-b-5" href="#">Trash discount of product</a>
-                                </div>
-
+                                </form>
                               </div>
                             </td>
                           </tr>
@@ -206,6 +202,28 @@
     </div> --}}
   </div>
 
+    <!-- Modal start-->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h1>hello world</h1>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Modal end-->
+
   @endsection
 
   @section('footer_scripts')
@@ -225,6 +243,12 @@
       $(document).ready( function () {
           $('#tableOne').DataTable();
       });
+  </script>
+
+  <script>
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
   </script>
 
   @endsection
