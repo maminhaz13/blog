@@ -26,9 +26,15 @@ class CheckoutController extends Controller
 
     function checkout()
     {
-        return view('admin.frontend.checkout', [
-            'countries' => Country::all(),
-        ]);
+            if(!cart_product_quantity() == 0){
+                return view('admin.frontend.checkout', [
+                    'countries' => Country::all(),
+                ]);
+            }
+            else{
+                return redirect()->route('cart')->with('null_order', 'You have to add some product to your cart before you want to buy a product..');
+            }
+
     }
 
     function checkout_post(Request $request)
@@ -143,7 +149,6 @@ class CheckoutController extends Controller
         $cities = City::where('country_id', $request->country_id)->get();
         foreach ($cities as $city) {
             $datas_to_send .= "<option value='". $city->id ."'>". $city->name ."</option>";
-
         }
         return $datas_to_send;
     }
@@ -154,7 +159,6 @@ class CheckoutController extends Controller
         $cities = City::where('country_id', $request->country_id)->get();
         foreach ($cities as $city) {
             $datas_to_send .= "<option value='". $city->id ."'>". $city->name ."</option>";
-
         }
         return $datas_to_send;
     }

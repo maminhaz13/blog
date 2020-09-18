@@ -28,7 +28,7 @@
     <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
     <meta name="author" content="ThemePixels">
 
-    <title>{{ env('APP_NAME') }} | @yield('title', 'Admin Panel')</title>
+    <title>{{ config('app.name') }} | @yield('title', 'Admin Panel')</title>
 
     <!-- vendor css -->
     <link href="{{ asset('dashboard_starlight') }}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -95,7 +95,7 @@
           <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{ route('Product.index') }}" class="nav-link">All Products</a></li>
             <li class="nav-item"><a href="{{ route('faq.index') }}" class="nav-link">Product FAQ</a></li>
-            <li class="nav-item"><a href="{{ route('Product.discount') }}" class="nav-link">Manage product Discount</a></li>
+            <li class="nav-item"><a href="{{ route('product.discount') }}" class="nav-link">Manage product Discount</a></li>
           </ul>
 
           <a href="{{ route('order.index') }}" class="sl-menu-link @yield('order_manage_active')">

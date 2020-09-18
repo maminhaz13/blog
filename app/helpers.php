@@ -68,18 +68,3 @@
     return App\Contact_info::where('show_status', 2)->latest()->get()->take(1);
   //contact info end
   }
-
-  // //check role
-  // $role = "";
-  // function role(){
-  //   if(Auth::user()->role == 1){
-  //     return $role = 1; 
-  //   }
-  //   elseif(Auth::user()->role == 2){
-  //     return $role = 2; 
-  //   }
-  //   else{
-  //     return $role = 3; 
-  //   }
-  // //check role end
-  // }

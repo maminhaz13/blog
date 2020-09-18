@@ -25,6 +25,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    @if(session('null_order'))
+                        <div class="alert alert-warning" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <div class="d-flex align-items-center justify-content-start">
+                                <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                                <span><strong>{{ session('null_order') }}</strong></span>
+                            </div>
+                        </div>
+                    @endif
+
                     <form action="{{ route('cart.update') }}" method="POST">
                     @csrf
                         <table class="table-responsive cart-wrap">

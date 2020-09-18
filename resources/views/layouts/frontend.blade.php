@@ -41,10 +41,10 @@
     <!--[if lt IE 8]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
-    <!--Start Preloader-->
+    {{-- <!--Start Preloader-->
     <div class="preloader-wrap">
         <div class="spinner"></div>
-    </div>
+    </div> --}}
     <!-- search-form here -->
     <div class="search-area flex-style">
         <span class="closebar">Close</span>

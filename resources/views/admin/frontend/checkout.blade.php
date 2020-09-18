@@ -153,16 +153,23 @@
 @endsection
 
 @section('footer_scripts')
+    {{-- search in country list address one --}}
     <script>
-        // Country Search code
         $(document).ready(function() {
-            //search in country list dropdown
             $('#country_id_p1').select2();
-            $('#country_id_p2').select2();
-            //search in city list dropdown
-            $('#city_id_p1').select2();
-            $('#city_id_p2').select2();
+        });
+    </script>
 
+    {{-- search in city list address two --}}
+    <script>
+        $(document).ready(function() {
+            $('#city_id_p1').select2();
+        });
+    </script>
+
+    {{-- city list paragraph one --}}
+    <script>
+        $(document).ready(function() {
             $('#country_id_p1').change(function(){
                 var country_id = $(this).val();
                     // alert(country_id);
@@ -181,11 +188,31 @@
                         data : {country_id : country_id},
                         success : function(data){
                             $('#city_id_p1').html(data);
+                            // alert(data);
                         }
                     });
                     //ajax response end
             });
+        });
+    </script>
 
+    {{-- search in country list in address two --}}
+    <script>
+        $(document).ready(function() {
+            $('#country_id_p2').select2();
+        });
+    </script>
+
+    {{-- search in city list in address two --}}
+    <script>
+        $(document).ready(function() {
+            $('#city_id_p2').select2();
+        });
+    </script>
+
+    {{-- city list paragraph two --}}
+    <script>
+        $(document).ready(function() {
             $('#country_id_p2').change(function(){
                 var country_id = $(this).val();
                     // alert(country_id);
@@ -210,4 +237,6 @@
             });
         });
     </script>
+
+
 @endsection

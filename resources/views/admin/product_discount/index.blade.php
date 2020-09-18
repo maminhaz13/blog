@@ -10,7 +10,7 @@
   <div class="sl-mainpanel">
     <nav class="breadcrumb sl-breadcrumb">
       <a class="breadcrumb-item" href="{{ route('home') }}">{{ config('app.name') }}</a>
-      <a class="breadcrumb-item active" href="{{ route('Product.discount') }}">Products discount</a>
+      <a class="breadcrumb-item active" href="{{ route('product.discount') }}">Products discount</a>
       {{-- <span class="breadcrumb-item active">{{ $edit_data->category_name }}</span> --}}
     </nav>
 
@@ -22,17 +22,17 @@
               <div class="card-body">
                 <div>
                   
-                  {{-- @if(session('product_trashed'))
-                    <div class="alert alert-warning" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
+                @if (session('discount_added'))
+                  <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
                     <div class="d-flex align-items-center justify-content-start">
-                      <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                      <span><strong>Warning!</strong> Better check yourself.</span>
+                      <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                      <span><strong>Well done!</strong> {{ session('discount_added') }}.</span>
                     </div>
-                    </div>
-                  @endif --}}
+                  </div>
+                @endif
                 </div>
                 {{-- Added products table start --}}
                 <form action="{{ url('product/delete/mark') }}" method="POST">
@@ -80,7 +80,7 @@
                             <td>
                               <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type="button" class="btn btn-indigo active mg-b-10 btn btn-sm" data-toggle="modal" data-target="#exampleModalCenter">Add Discount</button>
-                                <a href="{{ route('Product.discount.add', $prodata->id) }}" type="button" class="btn btn-indigo active mg-b-10 btn btn-sm">
+                                {{-- <a href="{{ route('product.discount.add', $prodata->id) }}" type="button" class="btn btn-indigo active mg-b-10 btn btn-sm">
                                   Edit
                                 </a>
                                 <form method="POST" action="{{ route('Product.destroy', $prodata->id) }}">
@@ -89,7 +89,7 @@
                                   <button type="submit" class="btn btn-danger active btn-btn-sm mg-b-10 btn btn sm" >
                                     Trash
                                   </button>
-                                </form>
+                                </form> --}}
                               </div>
                             </td>
                           </tr>
@@ -207,17 +207,39 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Add Product Discount</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <h1>hello world</h1>
+          <form method="POST" action="{{ route('product.discount.add') }}" enctype="multipart/form-data">
+          @csrf
+            <div class="form-group">
+                <label for="">Product list</label>
+                <select id="one" class="js-example-basic-single custom-select" name="product_id">
+                    <option selected="">Select one product</option>
+                    @foreach($product_data as $product)
+                      <option {{ $product->id == $product->id ? "selected":"" }} value="{{ $product->id }}">{{ $product->product_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-12 form-group">
+              <label>Product Discount Parcent</label>
+              <input type="text" class="form-control" id="" name="product_discount">
+            </div>
+
+            <div class="col-md-12 form-group">
+              <label>Product Discount Amount</label>
+              <input type="text" class="form-control" id="" name="product_discount_amount">
+            </div>
+
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-dark active mg-b-10 btn-btn-sm">Add discount</button>
+          <button type="button" class="btn btn-dark disabled mg-b-10 btn-btn-sm" data-dismiss="modal">Close</button>
+          </form>
         </div>
       </div>
     </div>
@@ -249,6 +271,13 @@
     $('#myModal').on('shown.bs.modal', function () {
       $('#myInput').trigger('focus')
     })
+  </script>
+
+  <script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
   </script>
 
   @endsection

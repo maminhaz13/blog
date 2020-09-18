@@ -235,7 +235,7 @@
 
                   <div class="form-group mb-3">
                     <label>Product category</label>
-                    <select class="form-control" name="category_id">
+                    <select id="select" class="js-example-basic-single form-control" name="category_id">
                       <option value="">Select one--</option>
                       @foreach($category_data as $cat_data)
                         <option value="{{ $cat_data->id }}">{{ $cat_data->category_name }}</option>
@@ -368,4 +368,10 @@
       });
   </script>
 
+  <script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+  </script>
   @endsection

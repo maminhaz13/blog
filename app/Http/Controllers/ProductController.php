@@ -203,7 +203,24 @@ class ProductController extends Controller
      * Add a products discount.
      *
      */
-    public function product_discount_add(Request $request, $product_id){
-        return $product_id;
+    public function product_discount_add(Request $request){
+        $product_discount = 0;
+        $product_discount_amount = 0;
+
+        if($request->product_discount){
+            $product_discount = $request->product_discount;
+        }
+
+        if($request->product_discount_amount){
+            $product_discount_amount = $request->product_discount_amount;
+        }
+
+        $product_id = $request->product_id;
+
+        Product::findOrFail($product_id)->update([
+            'product_discount' => $request->product_discount,
+            'product_discount_amount' => $request->product_discount_amount,
+        ]);
+        return back()->with('discount_added', 'You have added '.$product_discount.' % discount or reduced price '.$product_discount_amount.' tk on '.Product::findOrFail($product_id)->product_name.'..');
     }
 }

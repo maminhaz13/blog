@@ -135,9 +135,9 @@ Route::get('product/foreverdelete/{product_id}', 'ProductController@productforev
 
 Route::post('product/delete/mark', 'ProductController@product_mark_delete')->name('product.mark.delete')->middleware('auth');
 
-Route::get('product/discount/index', 'ProductController@product_discount')->name('Product.discount')->middleware('auth');
+Route::get('product/discount/index', 'ProductController@product_discount')->name('product.discount')->middleware('auth');
 
-Route::get('product/discount/add/{product_id}', 'ProductController@product_discount_add')->name('Product.discount.add')->middleware('auth');
+Route::post('product/discount/add', 'ProductController@product_discount_add')->name('product.discount.add')->middleware('auth');
 
 
 
