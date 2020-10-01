@@ -206,6 +206,7 @@ class ProductController extends Controller
     public function product_discount_add(Request $request){
         $product_discount = 0;
         $product_discount_amount = 0;
+        $product_id = $request->product_id;
 
         if($request->product_discount){
             $product_discount = $request->product_discount;
@@ -214,8 +215,6 @@ class ProductController extends Controller
         if($request->product_discount_amount){
             $product_discount_amount = $request->product_discount_amount;
         }
-
-        $product_id = $request->product_id;
 
         Product::findOrFail($product_id)->update([
             'product_discount' => $request->product_discount,

@@ -286,41 +286,61 @@
     <div class="footer-area ptb-100">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-12">
-                    @if(review_show_status() == 1)
-                        <!-- start user-testimonial-section -->
-                        <section class="social-newsletter-section">
-                            <div class="newsletter text-center">
-                                <h3>Share your feedback with us...</h3>
-                                <div class="newsletter-form">
-                                    <form action="{{ route('usertestmonial') }}" method="POST">
-                                        @csrf
-                                        <input name="review_full" type="text" class="form-control" placeholder="Share your feedback...">
-                                        <button type="submit"><i class="fa fa-send"></i></button>
-                                    </form>
+                    @if(review_show_status() == 0)
+                        <!-- start social-newsletter-section -->
+                        <div class="col-md-12">
+                            <section class="social-newsletter-section">
+                                <div class="newsletter text-center">
+                                    <h3>Subscribe  Newsletter</h3>
+                                    <div class="newsletter-form">
+                                        <form action="{{ route('subscriber') }}" method="POST">
+                                            @csrf
+                                            <input name="subscriber" type="text" class="form-control" placeholder="Enter Your Email Address...">
+                                            <button type="submit"><i class="fa fa-send"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
-                        <!-- end user-testimonial-section -->
-                    @endif
-                </div>
-
-                <div class="col-lg-6">
-                    <!-- start social-newsletter-section -->
-                    <section class="social-newsletter-section">
-                        <div class="newsletter text-center">
-                            <h3>Subscribe  Newsletter</h3>
-                            <div class="newsletter-form">
-                                <form action="{{ route('subscriber') }}" method="POST">
-                                    @csrf
-                                    <input name="subscriber" type="text" class="form-control" placeholder="Enter Your Email Address...">
-                                    <button type="submit"><i class="fa fa-send"></i></button>
-                                </form>
-                            </div>
+                            </section>
                         </div>
-                    </section>
-                    <!-- end social-newsletter-section -->
-                </div>
+                        <!-- end social-newsletter-section -->
+                    @elseif(review_show_status() == 1)
+                            <!-- start social-newsletter-section -->
+                            <div class="col-lg-6">
+                                <section class="social-newsletter-section">
+                                    <div class="newsletter text-center">
+                                        <h3>Subscribe  Newsletter</h3>
+                                        <div class="newsletter-form">
+                                            <form action="{{ route('subscriber') }}" method="POST">
+                                                @csrf
+                                                <input name="subscriber" type="text" class="form-control" placeholder="Enter Your Email Address...">
+                                                <button type="submit"><i class="fa fa-send"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <!-- end social-newsletter-section -->
+
+                        <div class="col-lg-6 col-12">
+                            <!-- start user-testimonial-section -->
+                            <div class="col-lg-12">
+                                <section class="social-newsletter-section">
+                                    <div class="newsletter text-center">
+                                        <h3>Share your feedback with us...</h3>
+                                        <div class="newsletter-form">
+                                            <form action="{{ route('usertestmonial') }}" method="POST">
+                                                @csrf
+                                                <input name="review_full" type="text" class="form-control" placeholder="Share your feedback...">
+                                                <button type="submit"><i class="fa fa-send"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <!-- end user-testimonial-section -->
+                        </div>
+                    @endif
+
             </div>
         </div>
     </div>
