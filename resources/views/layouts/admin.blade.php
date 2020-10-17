@@ -345,7 +345,17 @@
     <script src="{{ asset('dashboard_starlight') }}/cdn/jquery.dataTables.min.js"></script>
     <!-- cdn chart.js -->
     <script src="{{ asset('dashboard_starlight') }}/cdn/chart.js@2.8.0"></script>
-
+    <!-- javascript new window -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Bootstrap 4 dependency -->
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <!-- bootbox code -->
+    <script src="bootbox.min.js"></script>
+    <script src="bootbox.locales.min.js"></script>
+    <!-- JS dependencies for bootbox  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ 
     @yield('footer_scripts')
   </body>
 </html>

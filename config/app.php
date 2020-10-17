@@ -176,7 +176,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Jorenvh\Share\Providers\ShareServiceProvider::class,
     ],
 
     /*
@@ -230,7 +229,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Share' => Jorenvh\Share\ShareFacade::class,
 
     ],
 
