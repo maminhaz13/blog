@@ -40,66 +40,6 @@
                     </div>
                   </div>
                 @enderror
-                      
-                @error('product_short_description')
-                  <div class="alert alert-danger" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <div class="d-flex align-items-center justify-content-start">
-                      <i class="icon ion-ios-close alert-icon tx-24"></i>
-                      <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                    </div>
-                  </div>
-                @enderror
-
-                @error('product_long_description')
-                  <div class="alert alert-danger" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <div class="d-flex align-items-center justify-content-start">
-                      <i class="icon ion-ios-close alert-icon tx-24"></i>
-                      <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                    </div>
-                  </div>      
-                @enderror
-
-                @error('product_quantity')
-                  <div class="alert alert-danger" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <div class="d-flex align-items-center justify-content-start">
-                      <i class="icon ion-ios-close alert-icon tx-24"></i>
-                      <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                    </div>
-                  </div>      
-                @enderror
-
-                @error('product_alert_quantity')
-                  <div class="alert alert-danger" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <div class="d-flex align-items-center justify-content-start">
-                      <i class="icon ion-ios-close alert-icon tx-24"></i>
-                      <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                    </div>
-                  </div>      
-                @enderror
-
-                @error('product_price')
-                  <div class="alert alert-danger" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <div class="d-flex align-items-center justify-content-start">
-                      <i class="icon ion-ios-close alert-icon tx-24"></i>
-                      <span><strong>Oh snap!</strong> {{ $message }}.</span>
-                    </div>
-                  </div>      
-                @enderror  
               </div>  --}}
               
               <form method="post" action="{{ route('Product.update', $product_info->id) }}" enctype="multipart/form-data">

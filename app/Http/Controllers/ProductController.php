@@ -66,7 +66,7 @@ class ProductController extends Controller
             Product::find($cat_id)->update([
                 'product_thumbnail_picture' => $picture_name,
                 'updated_at' => Carbon::now(),
-            ]);      
+            ]);
         }
 
         if($request->hasFile('product_multiple_picture')){
@@ -204,6 +204,44 @@ class ProductController extends Controller
      *
      */
     public function product_discount_add(Request $request){
+        $product_discount = $request->product_discount;
+        $product_discount_amount = $request->product_discount_amount;
+        $product_id = $request->product_id;
+
+        // if(!$request->product_discount == ""){
+        //     //  return $product_discount = ($product_discount/100) * Product::findOrFail($product_id)->product_price;
+        //     //  return Product::findOrFail($product_id)->product_price;
+        //      return $product_id;
+        // }
+
+        // Product::findOrFail($product_id)->update([
+        //     'product_discount' => $request->product_discount,
+        //     'product_discount_amount' => $request->product_discount_amount,
+        //     'updated_at' => Carbon::now(),
+        // ]);
+        // return back()->with('discount_added', 'You have added '.$product_discount.' % discount or reduced price '.$product_discount_amount.' tk on '.Product::findOrFail($product_id)->product_name.'..');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function product_discount_edit($id)
+    {
+        return view('admin.product_discount.edit', [
+            'product_info' => Product::findOrFail($id),
+            'category_info' => Category::all(),
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     */
+    public function product_discount_upd(Request $request)
+    {
         $product_discount = 0;
         $product_discount_amount = 0;
         $product_id = $request->product_id;
@@ -219,7 +257,23 @@ class ProductController extends Controller
         Product::findOrFail($product_id)->update([
             'product_discount' => $request->product_discount,
             'product_discount_amount' => $request->product_discount_amount,
+            'updated_at' => Carbon::now(),
         ]);
-        return back()->with('discount_added', 'You have added '.$product_discount.' % discount or reduced price '.$product_discount_amount.' tk on '.Product::findOrFail($product_id)->product_name.'..');
+        return redirect()->route('product.discount')->with('discount_updated', 'You have updated a products discount amount...');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     */
+    public function product_discount_remove($id)
+    {
+        Product::findOrFail($id)->update([
+            'product_discount' => 0,
+            'product_discount_amount' => 0,
+            'updated_at' => Carbon::now(),
+        ]);
+        return redirect()->route('product.discount')->with('discount_removed', 'You have removed a products discount ...');
+    }
+
 }

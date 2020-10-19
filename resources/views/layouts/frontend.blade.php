@@ -476,10 +476,6 @@
     <script src="{{ asset('front') }}/assets/js/scripts.js"></script>
     <!-- select2 js -->
     <script src="{{ asset('front') }}/assets/js/select2.min.js"></script>
-    <!-- jorenvh/laravel-share js -->
-    <script src="{{ asset('front') }}/assets/cdn/jquery-3.1.1.min.js"></script>
-    <!-- jorenvh/laravel-share cdn -->
-    <script src="js/share.js"></script>
 
 
     @yield('footer_scripts')

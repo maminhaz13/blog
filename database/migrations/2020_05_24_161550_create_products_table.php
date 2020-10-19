@@ -15,18 +15,18 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product_name');
-            $table->integer('category_id');
-            $table->longText('product_short_description');
-            $table->longText('product_long_description');
-            $table->integer('product_quantity');
-            $table->integer('product_alert_quantity');
-            $table->float('product_price');
+            $table->string('product_name')->nullable();
+            $table->integer('category_id')->nullable();
+            $table->longText('product_short_description')->nullable();
+            $table->longText('product_long_description')->nullable();
+            $table->integer('product_quantity')->nullable();
+            $table->integer('product_alert_quantity')->nullable();
+            $table->float('product_price')->nullable();
             $table->integer('show_discount')->default(1);
             $table->float('product_discount')->nullable();
             $table->float('product_discount_amount')->nullable();
             $table->string('product_thumbnail_picture')->default('default_product_thumbnail_photo.png');
-            $table->longText('slug');
+            $table->longText('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
