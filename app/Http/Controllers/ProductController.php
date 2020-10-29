@@ -276,4 +276,8 @@ class ProductController extends Controller
         return redirect()->route('product.discount')->with('discount_removed', 'You have removed a products discount ...');
     }
 
+    public function wysiwig(){
+        return view('wysiwig');
+    }
+
 }

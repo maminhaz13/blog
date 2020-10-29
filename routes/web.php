@@ -144,6 +144,7 @@ Route::get('product/discount/edit/{product_id}', 'ProductController@product_disc
 Route::post('product/discount/edit/update', 'ProductController@product_discount_upd')->name('product.discount.upd')->middleware('auth');
 
 Route::get('product/discount/remove/{id}', 'ProductController@product_discount_remove')->name('product.discount.remove')->middleware('auth');
+Route::get('wysiwig', 'ProductController@wysiwig');
 
 
 

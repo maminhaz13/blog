@@ -4,31 +4,26 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Twitter -->
-    <meta name="twitter:site" content="@themepixels">
-    <meta name="twitter:creator" content="@themepixels">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Starlight">
-    <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
-    <meta name="twitter:image" content="http://themepixels.me/starlight/img/starlight-social.png">
-
-    <!-- Facebook -->
-    <meta property="og:url" content="http://themepixels.me/starlight">
-    <meta property="og:title" content="Starlight">
-    <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
-
-    <meta property="og:image" content="http://themepixels.me/starlight/img/starlight-social.png">
-    <meta property="og:image:secure_url" content="http://themepixels.me/starlight/img/starlight-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Meta -->
     <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
     <meta name="author" content="ThemePixels">
 
     <title>{{ config('app.name') }} | @yield('title', 'Admin Panel')</title>
+
+    <!-- Summernote css -->
+    <link href="{{ asset('dashboard_starlight') }}/css/plugins/summernote/summernote.css" rel="stylesheet" />
+
+    <!-- App css -->
+    <link href="{{ asset('dashboard_starlight') }}/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard_starlight') }}/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('dashboard_starlight') }}/css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="{{ asset('dashboard_starlight') }}/js/modernizr.min.js"></script>
 
     <!-- vendor css -->
     <link href="{{ asset('dashboard_starlight') }}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -341,21 +336,36 @@
     <script src="{{ asset('dashboard_starlight') }}/lib/select2/js/select2.min.js"></script>
     <script src="{{ asset('dashboard_starlight') }}/js/starlight.js"></script>
 
-    <!-- cdn chart.js -->
+    <!-- cdn for datatables -->
     <script src="{{ asset('dashboard_starlight') }}/cdn/jquery.dataTables.min.js"></script>
+
     <!-- cdn chart.js -->
     <script src="{{ asset('dashboard_starlight') }}/cdn/chart.js@2.8.0"></script>
-    <!-- javascript new window -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <!-- Bootstrap 4 dependency -->
-    <script src="popper.min.js"></script>
-    <script src="bootstrap.min.js"></script>
+    <script src="{{ asset('dashboard_starlight') }}/js/popper.min.js"></script>
+    <script src="{{ asset('dashboard_starlight') }}/js/bootstrap.min.js"></script>
     <!-- bootbox code -->
-    <script src="bootbox.min.js"></script>
-    <script src="bootbox.locales.min.js"></script>
-    <!-- JS dependencies for bootbox  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
- 
+    <script src="{{ asset('dashboard_starlight') }}/js/bootbox.min.js"></script>
+    <script src="{{ asset('dashboard_starlight') }}/js/bootbox.locales.js"></script>
+
+    <!--Wysiwig tinymce js-->
+    <script src="{{ asset('dashboard_starlight') }}/plugins/tinymce/tinymce.min.js"></script>
+    <script src="{{ asset('dashboard_starlight') }}/plugins/tinymce/jquery.tinymce.min.js"></script>
+
+    <!-- App js -->
+    <script src="{{ asset('dashboard_starlight') }}/js/jquery.core.js"></script>
+    <script src="{{ asset('dashboard_starlight') }}/js/jquery.app.js"></script>
+
+    <!-- jQuery  -->
+    <script src="{{ asset('dashboard_starlight') }}/js/jquery.min.js"></script><!-- javascript new window,,JS dependencies for bootbox -->
+    <script src="{{ asset('dashboard_starlight') }}/js/tether.min.js"></script><!-- Tether for Bootstrap -->
+    <script src="{{ asset('dashboard_starlight') }}/js/bootstrap.min.js"></script>
+    <script src="{{ asset('dashboard_starlight') }}/js/waves.js"></script>
+    <script src="{{ asset('dashboard_starlight') }}/js/jquery.slimscroll.js"></script>
+    <script src="{{ asset('dashboard_starlight') }}/js/jquery.scrollTo.min.js"></script>
+
+
     @yield('footer_scripts')
   </body>
 </html>
