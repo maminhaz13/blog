@@ -999,10 +999,13 @@
                 "thumbnail",
                 "watermark"
             ],
+<<<<<<< HEAD
             "support": {
                 "issues": "https://github.com/Intervention/image/issues",
                 "source": "https://github.com/Intervention/image/tree/master"
             },
+=======
+>>>>>>> 98373fc9176934bb65068f5aa0074a7fc8a39240
             "time": "2019-11-02T09:15:47+00:00"
         },
         {

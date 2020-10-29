@@ -341,6 +341,7 @@
 
     <!-- cdn chart.js -->
     <script src="{{ asset('dashboard_starlight') }}/cdn/chart.js@2.8.0"></script>
+<<<<<<< HEAD
 
     <!-- Bootstrap 4 dependency -->
     <script src="{{ asset('dashboard_starlight') }}/js/popper.min.js"></script>
@@ -366,6 +367,19 @@
     <script src="{{ asset('dashboard_starlight') }}/js/jquery.scrollTo.min.js"></script>
 
 
+=======
+    <!-- javascript new window -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Bootstrap 4 dependency -->
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <!-- bootbox code -->
+    <script src="bootbox.min.js"></script>
+    <script src="bootbox.locales.min.js"></script>
+    <!-- JS dependencies for bootbox  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ 
+>>>>>>> 98373fc9176934bb65068f5aa0074a7fc8a39240
     @yield('footer_scripts')
   </body>
 </html>
