@@ -1,9 +1,5 @@
   @extends('layouts.admin')
 
-  {{-- @php
-    error_reporting(0);
-  @endphp --}}
-
   @section('product_active')
     active
   @endsection
@@ -24,18 +20,41 @@
             <div class="card-header card-header-default">Product Table</div>
               <div class="card-body">
                 <div>
-                  
-              @if(session('product_trashed'))
-                <div class="alert alert-warning" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                <div class="d-flex align-items-center justify-content-start">
-                  <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                  <span><strong>Warning!</strong> Better check yourself.</span>
-                </div>
-                </div>
-              @endif
+                  @if(session('product_trashed'))
+                    <div class="alert alert-warning" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    <div class="d-flex align-items-center justify-content-start">
+                      <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                      <span><strong>{{ session('product_trashed') }}</strong></span>
+                    </div>
+                    </div>
+                  @endif
+
+                  @if(session('hid_featured_product'))
+                    <div class="alert alert-warning" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    <div class="d-flex align-items-center justify-content-start">
+                      <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                      <span><strong>{{ session('hid_featured_product') }}</strong></span>
+                    </div>
+                    </div>
+                  @endif
+
+                  @if(session('shown_featured_product'))
+                      <div class="alert alert-success" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                          </button>
+                          <div class="d-flex align-items-center justify-content-start">
+                              <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                              <span><strong>{{ session('shown_featured_product') }}</strong></span>
+                          </div>
+                      </div>
+                  @endif
                 </div>
                 {{-- Added products table start --}}
                 <form action="{{ url('product/delete/mark') }}" method="POST">
@@ -65,7 +84,15 @@
                               <input class="ckbox mg-b-0" type="checkbox" name="product_data" value= "{{ $prodata->id }}" id="checkItem">
                             </td>
                             <td>{{ $loop->index+1 }}</td>
-                            <td>{{ $prodata->product_name }}</td>
+                            <td>
+                              {{ $prodata->product_name }}
+                              @if($prodata->show_featured === 1)
+
+                              @elseif($prodata->show_featured === 2)
+                                <span class="bg-indigo tx-white"><i class="fa fa-star bg-indigo"> featured product </i></span>
+                              @endif
+                              
+                            </td>
                             <td>{{ $prodata->relationship_with_category_for_catname->category_name }}</td>
                             <td>{{ $prodata->product_short_description }}</td>
                             <td>{{ $prodata->product_long_description }}</td>
@@ -77,16 +104,27 @@
                             </td>
                             <td>
                               <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{{ route('Product.edit', $prodata->id) }}" type="button" class="btn btn-info active btn-btn-sm mg-b-10 btn btn sm">
+                                <a href="{{ route('Product.edit', $prodata->id) }}" type="button" class="btn btn-ouline-info active btn-btn-sm mg-b-10 btn btn sm">
                                   Edit
                                 </a>
                                 <form method="POST" action="{{ route('Product.destroy', $prodata->id) }}">
                                   @csrf
                                   @method('DELETE')
-                                  <button type="submit" class="btn btn-danger active btn-btn-sm mg-b-10 btn btn sm" >
+                                  <button type="submit" class="btn btn-ouline-danger active btn-btn-sm mg-b-10 btn btn sm" >
                                     Trash
                                   </button>
                                 </form>
+                                @if($prodata->show_featured === 1)
+                                  <a href="{{ route('product.featured.show', $prodata->id) }}" type="button" class="btn btn-ouline-info active btn-btn-sm mg-b-10 btn btn sm">
+                                    Show as featured
+                                  </a>
+                                @elseif($prodata->show_featured === 2)
+                                  <a href="{{ route('product.featured.hide', $prodata->id) }}" type="button" class="btn btn-ouline-info active btn-btn-sm mg-b-10 btn btn sm">
+                                    Hide from featured
+                                  </a>
+                                @else
+
+                                @endif
                               </div>
                             </td>
                           </tr>

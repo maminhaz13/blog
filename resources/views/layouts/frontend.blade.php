@@ -92,7 +92,7 @@
                         <ul class="d-flex account_login-area">
                             @if(Auth::check())
                                 <li>
-                                    <a href=""><i class="fa fa-user"></i> {{ Auth::user()->name }} </a>
+                                    <a href="{{ route('customer.profile.details.index') }}"><i class="fa fa-user"></i> {{ Auth::user()->name }} </a>
                                 </li>
                             @else
                                 <li>
@@ -111,7 +111,7 @@
                                 </li>
                             @else
                                 <li><a href="{{ route('user.registration') }}"> Sign up </a></li>
-                                <li><a href="{{ route('login') }}"> Login </a></li>
+                                <li><a href="{{ route('user.login') }}"> Login </a></li>
                             @endif
                         </ul>
                     </div>
@@ -281,6 +281,7 @@
 
 
     @yield('frontend_content')
+    @yield('customer_login')
 
 
     <div class="footer-area ptb-100">

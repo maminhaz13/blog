@@ -46,6 +46,8 @@ Route::get('register/user', 'FrontendController@user_registration')->name('user.
 
 Route::post('register/user/post', 'FrontendController@user_registration_post')->name('user.registration.post');
 
+Route::get('user/login', 'FrontendController@user_login')->name('user.login');
+
 Route::post('product/review', 'FrontendController@product_review')->name('product.review');
 
 Route::post('subscriber/added', 'FrontendController@subscriber')->name('subscriber');
@@ -145,6 +147,14 @@ Route::post('product/discount/edit/update', 'ProductController@product_discount_
 
 Route::get('product/discount/remove/{id}', 'ProductController@product_discount_remove')->name('product.discount.remove')->middleware('auth');
 
+Route::get('product/featured/show/{id}', 'ProductController@product_featured_show')->name('product.featured.show')->middleware('auth');
+
+Route::get('product/featured/hide/{id}', 'ProductController@product_featured_hide')->name('product.featured.hide')->middleware('auth');
+
+Route::get('product/discount/show/{id}', 'ProductController@product_discount_show')->name('product.discount.show')->middleware('auth');
+
+Route::get('product/discount/hide/{id}', 'ProductController@product_discount_hide')->name('product.discount.hide')->middleware('auth');
+
 Route::get('wysiwig', 'ProductController@wysiwig');
 
 
@@ -168,8 +178,6 @@ Route::resource('Coupon', 'CouponController')->middleware('auth');
 
 
 //Customer Controller's Route
-Route::get('customer/home', 'CustomerController@customer_home')->name('customer.home')->middleware('auth');
-
 Route::get('customer/orders', 'CustomerController@customer_order')->name('customer.order')->middleware('auth');
 
 Route::get('customer/invoice/download/{order_id}', 'CustomerController@customer_invoice_download')->name('customer.invoice.download')->middleware('auth');
@@ -242,3 +250,10 @@ Route::resource('products/faq', 'FAQController')->middleware('auth');
 // Route::get('about/information/restore/{id}', 'AboutController@restore')->name('about.restore')->middleware('auth');
 
 // Route::get('about/delete/{id}', 'AboutController@delete')->name('about.delete')->middleware('auth');
+
+
+
+//CustomerProfile Controller's Route
+Route::resource('user/profile/details', 'CustomerProfileController', [ 
+    'as' => 'customer.profile'
+])->middleware('auth');

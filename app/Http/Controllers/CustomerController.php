@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use PDF;
 use App\Order;
+use App\Banner;
+use App\Product;
+use App\Category;
+use App\Testmonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller

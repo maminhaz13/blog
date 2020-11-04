@@ -93,7 +93,7 @@
         <section class="count-down-section section-padding parallax" data-speed="7">
             <div class="container">
                 <div class="row">
-                   <div class="col-12 col-lg-12 text-center">
+                    <div class="col-12 col-lg-12 text-center">
                         <h2 class="big">Deal Of the Day <span>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin</span></h2>
                     </div>
                     <div class="col-12 col-lg-12 text-center">
@@ -109,6 +109,78 @@
         </section>
     </div>
     <!-- end count-down-section -->
+
+    <!-- feature-product-area start -->
+    <div class="product-area product-area-2">
+        <div class="fluid-container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>Featured Products</h2>
+                        <img src="{{ asset('front') }}/assets/images/section-title.png" alt="">
+                    </div>
+                </div>
+            </div>  
+            <ul class="row">
+                @foreach($featured_products as $featured_product)
+                    @if(!$featured_product == '')
+                        <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                            <div class="product-wrap">
+                                <div class="product-img">
+                                    <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ product()->find($featured_product->id)->product_thumbnail_picture }}" alt="">
+                                    <div class="product-icon flex-style">
+                                    <ul>
+                                        <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="{{ route('wishlist.add', $featured_product->id) }}"><i class="fa fa-heart"></i></a></li>
+                                        <form action="{{ route('cart.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $featured_product->id }}">
+                                            <input type="hidden" name="product_quantity" value="{{ 1 }}">
+                                            <li><button type="submit" class="btn btn-danger">Add to Cart</button></li>
+                                        </form>
+                                    </ul>
+
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <h3><a href="single-product.html">{{ product()->find($featured_product->id)->product_name }}</a></h3>
+                                    <p class="pull-left">${{ product()->find($featured_product->id)->product_price }}
+                                        <del>$156</del>
+                                    </p>
+                                    <ul class="pull-right d-flex">
+                                        @if (avg_rating_count($featured_product->id) == 0)
+                                            No rating yet..
+                                        @endif
+                                        @for($i = 0; $i < avg_rating_count($featured_product->id); $i++)
+                                            <li><i class="fa fa-star"></i></li>
+                                        @endfor
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    <!-- feature-product-area end -->
+
+    <!-- banner-area start -->
+    <div class="banner-area bg-img-8">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-6 col-md-8 offset-md-4">
+                    <div class="banner-wrap">
+                        <p>Neture Oil Collection</p>
+                        <h2>upto<span>50%</span> Off</h2>
+                        <a href="shop.html">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner-area end -->
+
     <!-- product-area start -->
     <div class="product-area product-area-2">
         <div class="fluid-container">

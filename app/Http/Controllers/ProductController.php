@@ -195,7 +195,6 @@ class ProductController extends Controller
     public function product_discount(Request $request){
         return view('admin.product_discount.index', [
             'product_data' => Product::all(),
-            'deleted_product_data' => Product::onlyTrashed()->get(),
         ]);
     }
 
@@ -204,22 +203,52 @@ class ProductController extends Controller
      *
      */
     public function product_discount_add(Request $request){
+        // product input validation
+        $request->validate([
+            'product_discount' => 'numeric',
+            'product_price' => 'numeric',
+        ],
+
+        $messages = [
+            'product_discount.numeric' => 'Product discount should be number.',
+            'product_discount_amount.numeric' => 'Product discount amount should be number..',
+        ]);
+
         $product_discount = $request->product_discount;
         $product_discount_amount = $request->product_discount_amount;
         $product_id = $request->product_id;
+        $product_price = Product::findOrFail($product_id)->product_price;
 
-        // if(!$request->product_discount == ""){
-        //     //  return $product_discount = ($product_discount/100) * Product::findOrFail($product_id)->product_price;
-        //     //  return Product::findOrFail($product_id)->product_price;
-        //      return $product_id;
-        // }
+        // check if product discount and product discount amount has value 
+        if(!$product_discount == 0 && !$product_discount_amount == 0){
+            return redirect()->route('product.discount')->with('add_double_err', 'You can not insert product discount and product discount amount at the same time...You have to input either product discount or product discount amount.');
+        }
 
-        // Product::findOrFail($product_id)->update([
-        //     'product_discount' => $request->product_discount,
-        //     'product_discount_amount' => $request->product_discount_amount,
-        //     'updated_at' => Carbon::now(),
-        // ]);
-        // return back()->with('discount_added', 'You have added '.$product_discount.' % discount or reduced price '.$product_discount_amount.' tk on '.Product::findOrFail($product_id)->product_name.'..');
+        // check if product discount has value and update
+        elseif($product_discount > 0){
+            $counted_pro_dis = ($product_discount/100)*$product_price;
+            Product::findOrFail($product_id)->update([
+                'product_discount' => $product_discount,
+                'product_price' => $product_price-$counted_pro_dis,
+                'updated_at' => Carbon::now(),
+            ]);
+            return back()->with('discount_added', 'You have added '.$product_discount.' % discount  on '.Product::findOrFail($product_id)->product_name.'..');
+        }
+
+        // check if product discount amount has value and update
+        elseif($product_discount_amount > 0){
+            Product::findOrFail($product_id)->update([
+                'product_price' => $product_price-$product_discount_amount,
+                'product_discount_amount' => $product_discount_amount,
+                'updated_at' => Carbon::now(),
+            ]);
+            return back()->with('discount_added', 'You have reduced price '.($product_price-$product_discount_amount).' tk on '.Product::findOrFail($product_id)->product_name);
+        }
+
+        // check if product discount and product discount amount is null 
+        elseif($product_discount == 0 && $product_discount_amount == 0){
+            return redirect()->route('product.discount');
+        }
     }
 
     /**
@@ -240,26 +269,55 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function product_discount_upd(Request $request)
-    {
-        $product_discount = 0;
-        $product_discount_amount = 0;
-        $product_id = $request->product_id;
+    public function product_discount_upd(Request $request){
+        // product input validation
+        $request->validate([
+            'product_discount' => 'numeric',
+            'product_price' => 'numeric',
+        ],
 
-        if($request->product_discount){
-            $product_discount = $request->product_discount;
-        }
-
-        if($request->product_discount_amount){
-            $product_discount_amount = $request->product_discount_amount;
-        }
-
-        Product::findOrFail($product_id)->update([
-            'product_discount' => $request->product_discount,
-            'product_discount_amount' => $request->product_discount_amount,
-            'updated_at' => Carbon::now(),
+        $messages = [
+            'product_discount.numeric' => 'Product discount should be number.',
+            'product_discount_amount.numeric' => 'Product discount amount should be number..',
         ]);
-        return redirect()->route('product.discount')->with('discount_updated', 'You have updated a products discount amount...');
+
+        $product_id = $request->id;
+        $product_discount = $request->product_discount;
+        $product_discount_amount = $request->product_discount_amount;
+        $product_price = Product::findOrFail($product_id)->product_price;
+
+        // check if product discount and product discount amount has value 
+        if(!$product_discount == 0 && !$product_discount_amount == 0){
+            return back()->with('add_double_err', 'You can not insert product discount and product discount amount at the same time...You have to input either product discount or product discount amount.');
+        }
+
+        // check if product discount has value and update
+        elseif($product_discount > 0){
+            $counted_pro_dis = ($product_discount/100)*$product_price;
+            Product::findOrFail($product_id)->update([
+                'product_discount' => $product_discount,
+                'product_discount_amount' => 0,
+                'product_price' => $product_price-$counted_pro_dis,
+                'updated_at' => Carbon::now(),
+            ]);
+            return redirect()->route('product.discount')->with('discount_edited', 'You have edited '.Product::findOrFail($product_id)->product_name.'s discount parcent');
+        }
+
+        // check if product discount amount has value and update
+        elseif($product_discount_amount > 0){
+            Product::findOrFail($product_id)->update([
+                'product_discount' => 0,
+                'product_price' => $product_price-$product_discount_amount,
+                'product_discount_amount' => $product_discount_amount,
+                'updated_at' => Carbon::now(),
+            ]);
+            return redirect()->route('product.discount')->with('discount_amount_edited', 'You have reduced price of '.Product::findOrFail($product_id)->product_name.'...');
+        }
+
+        // check if product discount and product discount amount is null 
+        elseif($product_discount == 0 && $product_discount_amount == 0){
+            return redirect()->route('product.discount');
+        }
     }
 
     /**
@@ -276,8 +334,70 @@ class ProductController extends Controller
         return redirect()->route('product.discount')->with('discount_removed', 'You have removed a products discount ...');
     }
 
+    /**
+     * Show the product discount.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function product_discount_show($id)
+    {
+        Product::findOrFail($id)->update([
+            'show_discount' => 2,
+            'updated_at' => Carbon::now(),
+        ]);
+        return back();
+    }
+
+    /**
+     * Hide the product discount.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function product_discount_hide($id)
+    {
+        Product::findOrFail($id)->update([
+            'show_discount' => 1,
+            'updated_at' => Carbon::now(),
+        ]);
+        return back();
+    }
+
     public function wysiwig(){
         return view('wysiwig');
+    }
+
+    /**
+     * show product as featured products.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function product_featured_show($id)
+    {
+        $prodata = Product::findOrFail($id);
+        $prodata->update([
+            'show_featured' => 2,
+            'updated_at' => Carbon::now(),
+        ]);
+        return redirect()->route('Product.index')->with('shown_featured_product', 'You have added '.$prodata->product_name.' as a featured product..');
+    }
+
+    /**
+     * Hide product from featured products;..
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function product_featured_hide($id)
+    {
+        $prodata = Product::findOrFail($id);
+        $prodata->update([
+            'show_featured' => 1,
+            'updated_at' => Carbon::now(),
+        ]);
+        return redirect()->route('Product.index')->with('hid_featured_product', 'You have hidden '.$prodata->product_name.' from featured product list..');
     }
 
 }

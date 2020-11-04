@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->integer('product_alert_quantity')->nullable();
             $table->float('product_price')->nullable();
             $table->integer('show_discount')->default(1);
+            $table->integer('show_featured')->default(1);
             $table->float('product_discount')->nullable();
             $table->float('product_discount_amount')->nullable();
             $table->string('product_thumbnail_picture')->default('default_product_thumbnail_photo.png');

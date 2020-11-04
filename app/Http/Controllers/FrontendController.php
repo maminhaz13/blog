@@ -40,6 +40,24 @@ class FrontendController extends Controller
 
     function user_registration_post(Request $request){
 
+        // product input validation
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required', 'email', 'unique:users,email',
+            'phone_number' => 'unique:users,phone_number', 'nullable',
+            'birthday'=> 'date', 'nullable',
+            'password'=> 'required',
+        ],
+
+        $messages = [
+            'name.required' => 'You must insert your name.',
+            'email.required' => 'You must insert your email address.',
+            'email.email' => 'Your email address should be valid.',
+            'email.unique' => 'Your email address is used already. Try another one..',
+            'phone_number.unique' => 'Your phone number is used already. Try another one..',
+            'birthday.date' => 'Your birth date should be valid date..',
+        ]);
+
         User::insert([
             'name' => $request->name,
             'email' => $request->email,
@@ -50,12 +68,17 @@ class FrontendController extends Controller
         ]);
         
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-            return redirect('customer/home');
+            return redirect()->route('index');
         }
 
     }
 
+    function user_login(){
+        return view('admin.frontend.customer_login');
+    }
+
     function index(){
+        $featured_product = Product::where('show_featured', 2)->get();
         $bestseller_asc = DB::table('Order_details')
             ->select('product_id', DB::raw('count(*) as total'))
             ->groupBy('product_id')
@@ -67,6 +90,7 @@ class FrontendController extends Controller
             'banners' => Banner::where('show_status', 1)->get(),
             'testmonials' => Testmonial::where('show_status', 2)->latest()->get(),
             'bestseller_desc' => $bestseller_desc,
+            'featured_products' => $featured_product,
         ]);
     }
 
@@ -100,11 +124,11 @@ class FrontendController extends Controller
             // $file_path = $request->file('contact_attachment')->store('contact_attachment');
             $path = $request->file('contact_attachment')->storeAs(
                 'contact_upload', $contact_id . '.' . $request->file('contact_attachment')->getClientOriginalExtension(),
-             );
+            );
         Contact::find($contact_id)->update([
             'contact_attachment' => $path,
             'updated_at' => Carbon::now(),
-          ]);
+            ]);
         }
         return back();
     }

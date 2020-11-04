@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Auth;
+use Closure;
 
 class CheckRole
 {
@@ -19,7 +19,7 @@ class CheckRole
         if (Auth::user()->role == 1) {
             
         } else {
-            return redirect('customer/home');
+            return redirect()->route('index');
         }
         return $next($request);
     }
