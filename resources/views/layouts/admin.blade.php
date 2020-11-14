@@ -16,7 +16,7 @@
     <title>{{ config('app.name') }} | @yield('title', 'Admin Panel')</title>
 
     <!-- Summernote css -->
-    <link href="{{ asset('dashboard_starlight') }}/css/plugins/summernote/summernote.css" rel="stylesheet" />
+    <link href="{{ asset('dashboard_starlight') }}/plugins/summernote/summernote.css" rel="stylesheet" />
 
     <!-- App css -->
     <link href="{{ asset('dashboard_starlight') }}/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -61,8 +61,8 @@
 
           <a href="" class="sl-menu-link @yield('frontend_active')">
             <div class="sl-menu-item">
-              <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
-              <span class="menu-item-label">Customize Info</span>
+              <i class="menu-item-icon icon ion-gear-b tx-22"></i>
+              <span class="menu-item-label">Settings</span>
               <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
@@ -72,18 +72,22 @@
             <li class="nav-item"><a href="{{ route('custom.contact.index') }}" class="nav-link">Contact Information</a></li>
           </ul>
 
-
           <a href="{{ route('addcategory') }}" class="sl-menu-link @yield('category_active')">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-              <span class="menu-item-label">Category Management</span>
+              <span class="menu-item-label">Category Manager</span>
+              <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
+          <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="{{ route('addcategory') }}" class="nav-link">Categories</a></li>
+            <li class="nav-item"><a href="{{ route('child_category') }}" class="nav-link">Sub-categories</a></li>
+          </ul>
 
           <a href="" class="sl-menu-link @yield('product_active')">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
-              <span class="menu-item-label">Product Management</span>
+              <span class="menu-item-label">Product Manager</span>
               <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
@@ -96,7 +100,7 @@
           <a href="{{ route('order.index') }}" class="sl-menu-link @yield('order_manage_active')">
             <div class="sl-menu-item">
               <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-              <span class="menu-item-label">Order Management</span>
+              <span class="menu-item-label">Order Manager</span>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
 

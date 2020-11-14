@@ -256,3 +256,58 @@
             </div><!-- card -->
           </div><!-- accordion -->
         </div><!-- card -->
+
+
+  {{-- select option with js select2 --}}
+  <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+      <select class="form-control select2-show-search select2-hidden-accessible"
+          data-placeholder="Choose one (with searchbox)" tabindex="-1" aria-hidden="true">
+          <option label="Choose one"></option>
+          <option value="Firefox">Firefox</option>
+          <option value="Chrome">Chrome</option>
+          <option value="Safari">Safari</option>
+          <option value="Opera">Opera</option>
+          <option value="Internet Explorer">Internet Explorer</option>
+      </select>
+      <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" style="width: 386px;">
+          <span class="selection">
+              <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-p4d6-container">
+                  <span class="select2-selection__rendered" id="select2-p4d6-container">
+                      <span class="select2-selection__placeholder">
+                          Choose one (with searchbox)
+                      </span>
+                  </span>
+                  <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+              </span>
+          </span>
+          <span class="dropdown-wrapper" aria-hidden="true"></span>
+      </span>
+  </div>
+
+
+  {{-- large modal --}}
+  <div class="modal d-block pos-static">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header pd-y-20 pd-x-25">
+          <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Message Preview</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body pd-25">
+          <h4 class="lh-3 mg-b-20"><a href="" class="tx-inverse hover-primary">Why We Use Electoral College, Not Popular Vote</a></h4>
+          <p class="mg-b-5">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
+        </div><!-- modal-body -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info pd-x-20">Save changes</button>
+          <button type="button" class="btn btn-secondary pd-x-20">Close</button>
+        </div>
+      </div>
+    </div><!-- modal-dialog -->
+  </div>
+
+  {{-- large modal button --}}
+  <div class="pd-y-30 tx-center bg-gray-700">
+      <a href="" class="btn btn-info pd-x-20" data-toggle="modal" data-target="#modaldemo3">View Live Demo</a>
+    </div>

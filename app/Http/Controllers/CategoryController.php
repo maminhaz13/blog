@@ -7,6 +7,7 @@ use Image;
 use App\User;
 use App\Category;
 use Carbon\Carbon;
+use App\ChildCategory;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryForm;
 
@@ -95,32 +96,23 @@ class CategoryController extends Controller
     }
 
     function markdelete_category(Request $request){
-
         if(isset($request->category_id)){
-
             foreach ($request->category_id as $mark_catid) {
                 Category::find($mark_catid)->delete();
             }
 
-        return back()->with('mark_deleted', 'Your marked category deleted successfully');
-
+            return back()->with('mark_deleted', 'Your marked category deleted successfully');
         }
 
         else{
-
-        return back()->with('mark_deleted_error', 'Your did not marked category');
-
+            return back()->with('mark_deleted_error', 'Your did not marked category');
         }
-
     }
 
     function markrestore_category(Request $request){
-
         if(isset($request->re_category_id)){
-
             foreach ($request->re_category_id as $restore_catid) {
-
-                Category::withTrashed()->find($restore_catid)->restore();            
+                Category::withTrashed()->find($restore_catid)->restore();
             }
 
             return back()->with('mark_restore','Your marked category restored successfully');
@@ -128,6 +120,98 @@ class CategoryController extends Controller
 
         else{
             return back()->with('mark_restore_error','Your did not marked your categories');
+        }
+    }
+
+    function child_category(){
+        return view('admin.child_category.index', [
+            'categories' => Category::all(),
+            'child_categories' => ChildCategory::all(),
+            'trashed_child_categories' => ChildCategory::onlyTrashed()->get(),
+        ]);
+    }
+
+    function child_category_add(Request $request){
+        $child_cat_id = ChildCategory::insertGetId([
+            'category_id' => $request->category_id,
+            'child_category_name' => $request->child_category_name,
+            'child_category_desc' => $request->child_category_desc,
+            'addedby' => Auth::id(),
+            'created_at' => Carbon::now(),
+        ]);
+
+        if ($request->hasFile('child_category_pic')){
+            $uploaded_picture = $request->file('child_category_pic');
+            $photo_file_extention = "Child_category"."_".$child_cat_id.".".$uploaded_picture->getClientOriginalExtension('child_category_pic');
+            $picture_new_location = 'public/uploads/child_category_pic/'.$photo_file_extention;
+            Image::make($uploaded_picture)->save(base_path($picture_new_location));
+            ChildCategory::find($child_cat_id)->update([
+                'child_category_pic' => $photo_file_extention,
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        return redirect()->route('child_category')->with('child_category_added', 'You have added '.$request->child_category_name.' as a child category of '. Category::findOrFail($request->category_id)->category_name);
+    }
+
+    public function child_category_edit(Request $request, $id){
+        return view('admin.child_category.edit', [
+            'child_categories' => ChildCategory::findOrFail($id),
+            'categories' => Category::all(),
+        ]);
+    }
+
+    public function child_category_edit_post(Request $request){
+        ChildCategory::findOrFail($request->id)->update([
+            'category_id' => $request->category_id,
+            'child_category_name' => $request->child_category_name,
+            'child_category_desc' => $request->child_category_desc,
+            'addedby' => Auth::id(),
+            'updated_at' => Carbon::now(),
+        ]);
+        return redirect()->route('child_category')->with('child_category_edited', 'You have updated '.$request->child_category_name);
+    }
+
+    public function child_category_trash(Request $request, $id){
+        ChildCategory::findOrFail($id)->delete();
+        return redirect()->route('child_category')->with('child_category_trashed', 'You have trashed a child category');
+    }
+
+    public function child_category_recover(Request $request, $id){
+        ChildCategory::onlyTrashed()->findOrFail($id)->restore();
+        return redirect()->route('child_category')->with('child_category_restored', 'You have restored a child category');
+    }
+
+    public function child_category_delete(Request $request, $id){
+        ChildCategory::onlyTrashed()->findOrFail($id)->forceDelete();
+        return redirect()->route('child_category')->with('child_category_deleted', 'You have deleted a child category');
+    }
+
+    function child_category_mark_trash(Request $request){
+        if(isset($request->child_category_id)){
+            foreach ($request->child_category_id as $mark_child_catid) {
+                ChildCategory::findOrFail($mark_child_catid)->delete();
+            }
+
+            return back()->with('child_cat_mark_deleted', 'Your marked child category deleted successfully');
+        }
+
+        else{
+            return back()->with('child_cat_mark_deleted_err', 'Your did not marked any child category');
+        }
+    }
+
+    function child_category_mark_recover(Request $request){
+        if(isset($request->child_category_id)){
+            foreach ($request->child_category_id as $mark_child_catid) {
+                ChildCategory::findOrFail($mark_child_catid)->delete();
+            }
+
+            return back()->with('child_cat_mark_deleted', 'Your marked child category deleted successfully');
+        }
+
+        else{
+            return back()->with('child_cat_mark_deleted_err', 'Your did not marked any child category');
         }
     }
 }

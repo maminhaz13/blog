@@ -68,3 +68,8 @@
     return App\Contact_info::where('show_status', 2)->latest()->get()->take(1);
   //contact info end
   }
+
+  //users info all
+  function users(){
+    return App\User::all();
+  }

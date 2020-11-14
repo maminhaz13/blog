@@ -113,6 +113,25 @@ Route::get('category/restore/{category_id}', 'CategoryController@restore_categor
 
 Route::post('category/markrestore', 'CategoryController@markrestore_category')->name('markrestorecategory')->middleware('auth');
 
+Route::get('categories/child-category/home', 'CategoryController@child_category')->name('child_category')->middleware('auth');
+
+Route::post('categories/child-category/add', 'CategoryController@child_category_add')->name('child_category.add')->middleware('auth');
+
+Route::get('categories/child-category/edit/{id}', 'CategoryController@child_category_edit')->name('child_category.edit')->middleware('auth');
+
+Route::post('categories/child-category/edit/post', 'CategoryController@child_category_edit_post')->name('child_category.edit.post')->middleware('auth');
+
+Route::get('categories/child-category/trash/{id}', 'CategoryController@child_category_trash')->name('child_category.trash')->middleware('auth');
+
+Route::get('categories/child-category/recover/{id}', 'CategoryController@child_category_recover')->name('child_category.recover')->middleware('auth');
+
+Route::get('categories/child-category/delete/{id}', 'CategoryController@child_category_delete')->name('child_category.delete')->middleware('auth');
+
+Route::post('categories/child-category/mark-trash', 'CategoryController@child_category_mark_trash')->name('child_category.mark_trash')->middleware('auth');
+
+Route::post('categories/child-category/mark-recover', 'CategoryController@child_category_mark_recover')->name('child_category.mark_recover')->middleware('auth');
+
+
 
 
 //Profile Controller's Route

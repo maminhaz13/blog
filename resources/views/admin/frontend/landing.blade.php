@@ -127,7 +127,14 @@
                         <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
                             <div class="product-wrap">
                                 <div class="product-img">
-                                    <img src="{{ asset('uploads') }}/product_thumbnail_picture/{{ product()->find($featured_product->id)->product_thumbnail_picture }}" alt="">
+                                    <style>
+                                        #fpro {
+                                            width: 700px;
+                                            height: 300px;
+                                            border: 1px dashed #FE2E2E;
+                                        }
+                                    </style>
+                                    <img id="fpro" src="{{ asset('uploads') }}/product_thumbnail_picture/{{ product()->find($featured_product->id)->product_thumbnail_picture }}" alt="">
                                     <div class="product-icon flex-style">
                                     <ul>
                                         <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
