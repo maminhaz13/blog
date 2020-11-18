@@ -209,16 +209,16 @@
                                                     <td>{{ users()->find($child_category->addedby)->name }}</td>
                                                     <td>
                                                         @isset($child_category->created_at)
-                                                        <li>Time : {{ $child_category->created_at->format('h:i:s A') }}</li>
-                                                        <li>Date : {{ $child_category->created_at->format('d:m:Y') }}</li>
-                                                        <li>Duration : {{ $child_category->created_at->diffForHumans() }}</li>
+                                                            <li>Time : {{ $child_category->created_at->format('h:i:s A') }}</li>
+                                                            <li>Date : {{ $child_category->created_at->format('d:m:Y') }}</li>
+                                                            <li>Duration : {{ $child_category->created_at->diffForHumans() }}</li>
                                                         @endisset
                                                     </td>
                                                     <td>
                                                         @isset($child_category->updated_at)
-                                                        <li>Time : {{ $child_category->updated_at->format('h:i:s A') }}</li>
-                                                        <li>Date : {{ $child_category->updated_at->format('d:m:Y') }}</li>
-                                                        <li>Duration : {{ $child_category->updated_at->diffForHumans() }}</li>
+                                                            <li>Time : {{ $child_category->updated_at->format('h:i:s A') }}</li>
+                                                            <li>Date : {{ $child_category->updated_at->format('d:m:Y') }}</li>
+                                                            <li>Duration : {{ $child_category->updated_at->diffForHumans() }}</li>
                                                         @endisset
                                                     </td>
                                                     <td>

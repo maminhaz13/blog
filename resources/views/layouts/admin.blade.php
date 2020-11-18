@@ -15,33 +15,28 @@
 
     <title>{{ config('app.name') }} | @yield('title', 'Admin Panel')</title>
 
-    <!-- Summernote css -->
-    <link href="{{ asset('dashboard_starlight') }}/plugins/summernote/summernote.css" rel="stylesheet" />
-
-    <!-- App css -->
-    <link href="{{ asset('dashboard_starlight') }}/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('dashboard_starlight') }}/css/icons.css" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('dashboard_starlight') }}/css/style.css" rel="stylesheet" type="text/css" />
-
-    <script src="{{ asset('dashboard_starlight') }}/js/modernizr.min.js"></script>
-
-    <!-- vendor css -->
-    <link href="{{ asset('dashboard_starlight') }}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="{{ asset('dashboard_starlight') }}/lib/Ionicons/css/ionicons.css" rel="stylesheet">
-    <link href="{{ asset('dashboard_starlight') }}/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
-    <link href="{{ asset('dashboard_starlight') }}/lib/highlightjs/github.css" rel="stylesheet">
-    <link href="{{ asset('dashboard_starlight') }}/lib/datatables/jquery.dataTables.css" rel="stylesheet">
-    <link href="{{ asset('dashboard_starlight') }}/lib/select2/css/select2.min.css" rel="stylesheet">
-
-    <!-- css datatable -->
-    <script src="{{ asset('dashboard_starlight') }}/css/jquery.dataTables.min.css"></script>
-
     <link rel="shortcut icon" type="image/png" href="{{ asset('uploads') }}/favicon/favicon.png">
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard_starlight') }}/css/starlight.css">
 
-    
+    <!-- vendor css -->
+    <link href="{{ asset('dashboard_starlight') }}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="{{ asset('dashboard_starlight') }}/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="{{ asset('dashboard_starlight') }}/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+
+    {{-- select2 css --}}
+    <link href="{{ asset('dashboard_starlight') }}/lib/select2/css/select2.min.css" rel="stylesheet">
+
+    {{-- css for summernote --}}
+    <link href="{{ asset('dashboard_starlight') }}/lib/summernote/summernote-bs4.css" rel="stylesheet">
+
+    {{-- css for datatables --}}
+    <link href="{{ asset('dashboard_starlight') }}/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+
+    {{-- css for highlight.js --}}
+    <link href="{{ asset('dashboard_starlight') }}/lib/highlightjs/github.css" rel="stylesheet">
+
   </head>
 
   <body>
@@ -328,49 +323,30 @@
 
     @yield('admin_content')
 
-
-
+    {{-- plugins --}}
     <script src="{{ asset('dashboard_starlight') }}/lib/jquery/jquery.js"></script>
     <script src="{{ asset('dashboard_starlight') }}/lib/popper.js/popper.js"></script>
     <script src="{{ asset('dashboard_starlight') }}/lib/bootstrap/bootstrap.js"></script>
     <script src="{{ asset('dashboard_starlight') }}/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/lib/highlightjs/highlight.pack.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/lib/datatables/jquery.dataTables.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/lib/datatables-responsive/dataTables.responsive.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/lib/select2/js/select2.min.js"></script>
+
+    {{-- chart.js --}}
+    <script src="{{ asset('dashboard_starlight') }}/lib/chart.js/Chart.js"></script>
+
+    {{-- js for starlight --}}
     <script src="{{ asset('dashboard_starlight') }}/js/starlight.js"></script>
 
-    <!-- cdn for datatables -->
-    <script src="{{ asset('dashboard_starlight') }}/cdn/jquery.dataTables.min.js"></script>
+    {{-- js for select2 --}}
+    <script src="{{ asset('dashboard_starlight') }}/lib/select2/js/select2.min.js"></script>
 
-    <!-- cdn chart.js -->
-    <script src="{{ asset('dashboard_starlight') }}/cdn/chart.js@2.8.0"></script>
+    {{-- js for summernote --}}
+    <script src="{{ asset('dashboard_starlight') }}/lib/summernote/summernote-bs4.min.js"></script>
 
-    <!-- Bootstrap 4 dependency -->
-    <script src="{{ asset('dashboard_starlight') }}/js/popper.min.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/js/bootstrap.min.js"></script>
-    <!-- bootbox code -->
-    <script src="{{ asset('dashboard_starlight') }}/js/bootbox.min.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/js/bootbox.locales.js"></script>
+    {{-- js for summernote --}}
+    <script src="{{ asset('dashboard_starlight') }}/lib/datatables/jquery.dataTables.js"></script>
+    <script src="{{ asset('dashboard_starlight') }}/lib/datatables-responsive/dataTables.responsive.js"></script>
 
-    <!--Wysiwig tinymce js-->
-    <script src="{{ asset('dashboard_starlight') }}/plugins/tinymce/tinymce.min.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/plugins/tinymce/jquery.tinymce.min.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/plugins/tinymce/themes/modern/theme.min.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/plugins/tinymce/plugins/advlist/plugin.min.js"></script>
-
-    <!-- App js -->
-    <script src="{{ asset('dashboard_starlight') }}/js/jquery.core.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/js/jquery.app.js"></script>
-
-    <!-- jQuery  -->
-    <script src="{{ asset('dashboard_starlight') }}/js/jquery.min.js"></script><!-- javascript new window,,JS dependencies for bootbox -->
-    <script src="{{ asset('dashboard_starlight') }}/js/tether.min.js"></script><!-- Tether for Bootstrap -->
-    <script src="{{ asset('dashboard_starlight') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/js/waves.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/js/jquery.slimscroll.js"></script>
-    <script src="{{ asset('dashboard_starlight') }}/js/jquery.scrollTo.min.js"></script>
-
+    {{-- js for highlight.js --}}
+    <script src="{{ asset('dashboard_starlight') }}/lib/highlightjs/highlight.pack.js"></script>
 
     @yield('footer_scripts')
   </body>

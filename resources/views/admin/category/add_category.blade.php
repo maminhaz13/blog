@@ -32,55 +32,59 @@
                 <div class="col-md-12">
                   <div class="card bg-gray-200 mt-5">
                       <div class="card-header card-header-default">Add Category Form</div>
-                        <div class="card-body">      
+                        <div class="card-body">
 
-                          @if(session()->has('done_status'))
-                            <div class="alert alert-success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                              </button>
-                              <div class="d-flex align-items-center justify-content-start">
-                                <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                                <span><strong>Well done!</strong> {{ session()->get('done_status') }}.</span>
+                          {{-- error messages and confirmation start --}}
+                          <div>
+                            @if(session()->has('done_status'))
+                              <div class="alert alert-success" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="d-flex align-items-center justify-content-start">
+                                  <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                                  <span><strong>Well done!</strong> {{ session()->get('done_status') }}.</span>
+                                </div>
                               </div>
-                            </div>
-                          @endif
+                            @endif
 
-                          @if(session()->has('picture_up_done'))
-                            <div class="alert alert-success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                              </button>
-                              <div class="d-flex align-items-center justify-content-start">
-                                <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                                <span><strong>Well done!</strong> {{ session()->get('picture_up_done') }}.</span>
+                            @if(session()->has('picture_up_done'))
+                              <div class="alert alert-success" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="d-flex align-items-center justify-content-start">
+                                  <i class="icon ion-ios-checkmark alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                                  <span><strong>Well done!</strong> {{ session()->get('picture_up_done') }}.</span>
+                                </div>
                               </div>
-                            </div>
-                          @endif    
-                          
-                          @error('category_name')
-                            <div class="alert alert-warning" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                              </button>
-                              <div class="d-flex align-items-center justify-content-start">
-                                <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                                <span><strong>Warning!</strong> {{ $message }}.</span>
-                              </div><!-- d-flex -->
-                            </div>
-                          @enderror
+                            @endif    
+                            
+                            @error('category_name')
+                              <div class="alert alert-warning" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="d-flex align-items-center justify-content-start">
+                                  <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                                  <span><strong>Warning!</strong> {{ $message }}.</span>
+                                </div><!-- d-flex -->
+                              </div>
+                            @enderror
 
-                          @error('category_description')
-                            <div class="alert alert-warning" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                              </button>
-                              <div class="d-flex align-items-center justify-content-start">
-                                <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
-                                <span><strong>Warning!</strong> {{ $message }}.</span>
-                              </div><!-- d-flex -->
-                            </div>
-                          @enderror
+                            @error('category_description')
+                              <div class="alert alert-warning" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="d-flex align-items-center justify-content-start">
+                                  <i class="icon ion-alert-circled alert-icon tx-24 mg-t-5 mg-xs-t-0"></i>
+                                  <span><strong>Warning!</strong> {{ $message }}.</span>
+                                </div><!-- d-flex -->
+                              </div>
+                            @enderror
+                          </div>
+
                           <form method="post" action="{{ route('addcategorypost') }}" enctype="multipart/form-data">
                             @csrf
                             
@@ -124,6 +128,8 @@
                 <h5>All of your activated category will be listed here..  You can edit this categories or delete these categories here..</h5>
               </div>
 
+              {{-- errors and confirmation messages --}}
+              <div>
                 @if(session()->has('delete_status'))
                   <div class="alert alert-warning" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -171,22 +177,23 @@
                     </div>
                   </div>
                 @endif
+              </div>
 
                 <form method="post" action="{{ route('markdeletecategory') }}">
                   @csrf
                   <div class="table-responsive">
-                    <table id="table" class="table table-hover mg-b-0">
+                    <table id="actvcat" class="table table-hover mg-b-0">
                       <thead>
                         <tr>
-                          <th scope="col">Mark <input type="checkbox" id="checkAll" ></th>
-                          <th scope="col">Serial No</th>
-                          <th scope="col">Category Name</th>
-                          <th scope="col">Category Description</th>
-                          <th scope="col">Category Picture</th>
-                          <th scope="col">Created By</th>
-                          <th scope="col">Created Time</th>
-                          <th scope="col">Updated Time</th>
-                          <th scope="col">Action</th>
+                          <th>Mark <input type="checkbox" id="checkAll" ></th>
+                          <th>Serial No</th>
+                          <th>Category Name</th>
+                          <th>Category Description</th>
+                          <th>Category Picture</th>
+                          <th>Created By</th>
+                          <th>Created Time</th>
+                          <th>Updated Time</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -201,7 +208,7 @@
                             <td>
                               <img src="{{ asset('uploads') }}/category_picture/{{ $category->category_picture }}" class="img-fluid" alt="image not found">
                             </td>
-                            <td>{{ App\User::find($category->user_id)->name }}</td>
+                            <td>{{ users()->find($category->user_id)->name }}</td>
                             <td>
                               <li>Time : {{ $category->created_at->format('h:i:s A') }}</li>
                               <li>Date : {{ $category->created_at->format('d:m:Y') }}</li>
@@ -226,7 +233,7 @@
                           @empty
                             <tr>
                               <td colspan="100" class="text-center text-danger"> No more data available </td>  
-                            </tr>                
+                            </tr>
                         @endforelse
                       </tbody>
                     </table>
@@ -249,6 +256,9 @@
                   <h5>All of your deleted category will be listed here.. You can restore this categories or delete these categories here..</h5>
                 </div>  
                 
+
+                {{-- errors and confirmations --}}
+                <div>
                   @if(session()->has('restore_status'))
                     <div class="alert alert-success" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -296,20 +306,21 @@
                       </div>
                     </div>
                   @endif
+                </div>
 
                 <form action="{{ route('markrestorecategory') }}" method="post">
                   @csrf
                     <div class="table-responsive">
-                      <table id="tableOne" class="table table-hover mg-b-0">
+                      <table id="dltcat" class="table table-hover mg-b-0">
                         <thead>
                           <tr>
-                            <th scope="col">Mark <input type="checkbox" id="checkAll"></th>
-                            <th scope="col">Serial No</th>
-                            <th scope="col">Category Name</th>
-                            <th scope="col">Category Description</th>
-                            <th scope="col">Created By</th>
-                            <th scope="col">Deleted Time</th>
-                            <th scope="col">Action</th>
+                            <th>Mark <input type="checkbox" id="checkAll"></th>
+                            <th>Serial No</th>
+                            <th>Category Name</th>
+                            <th>Category Description</th>
+                            <th>Created By</th>
+                            <th>Deleted Time</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -359,22 +370,73 @@
   @endsection  
 
   @section('footer_scripts')
-  <script>
-  $("#checkAll").click(function () {
-    $('input:checkbox').not(this).prop('checked', this.checked);
-  });
-  </script>
+
+  {{-- <script>
+    $("#checkAll").click(function () {
+      $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+  </script> --}}
 
   <script>
+    $(function(){
+      'use strict';
+
+      $('#actvcat').DataTable({
+        responsive: true,
+        language: {
+          searchPlaceholder: 'Search...',
+          sSearch: '',
+          lengthMenu: '_MENU_ items/page',
+        }
+      });
+
+      // Select2
+      $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+
+    });
+  </script>
+
+  {{-- <script>
+    $("#checkAll").click(function () {
+      $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+  </script> --}}
+
+  <script>
+    $(function(){
+      'use strict';
+
+      $('#dltcat').DataTable({
+        responsive: true,
+        language: {
+          searchPlaceholder: 'Search...',
+          sSearch: '',
+          lengthMenu: '_MENU_ items/page',
+        }
+      });
+
+      // Select2
+      $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+
+    });
+  </script>
+
+  {{-- <script>
+      $(document).ready( function () {
+          $('#actvcat').DataTable();
+      } );
+  </script> --}}
+
+  {{-- <script>
       $(document).ready( function () {
           $('#table').DataTable();
       } );
-  </script>
+  </script> --}}
 
-  <script>
+  {{-- <script>
       $(document).ready( function () {
           $('#tableOne').DataTable();
       } );
-  </script>
+  </script> --}}
 
   @endsection
